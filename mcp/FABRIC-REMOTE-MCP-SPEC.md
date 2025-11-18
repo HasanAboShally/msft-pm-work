@@ -492,6 +492,279 @@ When an employee departs or changes roles, IT must audit and update their worksp
 
 ---
 
+### 3.5 Scenario: Automated CI/CD Pipeline Orchestration - Multi-Stage Deployments
+
+**Persona:** Ren (Data Engineer) and Binh (BI Engineer)  
+*"Our deployment pipeline needs to be reliable and auditable from dev to production."*  
+**Current Status:** 🔜 Roadmap (M1-M2 delivery window)
+
+**Who is Ren & Binh?**
+
+Ren and Binh are responsible for maintaining CI/CD pipelines that promote Fabric items (notebooks, pipelines, semantic models) from development through staging to production environments. Their pipeline must ensure correct deployment order, validate dependencies, and maintain full audit trails.
+
+**Story Flow:**
+
+> **As** Ren (Data Engineer) and Binh (BI Engineer) managing multi-stage deployments,  
+> **Using** custom CI/CD automation powered by Fabric Remote MCP,  
+> **I can** orchestrate automated deployments across environments with dependency-aware ordering, validation, and compliance—ensuring production deployments are safe and auditable.
+
+**Pain Point:**
+
+**Current manual multi-stage deployment workflow:**
+1. Deploy items to DEV workspace → manually verify dependencies
+2. Promote to STAGING → manually check execution status
+3. Run integration tests → manually review results
+4. Deploy to PROD → hope dependency order is correct
+5. **Total: 2-3 hours per release with high error risk**
+
+**Impact of errors:**
+- ❌ Incorrect deployment order breaks production pipelines
+- ❌ Missing dependencies discovered only after deployment
+- ❌ No automated rollback = manual emergency fixes
+- ❌ Compliance audits require manual log aggregation
+
+---
+
+**Future State with Fabric Remote MCP:**
+
+Ren and Binh configure a Python-based CI/CD agent that automates the entire multi-stage pipeline using Fabric Remote MCP tools.
+
+**Step 1: Automated deployment with dependency resolution**
+
+The CI/CD agent executes:
+```python
+# CI/CD Agent (Python) using Fabric Remote MCP
+
+# Step 1: Analyze workspace for deployment order
+agent_prompt = """
+Query the Analytics_DEV workspace and identify all items and their dependencies. 
+Generate a deployment plan with correct dependency ordering for promotion to STAGING.
+"""
+
+# Behind the scenes:
+# MCP: list_workspaces → Find Analytics_DEV workspace
+# MCP: list_workspace_items → Get all items (lakehouses, warehouses, notebooks, pipelines)
+# MCP: get_item_definition (for each item) → Parse dependency references
+# Agent: Builds dependency graph and determines safe deployment order
+
+# Returns:
+# Deployment Plan:
+# 1. Lakehouse_Sales (no dependencies)
+# 2. Warehouse_Analytics (depends on Lakehouse_Sales)
+# 3. Notebook_ETL (depends on Warehouse_Analytics)
+# 4. Pipeline_Daily (depends on Notebook_ETL)
+# 5. SemanticModel_Revenue (depends on Warehouse_Analytics)
+```
+
+**Step 2: Multi-stage deployment with validation**
+
+```python
+# Step 2: Execute deployment to STAGING with validation
+
+deployment_plan = [
+    {"item": "Lakehouse_Sales", "type": "Lakehouse"},
+    {"item": "Warehouse_Analytics", "type": "Warehouse"},
+    {"item": "Notebook_ETL", "type": "Notebook"},
+    {"item": "Pipeline_Daily", "type": "DataPipeline"},
+    {"item": "SemanticModel_Revenue", "type": "SemanticModel"}
+]
+
+for item in deployment_plan:
+    # Deploy item from DEV to STAGING
+    # MCP: create_item (in STAGING workspace)
+    # MCP: update_item_definition (with content from DEV)
+    
+    # Validate deployment success
+    # MCP: get_item (verify item exists in STAGING)
+    # MCP: run_item (if item is executable - notebook, pipeline)
+    # MCP: get_item_execution_status (wait for completion)
+    
+    # Log results to audit trail
+    # Agent: Records deployment time, status, validation results
+```
+
+**Impact:**
+- ⏱️ **Time:** Manual 2-3 hours → **15 minutes automated**
+- ✅ **Dependency Safety:** Manual guesswork → **Automated graph analysis**
+- 📊 **Audit Trail:** Manual log collection → **Automatic compliance logging**
+
+---
+
+**Step 3: Variable Library environment promotion**
+
+The agent handles environment-specific configuration:
+
+```python
+# Step 3: Update variable libraries for target environment
+
+agent_prompt = """
+Copy the variable library from Analytics_DEV to Analytics_STAGING.
+Update environment-specific variables:
+- lakehouse_connection: Point to STAGING lakehouse
+- api_endpoint: Use STAGING API URL
+- notification_email: Use staging-alerts@contoso.com
+"""
+
+# Behind the scenes:
+# MCP: list_variable_libraries (in DEV workspace)
+# MCP: create_variable_library (in STAGING workspace)
+# Agent: Transforms environment-specific values
+# MCP: set_variable_library_values (with STAGING configurations)
+
+# Result: STAGING workspace has correct configuration for its environment
+```
+
+**Impact:**
+- 🔄 **Consistency:** Manual variable updates → **Automated environment mapping**
+- ❌ **Configuration Errors:** Common mistake → **Eliminated via automation**
+
+---
+
+**Complete Workflow Examples:**
+
+**Example 1: Automated Production Promotion with Approvals**
+
+**Scenario:** Deploy validated changes from STAGING to PRODUCTION with approval gate.
+
+```python
+# CI/CD Pipeline (triggered by Git tag: v1.2.3)
+
+# Step 1: Validate STAGING environment
+agent_prompt = """
+Run all integration tests in Analytics_STAGING workspace.
+Report: execution status, data quality checks, performance metrics.
+"""
+
+# MCP: list_workspace_items (get all notebooks/pipelines)
+# MCP: run_item (execute each test)
+# MCP: get_item_execution_status (wait for completion)
+# Agent: Aggregates results → ✅ All tests passed
+
+# Step 2: Request approval
+# Agent: Posts to Teams channel with test results
+# Human approver: Reviews results, approves deployment
+
+# Step 3: Deploy to PRODUCTION with dependency awareness
+agent_prompt = """
+Deploy all items from Analytics_STAGING to Analytics_PROD in correct dependency order.
+Update variable library for production environment.
+"""
+
+# MCP: Executes same dependency-aware deployment as STAGING
+# MCP: Updates variable library with PROD values
+# MCP: Runs smoke tests in PROD
+
+# Step 4: Audit trail
+# Agent logs to Azure Log Analytics:
+# - Deployment time, approver, items deployed
+# - Dependency graph used
+# - Test results from each environment
+# - Configuration changes applied
+```
+
+**Impact:**
+- 🔒 **Governance:** Manual approval tracking → **Automated audit trail**
+- ⚡ **Speed:** 3-hour deployment window → **30-minute automated process**
+- 📉 **Risk:** High (manual errors) → **Low (validated automation)**
+
+---
+
+**Example 2: Rollback Automation**
+
+**Scenario:** Production deployment fails validation; automated rollback required.
+
+```python
+# CI/CD Agent detects failure
+
+# Step 1: Monitor production deployment
+agent_prompt = """
+After deploying to Analytics_PROD, run validation tests.
+If any test fails, initiate rollback to previous version.
+"""
+
+# MCP: run_item (production validation tests)
+# MCP: get_item_execution_status → ❌ Test failed: data quality threshold
+
+# Step 2: Automated rollback
+agent_prompt = """
+Rollback Analytics_PROD to previous working state.
+Restore item definitions from backup (Git tag: v1.2.2).
+"""
+
+# Agent: Retrieves item definitions from Git (previous tag)
+# MCP: update_item_definition (for each item, restore previous version)
+# MCP: run_item (execute validation tests)
+# MCP: get_item_execution_status → ✅ Tests pass
+
+# Step 3: Notification and audit
+# Agent: Posts to Teams channel with rollback details
+# Agent: Logs full rollback audit trail
+# Developers: Notified to fix issue before re-deploying
+```
+
+**Impact:**
+- ⏱️ **Recovery Time:** Manual 1-2 hours → **5-10 minutes automated**
+- 📊 **Visibility:** No notification → **Automatic Teams alert**
+- 🔍 **Root Cause:** Manual investigation → **Full audit trail preserved**
+
+---
+
+**Example 3: Multi-Workspace Bulk Updates**
+
+**Scenario:** Apply security policy change across 50 production workspaces.
+
+```python
+# CI/CD Agent (scheduled job)
+
+agent_prompt = """
+List all workspaces with tag 'production'.
+For each workspace:
+1. Verify current role assignments
+2. Remove users with 'Viewer' role who haven't accessed in 90 days
+3. Add mandatory security group 'PROD-Auditors' with Viewer access
+4. Log all changes for compliance review
+"""
+
+# Behind the scenes:
+# MCP: list_workspaces (filter by tag: production) → 50 workspaces
+# For each workspace:
+#   MCP: list_workspace_role_assignments → Current permissions
+#   Agent: Analyzes access logs (from Azure Monitor)
+#   MCP: remove_workspace_role_assignment (inactive users)
+#   MCP: add_workspace_role_assignment (add auditors group)
+#   MCP: audit_log (record all changes)
+
+# Result: 50 workspaces updated in 10 minutes
+# Audit trail: Complete record of who was added/removed and why
+```
+
+**Impact:**
+- ⏱️ **Time:** 50 workspaces × 20 min/workspace = **16 hours manual → 10 minutes automated**
+- ✅ **Consistency:** Manual errors likely → **100% consistent policy application**
+- 📋 **Compliance:** Manual spreadsheet → **Automated audit trail**
+
+---
+
+**Impact Summary:**
+
+| Metric | Before (Manual) | After (Remote MCP) | Improvement |
+|--------|-----------------|-------------------|-------------|
+| **Deployment time** | 2-3 hours per release | 15-30 minutes | **85% faster** |
+| **Deployment errors** | 1-2 per release | 0 (dependency-validated) | **100% elimination** |
+| **Rollback time** | 1-2 hours manual | 5-10 minutes automated | **90% faster** |
+| **Audit trail completeness** | Partial (manual logs) | 100% automated | **Full compliance** |
+| **Multi-workspace updates** | 16+ hours (50 workspaces) | 10 minutes | **99% time reduction** |
+| **Configuration errors** | Common (manual variable updates) | Eliminated (automated) | **100% elimination** |
+
+**Ren's and Binh's authentic pain points addressed:**
+- "Creating and testing pipelines when we make a change" → Automated deployment with validation
+- "Monitor and fix data pipeline issues" → Automated health checks and rollback
+- "Automation of testing" (delighter) → Full CI/CD pipeline with automated testing
+- "Coverage map to know which systems to investigate" → Dependency graph analysis and audit trails
+- "Designing and publishing reports with business context" (Binh) → Automated semantic model deployment to production
+
+---
+
 ## 4. Product Requirements
 
 ### 4.1 Requirements Overview
