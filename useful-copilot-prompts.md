@@ -1,0 +1,5 @@
+Can you access the data on Fabric personas here and bring me an indepth info about each persona:
+
+[Azure Data Personas](https://microsoft.sharepoint.com/teams/ResearchinDataCloudStudio/SitePages/Personas(1).aspx?xsdata=MDV8MDF8U2VyZW5hLkhpbGxtYW5AbWljcm9zb2Z0LmNvbXw3NGQ5NTM5ODViZmI0MzdiOTZmYzA4ZGI5Y2Y4ZjA4NHw3MmY5ODhiZjg2ZjE0MWFmOTFhYjJkN2NkMDExZGI0N3wxfDB8NjM4Mjc2MzY1MjI4ODM4NzIyfFVua25vd258VFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wPXwzMDAwfHx8&sdata=RjRTc0xHOTlPRE5QSHgxeTdIYS9qMldXMUpWUDlFMmJmMkhGY1UvMUxhRT0%3d)
+
+I want you to put everythign in an md file which I can donwload.. that file should contain everything about the personas (including info in subpages like this one: [Developer - Jian (Jee-ahn)](https://microsoft.sharepoint.com/teams/ResearchinDataCloudStudio/SitePages/Jian---Developer.aspx))
