@@ -56,7 +56,7 @@ Model Context Protocol - the open standard for AI agent integration
 ## Slide 5: Why Unified Copilot Matters
 
 **Impact on Fabric Users:**
-- 52% faster task completion, 36% higher accuracy
+- Power BI Copilot users see 52% faster task completion, 36% higher accuracy
 - Natural language → production workflows
 - Democratized data access
 
@@ -194,7 +194,7 @@ Model Context Protocol - the open standard for AI agent integration
 - Local-to-cloud workflows
 
 ### **2. Fabric REMOTE MCP**
-**Cloud-hosted MPC enabling:**
+**Cloud-hosted MCP enabling:**
 - Execution of Fabric public APIs (control-plane focused)
 - Powers unified Copilot and custom agents
 - Enterprise-grade security and governance
