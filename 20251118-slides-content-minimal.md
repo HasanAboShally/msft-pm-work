@@ -514,24 +514,34 @@ Fabric becomes the platform of choice for AI-driven analytics workflows.
 
 ## Appendix E: Sources & References
 
-**Fabric Metrics (Internal Telemetry, Nov 2025):**
-- 35.2M Fabric MAU
-- 208K active developers (272% YoY growth)
-- ~75K Power BI Copilot MAU
-- 8.8M API calls/month (5.9M REST + 2.9M CLI)
+**Fabric Usage & Scale:**
+- 35.2M Fabric MAU - Power BI Town Hall (Oct 2025)
+- 208K active developers (272% YoY growth) - Power BI KR Planning Memo (Nov 2024)
+- ~75K Power BI Copilot MAU - Internal telemetry (Sep 2025)
+- 8.8M API calls/month - Fabric automation review (Nov 2025): 5.9M REST + 2.9M CLI
 
-**Industry Research:**
-- Gartner 2024: AI integration complexity survey
-- Protiviti 2025: AI agent adoption forecast
-- Microsoft Research: Copilot productivity metrics
+**Developer Productivity Research:**
+- 52% faster task completion with Copilot - Microsoft RCT study on Power BI Copilot (Oct 2024)
+- 36% higher accuracy with Copilot - Same Microsoft research study
+- 68% say "best tools" drive platform choice - Developer survey data
+
+**Industry Context & Market Trends:**
+- 15,000+ MCP servers deployed globally - State of AI Report 2025
+- 68% of orgs expect AI agents by 2026 - Protiviti survey (Sep 2025)
+- 62% cite "integration complexity" as barrier - Gartner 2024 AI agent adoption report
 
 **Fabric Announcements:**
-- Fabric IQ Launch (Nov 18, 2025)
-- RTI MCP Server Preview (Sept 2025)
+- Fabric IQ Launch (Nov 18, 2025) - "From Data Platform to Intelligence Platform"
+- RTI MCP Server Preview (Sept 2025) - First Fabric workload MCP
+
+**Design Partner Validation:**
+- 5 design partners committed - Fabric automation review (Nov 2025)
+- KPMG, Avanade, PwC + 2 enterprise customers (under NDA)
+- 100% expressed strong interest - 8 validation sessions (Aug-Oct 2025)
 
 **External References:**
-- 15,000+ MCP servers globally (MCP community metrics)
 - Model Context Protocol specification (Anthropic, open standard)
+- microsoft/mcp repository - Official Microsoft MCP implementation
 
 ---
 
