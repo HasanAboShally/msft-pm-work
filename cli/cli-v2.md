@@ -1,6 +1,19 @@
 
 CLI v2 in FabCon Atlanta 🚀
 
+
+# mian stories / themes
+
+## AI story: (e.g., agents.md + fab agents init)
+
+## CI/CD story (deploy command)
+
+## PowerBI
+
+## CLI Useful Scripts Library
+
+
+
 - **AI readiness:**
   - agents.md files etc..
   - Better error messages (human and AI friendly)
@@ -22,7 +35,7 @@ CLI v2 in FabCon Atlanta 🚀
 Integrations:
 - CLI in the web
 - CLI in NB
-- CLI in VSCode extension
+- CLI in VSCode extension (?) introcduce in FabCon? @sunitha
 
 
 
@@ -30,7 +43,7 @@ Integrations:
 
 Query (semantic model)
 Semantic model refresh
-Rebind
+Rebind (support local scenario with by path)
 Import+Set in one command
 
 PBI API supported by api command (needs validation, also check opportuniy for humanization).
@@ -40,3 +53,6 @@ Support multiple export formats of reports (pbix,pbip,raw-def).
 sandbox command to build a worksapce or env tat is destcutable with no risk.
 
 ***---***
+
+
+

@@ -170,5 +170,5 @@ I presented the AI strategy that defined MCP, expecting to lead it. My managers 
 
 ---
 
-*Proud of what I delivered, grateful for the growth, and excited about what's ahead—committed to bold goals while upholding Microsoft's culture and quality.*
+*Proud of what I delivered, grateful for the growth, and excited about what's ahead—committed to bold goals while upholding Microsoft's culture, security and quality.*
 

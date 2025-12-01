@@ -114,7 +114,7 @@ Embedding CLI in web portals is an **established pattern** across major cloud pl
 
 ---
 
-### Databricks
+### Databricks [@copilot, databricks also has a web terminal https://docs.databricks.com/aws/en/compute/web-terminal]
 
 **Official Documentation:** https://docs.databricks.com/aws/dev-tools/cli/index.html
 

@@ -46,17 +46,17 @@ Below are all tasks I need to complete, organized by workstream. Each task has a
 | A5 | Create backup screenshots/video in case live demo fails | ⬜ TODO | TBD |
 
 ### Workstream B: MCP Specifications
-> **Status:** Specs at v6.0, ready for review
+> **Status:** Specs at v5.1 with Unified Copilot & Blueprint Agent requirements integrated
 
 | Task ID | Task | Status | Deliverable Location |
 |---------|------|--------|---------------------|
-| B1 | Finalize Remote MCP Spec (v6.0) | ✅ DONE | `mcp/specs/remote-mcp/20251124-FABRIC-REMOTE-MCP-SPEC-V4.md` |
+| B1 | Finalize Remote MCP Spec (v6.0) | ✅ DONE | `mcp/specs/remote-mcp/20251130-FABRIC-REMOTE-MCP-SPEC-V5.md` |
 | B2 | Finalize Local MCP Spec | ✅ DONE | `mcp/specs/local-mcp/20251124-FABRIC-LOCAL-MCP-SPEC-V3.md` |
 | B3 | Send specs to stakeholders before review | ⬜ TODO | Email to team |
 | B4 | Conduct Remote MCP Spec Review (Dec 2) | ⬜ TODO | Meeting notes |
 | B5 | Conduct Local MCP Spec Review (Dec 3) | ⬜ TODO | Meeting notes |
 | B6 | Incorporate review feedback into specs | ⬜ TODO | Updated spec files |
-| B7 | Integrate Unified Copilot requirements into MCP specs | ⬜ TODO | Updated spec files |
+| B7 | Integrate Unified Copilot requirements into MCP specs | ✅ DONE | `mcp/specs/remote-mcp/20251130-FABRIC-REMOTE-MCP-SPEC-V5.md` (v5.1) |
 
 ### Workstream C: CLI Research Study (CLI-in-Web Validation)
 > **Status:** Study guide under review, sessions planned for early December
