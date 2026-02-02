@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #2E86AB;
+  padding: 18pt 30pt;
+  margin: 0;
+}
+.header-num {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 0 0 2pt 0;
+  opacity: 0.8;
+}
+.header-title {
+  color: #FFFFFF;
+  font-size: 26pt;
+  font-weight: bold;
+  margin: 0;
+}
+.header-subtitle {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 5pt 0 0 0;
+  opacity: 0.9;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 20pt 30pt;
+  flex: 1;
+}
+.left-col {
+  width: 320pt;
+  margin-right: 20pt;
+}
+.right-col {
+  width: 320pt;
+}
+.section-title {
+  color: #2E86AB;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 8pt 0;
+}
+.body-text {
+  color: #2E4053;
+  font-size: 12pt;
+  margin: 0 0 12pt 0;
+  line-height: 1.4;
+}
+.feature-list {
+  color: #2E4053;
+  font-size: 11pt;
+  margin: 0 0 12pt 0;
+  padding-left: 16pt;
+  line-height: 1.5;
+}
+.example-box {
+  background: #E8F4F8;
+  padding: 12pt;
+  border-radius: 6pt;
+  border-left: 4pt solid #2E86AB;
+  margin-top: 8pt;
+}
+.example-title {
+  color: #2E86AB;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 5pt 0;
+}
+.example-text {
+  color: #2E4053;
+  font-size: 10pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.discuss-box {
+  background: #FEF9E7;
+  padding: 12pt;
+  border-radius: 6pt;
+  margin-top: 10pt;
+}
+.discuss-title {
+  color: #9A7D0A;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 6pt 0;
+}
+.discuss-list {
+  color: #7D6608;
+  font-size: 10pt;
+  margin: 0;
+  padding-left: 14pt;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <p class="header-num">Direction 1</p>
+  <h1 class="header-title">Help Developers Within the Portal</h1>
+  <p class="header-subtitle">Bringing developers INTO Fabric</p>
+</div>
+<div class="content">
+  <div class="left-col">
+    <p class="section-title">The Idea</p>
+    <p class="body-text">Introduce scripting capabilities directly in the Fabric portal so users can automate repetitive click-ops without leaving Fabric.</p>
+    
+    <p class="section-title">What This Could Look Like</p>
+    <ul class="feature-list">
+      <li>New <b>Script Item</b> type for storing CLI scripts</li>
+      <li><b>Copilot Script Mode</b>: describe task, get script</li>
+      <li>Scripts are shareable, schedulable, version-controlled</li>
+      <li>Runs with proper identity (SPNs)</li>
+    </ul>
+    
+    <p class="section-title">Why It Matters</p>
+    <p class="body-text">Unlocks the "long tail" of automation: tasks too niche for full features, too frequent to stay manual.</p>
+  </div>
+  <div class="right-col">
+    <div class="example-box">
+      <p class="example-title">Example</p>
+      <p class="example-text">Admin creates a weekly cleanup script that scans workspaces and emails owners of inactive ones — all from within Fabric.</p>
+    </div>
+    
+    <div class="discuss-box">
+      <p class="discuss-title">Discussion Questions</p>
+      <ul class="discuss-list">
+        <li>What are the top click-ops to target first?</li>
+        <li>How do we balance simplicity vs. power?</li>
+        <li>Security/governance implications?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

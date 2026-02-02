@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #1F618D;
+  padding: 15pt 30pt;
+  margin: 0;
+}
+.header-num {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 0 0 2pt 0;
+  opacity: 0.8;
+}
+.header-title {
+  color: #FFFFFF;
+  font-size: 26pt;
+  font-weight: bold;
+  margin: 0;
+}
+.header-subtitle {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 5pt 0 0 0;
+  opacity: 0.9;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 15pt 30pt;
+  flex: 1;
+}
+.left-col {
+  width: 320pt;
+  margin-right: 20pt;
+}
+.right-col {
+  width: 320pt;
+}
+.section-title {
+  color: #1F618D;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 8pt 0;
+}
+.body-text {
+  color: #2E4053;
+  font-size: 11pt;
+  margin: 0 0 10pt 0;
+  line-height: 1.3;
+}
+.feature-list {
+  color: #2E4053;
+  font-size: 10pt;
+  margin: 0 0 10pt 0;
+  padding-left: 16pt;
+  line-height: 1.4;
+}
+.example-box {
+  background: #EBF5FB;
+  padding: 12pt;
+  border-radius: 6pt;
+  border-left: 4pt solid #1F618D;
+  margin-top: 8pt;
+}
+.example-title {
+  color: #1F618D;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 5pt 0;
+}
+.example-text {
+  color: #2E4053;
+  font-size: 10pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.discuss-box {
+  background: #FEF9E7;
+  padding: 12pt;
+  border-radius: 6pt;
+  margin-top: 10pt;
+}
+.discuss-title {
+  color: #9A7D0A;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 6pt 0;
+}
+.discuss-list {
+  color: #7D6608;
+  font-size: 10pt;
+  margin: 0;
+  padding-left: 14pt;
+  line-height: 1.5;
+}
+.key-point {
+  background: #D4E6F1;
+  padding: 8pt 10pt;
+  border-radius: 4pt;
+  margin-top: 8pt;
+}
+.key-point-text {
+  color: #1A5276;
+  font-size: 10pt;
+  margin: 0;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <p class="header-num">Direction 5</p>
+  <h1 class="header-title">Expand Blueprints: Code, Policies, Beyond</h1>
+  <p class="header-subtitle">AI-Powered Provisioning</p>
+</div>
+<div class="content">
+  <div class="left-col">
+    <p class="section-title">The Idea</p>
+    <p class="body-text">Expand Blueprints from "item templates" to full Infrastructure-as-Code with policies, governance, and external integrations.</p>
+    
+    <p class="section-title">What This Could Look Like</p>
+    <ul class="feature-list">
+      <li><b>Blueprints as Code</b>: JSON/YAML/Terraform, version-controlled</li>
+      <li><b>Policy Integration</b>: Naming conventions, access controls, Azure policies</li>
+      <li><b>AI-Generated Blueprints</b>: Natural language to workspace config</li>
+      <li>Connect to things <b>outside Fabric</b>: Azure policies, Entra ID, compliance</li>
+    </ul>
+    
+    <div class="key-point">
+      <p class="key-point-text">20+ manual steps to 1 command</p>
+    </div>
+  </div>
+  <div class="right-col">
+    <div class="example-box">
+      <p class="example-title">Example</p>
+      <p class="example-text">"Create a workspace for the finance team with standard policies" → AI generates Blueprint with naming, roles, Azure policy compliance, pre-configured items. One command deploy.</p>
+    </div>
+    
+    <div class="discuss-box">
+      <p class="discuss-title">Discussion Questions</p>
+      <ul class="discuss-list">
+        <li>How do we integrate with Azure policies / external governance?</li>
+        <li>What's the right level of AI assistance?</li>
+        <li>Cross-workspace / cross-environment scenarios?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

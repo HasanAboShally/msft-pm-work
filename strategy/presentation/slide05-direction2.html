@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #117A65;
+  padding: 18pt 30pt;
+  margin: 0;
+}
+.header-num {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 0 0 2pt 0;
+  opacity: 0.8;
+}
+.header-title {
+  color: #FFFFFF;
+  font-size: 26pt;
+  font-weight: bold;
+  margin: 0;
+}
+.header-subtitle {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 5pt 0 0 0;
+  opacity: 0.9;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 20pt 30pt;
+  flex: 1;
+}
+.left-col {
+  width: 320pt;
+  margin-right: 20pt;
+}
+.right-col {
+  width: 320pt;
+}
+.section-title {
+  color: #117A65;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 8pt 0;
+}
+.body-text {
+  color: #2E4053;
+  font-size: 12pt;
+  margin: 0 0 12pt 0;
+  line-height: 1.4;
+}
+.feature-list {
+  color: #2E4053;
+  font-size: 11pt;
+  margin: 0 0 12pt 0;
+  padding-left: 16pt;
+  line-height: 1.5;
+}
+.example-box {
+  background: #E8F6F3;
+  padding: 12pt;
+  border-radius: 6pt;
+  border-left: 4pt solid #117A65;
+  margin-top: 8pt;
+}
+.example-title {
+  color: #117A65;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 5pt 0;
+}
+.example-text {
+  color: #2E4053;
+  font-size: 10pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.discuss-box {
+  background: #FEF9E7;
+  padding: 12pt;
+  border-radius: 6pt;
+  margin-top: 10pt;
+}
+.discuss-title {
+  color: #9A7D0A;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 6pt 0;
+}
+.discuss-list {
+  color: #7D6608;
+  font-size: 10pt;
+  margin: 0;
+  padding-left: 14pt;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <p class="header-num">Direction 2</p>
+  <h1 class="header-title">Meet Developers Where They Are</h1>
+  <p class="header-subtitle">Bringing Fabric TO developers (VS Code)</p>
+</div>
+<div class="content">
+  <div class="left-col">
+    <p class="section-title">The Idea</p>
+    <p class="body-text">Make Fabric a first-class experience in VS Code — local development, sandboxing, and seamless deployment.</p>
+    
+    <p class="section-title">What This Could Look Like</p>
+    <ul class="feature-list">
+      <li><b>Fabric Sandbox</b>: Ephemeral workspaces with anonymized data</li>
+      <li><b>Local MCP</b>: Validate pipelines locally before deploying</li>
+      <li><b>Blueprint-to-Code</b>: Export configs as Terraform/CLI</li>
+      <li>One-click deployment from IDE to cloud</li>
+    </ul>
+    
+    <p class="section-title">Why It Matters</p>
+    <p class="body-text">Context switching costs ~23 min/interruption. VS Code is the #1 IDE. Devs expect Git workflows and local iteration.</p>
+  </div>
+  <div class="right-col">
+    <div class="example-box">
+      <p class="example-title">Example</p>
+      <p class="example-text">Engineer spins up a sandbox with anonymized data, debugs pipeline locally using Local MCP, promotes to production only when ready.</p>
+    </div>
+    
+    <div class="discuss-box">
+      <p class="discuss-title">Discussion Questions</p>
+      <ul class="discuss-list">
+        <li>What's the right scope for "sandbox"?</li>
+        <li>How do we handle data seeding?</li>
+        <li>Integration with Git/CI/CD workflows?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

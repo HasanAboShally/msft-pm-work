@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #8E44AD;
+  padding: 18pt 30pt;
+  margin: 0;
+}
+.header-num {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 0 0 2pt 0;
+  opacity: 0.8;
+}
+.header-title {
+  color: #FFFFFF;
+  font-size: 26pt;
+  font-weight: bold;
+  margin: 0;
+}
+.header-subtitle {
+  color: #FFFFFF;
+  font-size: 14pt;
+  margin: 5pt 0 0 0;
+  opacity: 0.9;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 20pt 30pt;
+  flex: 1;
+}
+.left-col {
+  width: 320pt;
+  margin-right: 20pt;
+}
+.right-col {
+  width: 320pt;
+}
+.section-title {
+  color: #8E44AD;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 8pt 0;
+}
+.body-text {
+  color: #2E4053;
+  font-size: 12pt;
+  margin: 0 0 12pt 0;
+  line-height: 1.4;
+}
+.feature-list {
+  color: #2E4053;
+  font-size: 11pt;
+  margin: 0 0 12pt 0;
+  padding-left: 16pt;
+  line-height: 1.5;
+}
+.example-box {
+  background: #F5EEF8;
+  padding: 12pt;
+  border-radius: 6pt;
+  border-left: 4pt solid #8E44AD;
+  margin-top: 8pt;
+}
+.example-title {
+  color: #8E44AD;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 5pt 0;
+}
+.example-text {
+  color: #2E4053;
+  font-size: 10pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.discuss-box {
+  background: #FEF9E7;
+  padding: 12pt;
+  border-radius: 6pt;
+  margin-top: 10pt;
+}
+.discuss-title {
+  color: #9A7D0A;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0 0 6pt 0;
+}
+.discuss-list {
+  color: #7D6608;
+  font-size: 10pt;
+  margin: 0;
+  padding-left: 14pt;
+  line-height: 1.5;
+}
+.callout {
+  background: #F5EEF8;
+  padding: 8pt 10pt;
+  border-radius: 4pt;
+  margin-top: 8pt;
+}
+.callout-text {
+  color: #6C3483;
+  font-size: 10pt;
+  margin: 0;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <p class="header-num">Direction 3</p>
+  <h1 class="header-title">Help Customers Expose Business Logic</h1>
+  <p class="header-subtitle">Functions as MCP Tools</p>
+</div>
+<div class="content">
+  <div class="left-col">
+    <p class="section-title">The Idea</p>
+    <p class="body-text">Let customers publish their Fabric logic (notebooks, pipelines, stored procedures) as MCP tools that AI agents can discover and invoke.</p>
+    
+    <p class="section-title">What This Could Look Like</p>
+    <ul class="feature-list">
+      <li>Wrap a notebook as an MCP tool with name, description, params</li>
+      <li>New <b>MCP Server Item</b>: container of custom tools</li>
+      <li>Discoverable by Copilot and external agents</li>
+      <li>Governed, auditable, secure</li>
+    </ul>
+    
+    <div class="callout">
+      <p class="callout-text">Aligns with Fabric IQ and the current AI/agent momentum</p>
+    </div>
+  </div>
+  <div class="right-col">
+    <div class="example-box">
+      <p class="example-title">Example</p>
+      <p class="example-text">Finance team wraps their proprietary "ComputeFinanceMetric" calculation as an MCP tool. Now Copilot (or any agent) can invoke it directly.</p>
+    </div>
+    
+    <div class="discuss-box">
+      <p class="discuss-title">Discussion Questions</p>
+      <ul class="discuss-list">
+        <li>What's the right abstraction? Item-level? Workflow?</li>
+        <li>Discoverability: Marketplace? Registry?</li>
+        <li>Security model for custom tools?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>
