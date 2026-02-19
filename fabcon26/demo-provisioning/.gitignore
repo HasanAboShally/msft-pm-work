@@ -1,0 +1,42 @@
+# =============================================================================
+# Fabric DE CI/CD — .gitignore
+# =============================================================================
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+terraform/*.auto.tfvars
+
+# Generated files
+.terraform-outputs.env
+
+# Secrets / credentials
+.env
+*.secret
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Staging directories
+tmp/
+.staging/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~

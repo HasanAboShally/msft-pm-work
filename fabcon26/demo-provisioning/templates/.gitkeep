@@ -1,0 +1,12 @@
+# This directory is populated by scripts/setup.sh
+# Run: ./scripts/setup.sh
+#
+# Expected items after setup:
+#   Bronze_Data_Preparation.Notebook/
+#   Transformations.Notebook/
+#   Validations.Notebook/
+#   MyEnv.Environment/
+#   MyLHCopyJob.CopyJob/
+#   MyLHCopyJob2.CopyJob/
+#   MySemanticModel.SemanticModel/
+#   MyReport.Report/

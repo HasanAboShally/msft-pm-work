@@ -1,0 +1,23 @@
+# =============================================================================
+# Example Variable Values
+# =============================================================================
+# Copy this file to terraform.tfvars and fill in your values:
+#   cp terraform.tfvars.example terraform.tfvars
+# =============================================================================
+
+# Required: Your Fabric capacity name (find via: fab ls .capacities)
+capacity_name = "YourFabricCapacity"
+
+# Required: Your username (used as workspace suffix)
+username = "yourusername"
+
+# Optional: Override defaults
+# workspace_prefix         = "DEWorkshop"
+# workspace_description    = "FabCon 26 DevX Cornerstone Demo"
+# enable_lakehouse_schemas = true
+# bronze_lakehouse_name    = "Lakehouse_Bronze"
+# silver_lakehouse_name    = "Lakehouse_Silver"
+
+# Optional: SPN authentication (uncomment if using Service Principal)
+# spn_object_id = "00000000-0000-0000-0000-000000000000"
+# upn_object_id = "00000000-0000-0000-0000-000000000000"

@@ -1,0 +1,78 @@
+# =============================================================================
+# fabric-cicd Parameter Remapping — parameter.yml
+# =============================================================================
+# This file tells fabric-cicd how to remap environment-specific values
+# when deploying items from the Dev workspace (git) to Test/Prod workspaces.
+#
+# The `find_value` contains the Dev workspace's actual IDs.
+# The `replace_value` uses fabric-cicd magic variables that resolve to the
+# target workspace's actual IDs at deployment time.
+#
+# SETUP:
+#   After running `terraform apply` and `provision-items.sh`, fill in the
+#   `find_value` fields with the actual GUIDs from your Dev workspace.
+#   You can retrieve them with:
+#     fab get /DEWorkshop_<username>/Lakehouse_Bronze.Lakehouse -q id
+#     fab get /DEWorkshop_<username>/Lakehouse_Silver.Lakehouse -q id
+#     fab get /DEWorkshop_<username> -q id
+#
+# PLACEMENT:
+#   This file should be placed at: DE_Workshop/parameter.yml
+#   (inside the git folder that fabric-cicd reads)
+#
+# REFERENCE:
+#   https://github.com/microsoft/fabric-cicd
+# =============================================================================
+
+find_replace:
+  # ---------------------------------------------------------------------------
+  # Notebook remapping: Bronze Lakehouse ID
+  # ---------------------------------------------------------------------------
+  # Replace the Dev workspace's Bronze Lakehouse ID in notebook definitions
+  # so they reference the target workspace's Bronze Lakehouse.
+  - find_value: ""               # ← FILL IN: Dev Lakehouse_Bronze item ID
+    replace_value:
+      _ALL_: "$items.Lakehouse.Lakehouse_Bronze.id"
+    item_type: "Notebook"
+
+  # ---------------------------------------------------------------------------
+  # Notebook remapping: Silver Lakehouse ID
+  # ---------------------------------------------------------------------------
+  # Replace the Dev workspace's Silver Lakehouse ID in notebook definitions.
+  - find_value: ""               # ← FILL IN: Dev Lakehouse_Silver item ID
+    replace_value:
+      _ALL_: "$items.Lakehouse.Lakehouse_Silver.id"
+    item_type: "Notebook"
+
+  # ---------------------------------------------------------------------------
+  # Notebook remapping: Workspace ID
+  # ---------------------------------------------------------------------------
+  # Replace the Dev workspace ID in notebook definitions
+  # (used in lakehouse binding JSON).
+  - find_value: ""               # ← FILL IN: Dev Workspace ID
+    replace_value:
+      _ALL_: "$workspace.id"
+    item_type: "Notebook"
+
+  # ---------------------------------------------------------------------------
+  # Semantic Model: SQL Endpoint Connection String
+  # ---------------------------------------------------------------------------
+  # The Semantic Model's expressions.tmdl references the Silver Lakehouse's
+  # SQL endpoint connection string. This regex finds the connection string
+  # in the M expression and replaces it with the target workspace's endpoint.
+  - find_value: 'database\s*=\s*Sql\.Database\s*\(\s*"([^"]+)"'
+    replace_value:
+      _ALL_: "$items.Lakehouse.Lakehouse_Silver.sqlendpoint"
+    is_regex: "true"
+    item_type: "SemanticModel"
+
+  # ---------------------------------------------------------------------------
+  # Semantic Model: Database Name (SQL Endpoint ID → Lakehouse Name)
+  # ---------------------------------------------------------------------------
+  # The second parameter of Sql.Database() is the database ID in Dev.
+  # Replace it with the lakehouse display name in the target workspace.
+  - find_value: 'database\s*=\s*Sql\.Database\s*\(\s*"[^"]+"\s*,\s*"([^"]+)"'
+    replace_value:
+      _ALL_: "Lakehouse_Silver"
+    is_regex: "true"
+    item_type: "SemanticModel"

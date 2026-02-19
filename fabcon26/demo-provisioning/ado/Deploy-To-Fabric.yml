@@ -1,0 +1,145 @@
+# =============================================================================
+# Azure DevOps Pipeline — Deploy to Fabric
+# =============================================================================
+# Triggers on pushes to the `test` and `production` branches and deploys
+# Fabric items to the corresponding workspace using fabric-cicd.
+#
+# PREREQUISITES:
+#   1. Azure DevOps service connection (see azureServiceConnection variable)
+#      configured with a Service Principal that has Admin access to the
+#      Test and Prod workspaces.
+#   2. Python 3.12+ available on the build agent.
+#   3. Repository structure:
+#        /DE_Workshop/          ← Fabric item definitions (synced from Dev)
+#        /deploy-to-fabric.py   ← Deployment script (copy from ado/)
+#        /parameter.yml         ← Remapping rules (copy from ado/)
+#        /requirements.txt      ← Python dependencies (copy from ado/)
+#
+# CUSTOMIZATION:
+#   Update the variables section below with your workspace names and
+#   service connection. All other settings can remain as-is.
+#
+# Branch → Workspace Mapping:
+#   refs/heads/test        → <testWorkspaceName>
+#   refs/heads/production  → <prodWorkspaceName>
+# =============================================================================
+
+trigger:
+  branches:
+    include:
+      - test
+      - production
+
+pool:
+  vmImage: "windows-latest"
+
+# ---------------------------------------------------------------------------
+# Variables — CUSTOMIZE THESE for your environment
+# ---------------------------------------------------------------------------
+variables:
+  # Service connection name (must match your ADO project settings)
+  azureServiceConnection: "WorkshopConnection"
+
+  # Workspace names — update to match your Terraform outputs
+  # Pattern: <prefix>_<username> / <prefix>_<username>_Test / <prefix>_<username>_Prod
+  devWorkspaceName: "DEWorkshop_yourusername"                    # ← CHANGE ME
+  testWorkspaceName: "DEWorkshop_yourusername_Test"              # ← CHANGE ME
+  prodWorkspaceName: "DEWorkshop_yourusername_Prod"              # ← CHANGE ME
+
+  # Git folder containing Fabric items
+  gitFolder: "DE_Workshop"
+
+  # Python version for fabric-cicd
+  pythonVersion: "3.12"
+
+stages:
+  # ===========================================================================
+  # Stage: Build & Deploy
+  # ===========================================================================
+  - stage: Build_and_Deploy
+    displayName: "Build & Deploy to Fabric"
+    jobs:
+      - job: Deploy
+        displayName: "Deploy Fabric Items"
+        steps:
+          # -------------------------------------------------------------------
+          # Step 1: Checkout repository
+          # -------------------------------------------------------------------
+          - checkout: self
+            displayName: "Checkout repository"
+
+          # -------------------------------------------------------------------
+          # Step 2: Setup Python
+          # -------------------------------------------------------------------
+          - task: UsePythonVersion@0
+            displayName: "Setup Python $(pythonVersion)"
+            inputs:
+              versionSpec: "$(pythonVersion)"
+              addToPath: true
+
+          # -------------------------------------------------------------------
+          # Step 3: Install fabric-cicd
+          # -------------------------------------------------------------------
+          - script: |
+              pip install --upgrade pip
+              pip install -r $(System.DefaultWorkingDirectory)/requirements.txt
+            displayName: "Install Python dependencies"
+
+          # -------------------------------------------------------------------
+          # Step 4: Deploy to target workspace
+          # -------------------------------------------------------------------
+          - task: AzureCLI@2
+            displayName: "Deploy Fabric Workspace"
+            inputs:
+              azureSubscription: "$(azureServiceConnection)"
+              scriptType: "ps"
+              scriptLocation: "inlineScript"
+              inlineScript: |
+                # ──────────────────────────────────────────────────────────
+                # Determine target workspace based on the branch
+                # ──────────────────────────────────────────────────────────
+                $branch = "$(Build.SourceBranch)"
+                Write-Host "Branch: $branch"
+
+                if ($branch -eq "refs/heads/test") {
+                    $workspace_name = "$(testWorkspaceName)"
+                    $environment = "test"
+                } elseif ($branch -eq "refs/heads/production") {
+                    $workspace_name = "$(prodWorkspaceName)"
+                    $environment = "prod"
+                } else {
+                    Write-Host "##vso[task.logissue type=warning]Branch '$branch' is not configured for deployment. Skipping."
+                    exit 0
+                }
+
+                Write-Host "Deploying to workspace: $workspace_name (environment: $environment)"
+
+                $repository_directory = "$(System.DefaultWorkingDirectory)/$(gitFolder)"
+
+                Write-Host "Repository directory: $repository_directory"
+                Write-Host "Contents:"
+                Get-ChildItem -Path $repository_directory -Recurse -Depth 1 | Format-Table Name, Length, LastWriteTime
+
+                # ──────────────────────────────────────────────────────────
+                # Run the fabric-cicd deployment script
+                # ──────────────────────────────────────────────────────────
+                python -u $(System.DefaultWorkingDirectory)/deploy-to-fabric.py `
+                    --workspace_name "$workspace_name" `
+                    --repository_directory "$repository_directory" `
+                    --environment "$environment"
+
+                Write-Host "✅ Deployment to $workspace_name complete!"
+
+          # -------------------------------------------------------------------
+          # Step 5: Post-deployment summary
+          # -------------------------------------------------------------------
+          - script: |
+              echo "=========================================="
+              echo "  Deployment Summary"
+              echo "=========================================="
+              echo "  Branch:    $(Build.SourceBranch)"
+              echo "  Commit:    $(Build.SourceVersion)"
+              echo "  Pipeline:  $(Build.DefinitionName)"
+              echo "  Agent:     $(Agent.MachineName)"
+              echo "=========================================="
+            displayName: "Post-deployment summary"
