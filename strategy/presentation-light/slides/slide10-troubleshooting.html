@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #F0F4FF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-soft.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 32pt 56pt 24pt 56pt; width: 608pt; }
+.header { margin-bottom: 12pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.header h1 span { color: #E8553D; }
+.header p { font-size: 10pt; color: #64748B; margin: 0; }
+.cols { display: flex; gap: 18pt; }
+.col { flex: 1; }
+.col-label { margin-bottom: 6pt; }
+.col-label h2 { font-size: 12pt; margin: 0; font-weight: bold; }
+.label-red h2 { color: #E8553D; }
+.label-green h2 { color: #059669; }
+.today-box { background: #FFFFFF; border-radius: 6pt; padding: 10pt 12pt; border: 1pt solid #FECACA; }
+.today-box ol { margin: 0; padding: 0 0 0 16pt; }
+.today-box li { font-size: 9pt; color: #4A5568; margin-bottom: 3pt; line-height: 1.35; }
+.pain-result { margin-top: 6pt; background: #FEF2F2; border-radius: 4pt; padding: 5pt 8pt; }
+.pain-result p { font-size: 9pt; color: #E8553D; margin: 0; font-weight: bold; text-align: center; }
+.tomorrow-section { margin-bottom: 6pt; background: #FFFFFF; border-radius: 6pt; padding: 8pt 10pt; border: 1pt solid #BBF7D0; }
+.tomorrow-section h3 { font-size: 9.5pt; color: #059669; margin: 0 0 3pt 0; font-weight: bold; }
+.tomorrow-section p { font-size: 8.5pt; color: #4A5568; margin: 0 0 2pt 0; line-height: 1.35; }
+.mock { background: #F0FDF4; border-radius: 6pt; padding: 8pt 10pt; border: 1pt solid #86EFAC; }
+.mock h3 { font-size: 9pt; color: #059669; margin: 0 0 4pt 0; font-weight: bold; }
+.mock p { font-size: 8pt; color: #1A1A2E; margin: 0 0 2pt 0; font-family: 'Courier New', monospace; }
+.mock-action { margin-top: 4pt; background: #DCFCE7; border-radius: 3pt; padding: 4pt 8pt; }
+.mock-action p { font-size: 8pt; color: #059669; margin: 0; font-family: Arial, sans-serif; font-weight: bold; }
+.bottom { margin-top: 8pt; }
+.bottom p { font-size: 10pt; color: #64748B; margin: 0; text-align: center; font-style: italic; }
+.bottom p span { color: #1A1A2E; font-weight: bold; font-style: normal; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Making It Real: <span>Troubleshooting</span></h1>
+    <p>The #1 pain point from customer research (opportunity score: 6.1)</p>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <div class="col-label label-red"><h2>Today: Portal-Only Pain</h2></div>
+      <div class="today-box">
+        <ol>
+          <li>Open the Fabric portal</li>
+          <li>Navigate workspace, find pipeline, open run history</li>
+          <li>Read vague error message</li>
+          <li>Switch tab to Azure Monitor</li>
+          <li>Search scattered logs across Spark, Pipeline, Eventhouse</li>
+          <li>Manually correlate timestamps between tools</li>
+          <li>Google the error, find old community post</li>
+          <li>Try fix, redeploy, wait, repeat</li>
+        </ol>
+        <div class="pain-result"><p>Hours to resolution. Each tool switch = 23 min lost focus.</p></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-label label-green"><h2>Tomorrow: Embedded Experience</h2></div>
+      <div class="tomorrow-section">
+        <h3>Foundation: Unified Logging API + CLI</h3>
+        <p>One API aggregates all log sources. One CLI command gets all relevant logs.</p>
+        <p>Error enrichment adds root cause context automatically.</p>
+      </div>
+      <div class="mock">
+        <h3>Agent Layer: MCP App in VS Code</h3>
+        <p>Pipeline Failure: ETL-Finance-Daily</p>
+        <p>Root Cause: Memory overflow (87% confidence)</p>
+        <p>Actions: [Increase memory] [Add partitioning]</p>
+        <div class="mock-action">
+          <p>User approves action, agent executes the fix and re-triggers the pipeline automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>This is why we need <span>all three layers</span> — foundation makes it possible, automation makes it scriptable, agents make it intelligent.</p>
+  </div>
+</div>
+</body></html>

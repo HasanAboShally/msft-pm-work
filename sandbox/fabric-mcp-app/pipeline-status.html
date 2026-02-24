@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline Run Status</title>
+  <style>
+    :root {
+      --fabric-primary: #117865;
+      --fabric-primary-dark: #0E624F;
+      --fabric-blue: #0078D4;
+      --fabric-success: #107C10;
+      --fabric-warning: #FFB900;
+      --fabric-error: #D13438;
+      --fabric-bg: #FAF9F8;
+      --fabric-surface: #FFFFFF;
+      --fabric-surface-hover: #F3F2F1;
+      --fabric-border: #EDEBE9;
+      --fabric-border-strong: #C8C6C4;
+      --fabric-text-primary: #323130;
+      --fabric-text-secondary: #605E5C;
+      --fabric-text-tertiary: #A19F9D;
+      --fabric-shadow-4: 0 1.6px 3.6px rgba(0,0,0,0.132), 0 0.3px 0.9px rgba(0,0,0,0.108);
+      --fabric-shadow-8: 0 3.2px 7.2px rgba(0,0,0,0.132), 0 0.6px 1.8px rgba(0,0,0,0.108);
+      --font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, sans-serif;
+      --radius-s: 4px;
+      --radius-m: 6px;
+      --radius-l: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-family); background: var(--fabric-bg); color: var(--fabric-text-primary); font-size: 14px; line-height: 1.5; }
+
+    .app-container { max-width: 780px; margin: 0 auto; padding: 24px 16px; }
+
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .fabric-logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .fabric-logo svg { width: 32px; height: 32px; }
+    .header h1 { font-size: 20px; font-weight: 600; }
+    .header p { font-size: 13px; color: var(--fabric-text-secondary); }
+
+    .card { background: var(--fabric-surface); border: 1px solid var(--fabric-border); border-radius: var(--radius-l); padding: 20px; margin-bottom: 16px; box-shadow: var(--fabric-shadow-4); }
+    .card-title { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+
+    select {
+      width: 100%; padding: 8px 12px; border: 1px solid var(--fabric-border-strong); border-radius: var(--radius-s);
+      font-family: var(--font-family); font-size: 14px; background: var(--fabric-surface);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' stroke='%23605E5C' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+    }
+    select:focus { outline: none; border-color: var(--fabric-blue); box-shadow: 0 0 0 1px var(--fabric-blue); }
+
+    /* Pipeline visualization */
+    .pipeline-viz { display: flex; align-items: stretch; gap: 0; margin: 20px 0; overflow-x: auto; }
+    .stage-card {
+      flex: 1; min-width: 160px; padding: 16px; border: 2px solid var(--fabric-border);
+      border-radius: var(--radius-l); background: var(--fabric-surface); position: relative;
+      transition: all 0.2s;
+    }
+    .stage-card:hover { box-shadow: var(--fabric-shadow-8); }
+    .stage-connector {
+      display: flex; align-items: center; justify-content: center; padding: 0 4px;
+      color: var(--fabric-text-tertiary); font-size: 20px;
+    }
+    .stage-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .stage-workspace { font-size: 12px; color: var(--fabric-text-secondary); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .stage-items-count { font-size: 12px; color: var(--fabric-text-tertiary); }
+    .stage-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;
+      margin-top: 8px;
+    }
+    .stage-badge.assigned { background: #E8F5E9; color: var(--fabric-success); }
+    .stage-badge.unassigned { background: #FFF3E0; color: #E65100; }
+
+    .deploy-arrow-btn {
+      display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+      background: var(--fabric-blue); color: white; border: none; border-radius: 50%;
+      cursor: pointer; font-size: 16px; transition: background 0.15s; margin: 0 2px;
+      flex-shrink: 0;
+    }
+    .deploy-arrow-btn:hover { background: var(--fabric-primary-dark); }
+    .deploy-arrow-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* Operations table */
+    .ops-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .ops-table th { text-align: left; padding: 8px 10px; background: var(--fabric-surface-hover); border-bottom: 2px solid var(--fabric-border); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--fabric-text-secondary); }
+    .ops-table td { padding: 8px 10px; border-bottom: 1px solid var(--fabric-border); }
+    .ops-table tr:hover td { background: var(--fabric-surface-hover); }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px;
+      border-radius: 12px; font-size: 12px; font-weight: 600;
+    }
+    .status-badge.succeeded { background: #E8F5E9; color: var(--fabric-success); }
+    .status-badge.failed { background: #FDE7E9; color: var(--fabric-error); }
+    .status-badge.running { background: #E3F2FD; color: var(--fabric-blue); }
+    .status-badge.notstarted { background: #F5F5F5; color: var(--fabric-text-secondary); }
+    .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .status-badge.succeeded .dot { background: var(--fabric-success); }
+    .status-badge.failed .dot { background: var(--fabric-error); }
+    .status-badge.running .dot { background: var(--fabric-blue); animation: pulse 1.2s infinite; }
+    .status-badge.notstarted .dot { background: var(--fabric-text-tertiary); }
+
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .diff-info { font-size: 12px; color: var(--fabric-text-secondary); }
+    .diff-info span { margin-right: 10px; }
+    .diff-info .new { color: var(--fabric-success); }
+    .diff-info .changed { color: var(--fabric-warning); }
+    .diff-info .same { color: var(--fabric-text-tertiary); }
+
+    .empty-state { text-align: center; padding: 32px; color: var(--fabric-text-tertiary); }
+    .empty-state svg { margin-bottom: 8px; }
+
+    .loading { display: flex; align-items: center; gap: 8px; padding: 20px; color: var(--fabric-text-secondary); font-size: 13px; }
+    .spinner { width: 16px; height: 16px; border: 2px solid var(--fabric-border); border-top-color: var(--fabric-blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .refresh-btn {
+      background: none; border: 1px solid var(--fabric-border-strong); border-radius: var(--radius-s);
+      padding: 4px 10px; cursor: pointer; font-size: 12px; color: var(--fabric-text-secondary);
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .refresh-btn:hover { background: var(--fabric-surface-hover); }
+
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; padding: 10px 18px;
+      background: var(--fabric-text-primary); color: white; border-radius: var(--radius-m);
+      font-size: 13px; opacity: 0; transform: translateY(10px);
+      transition: all 0.3s; z-index: 100; max-width: 340px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .app-footer { text-align: center; padding: 20px 0 8px; font-size: 11px; color: var(--fabric-text-tertiary); }
+    .app-footer a { color: var(--fabric-text-tertiary); text-decoration: none; }
+    .app-footer a:hover { color: var(--fabric-primary); }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="header">
+      <div class="fabric-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 2L6 9v14l11.5 7L28 23V9L17.5 2z" fill="#117865"/>
+          <path d="M17.5 2L6 9l11.5 7L28 9 17.5 2z" fill="#1DB393" opacity="0.9"/>
+          <path d="M17.5 16L6 9v14l11.5 7V16z" fill="#0D6552" opacity="0.8"/>
+          <path d="M17.5 30V16L28 9v14l-10.5 7z" fill="#117865" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Pipeline Run Status</h1>
+        <p>Monitor deployment pipeline stages, runs, and deploy between environments</p>
+      </div>
+    </div>
+
+    <!-- Pipeline Selector -->
+    <div class="card">
+      <div class="card-title" style="display:flex; align-items:center; justify-content:space-between;">
+        Select Pipeline
+        <button class="refresh-btn" onclick="loadPipelines()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+      </div>
+      <select id="pipelineSelect" onchange="onPipelineSelected()">
+        <option value="">Loading pipelines...</option>
+      </select>
+    </div>
+
+    <!-- Pipeline Stages Visualization -->
+    <div class="card" id="stagesCard" style="display:none;">
+      <div class="card-title">Pipeline Stages</div>
+      <div class="pipeline-viz" id="pipelineViz"></div>
+    </div>
+
+    <!-- Recent Operations -->
+    <div class="card" id="opsCard" style="display:none;">
+      <div class="card-title" style="display:flex; align-items:center; justify-content:space-between;">
+        Recent Deployments
+        <button class="refresh-btn" onclick="loadOperations()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+      </div>
+      <div id="opsContent">
+        <div class="empty-state">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#A19F9D" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>
+          <div style="margin-top:8px">Select a pipeline to view deployment history</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-footer">Powered by <strong>MCP Apps</strong> &middot; Microsoft Fabric API</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { App } from "@modelcontextprotocol/ext-apps";
+
+    const app = new App({ name: "pipeline-run-status", version: "1.0.0" });
+    let currentPipelineId = null;
+    let stages = [];
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 3000);
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " " +
+             d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function statusBadge(status) {
+      const s = (status || "").toLowerCase().replace(/\s/g, "");
+      const label = status || "Unknown";
+      return `<span class="status-badge ${s}"><span class="dot"></span>${label}</span>`;
+    }
+
+    async function loadPipelines() {
+      const select = document.getElementById("pipelineSelect");
+      select.innerHTML = '<option value="">Loading...</option>';
+      try {
+        const result = await app.callServerTool({ name: "list_pipelines", arguments: {} });
+        const pipelines = JSON.parse(result?.content?.[0]?.text ?? "[]");
+        select.innerHTML = '<option value="">— Select a pipeline —</option>';
+        pipelines.forEach((p) => {
+          select.innerHTML += `<option value="${p.id}">${p.displayName}${p.description ? " — " + p.description : ""}</option>`;
+        });
+      } catch (e) {
+        select.innerHTML = '<option value="">Error loading pipelines</option>';
+        showToast("Failed to load pipelines: " + e.message);
+      }
+    }
+
+    window.loadPipelines = loadPipelines;
+
+    window.onPipelineSelected = async () => {
+      const select = document.getElementById("pipelineSelect");
+      currentPipelineId = select.value;
+      if (!currentPipelineId) {
+        document.getElementById("stagesCard").style.display = "none";
+        document.getElementById("opsCard").style.display = "none";
+        return;
+      }
+      await Promise.all([loadStages(), loadOperations()]);
+    };
+
+    async function loadStages() {
+      const container = document.getElementById("pipelineViz");
+      const card = document.getElementById("stagesCard");
+      card.style.display = "block";
+      container.innerHTML = '<div class="loading"><div class="spinner"></div>Loading stages...</div>';
+
+      try {
+        const result = await app.callServerTool({ name: "get_pipeline_stages", arguments: { pipelineId: currentPipelineId } });
+        stages = JSON.parse(result.content[0].text);
+        stages.sort((a, b) => a.order - b.order);
+
+        // Load items for each stage
+        const stageItems = {};
+        for (const stage of stages) {
+          try {
+            const itemsResult = await app.callServerTool({ name: "get_stage_items", arguments: { pipelineId: currentPipelineId, stageId: stage.id } });
+            stageItems[stage.id] = JSON.parse(itemsResult.content[0].text);
+          } catch (_) {
+            stageItems[stage.id] = [];
+          }
+        }
+
+        container.innerHTML = "";
+        stages.forEach((stage, idx) => {
+          if (idx > 0) {
+            // Deploy button between stages
+            const connector = document.createElement("div");
+            connector.className = "stage-connector";
+            const prevStage = stages[idx - 1];
+            connector.innerHTML = `<button class="deploy-arrow-btn" title="Deploy ${prevStage.displayName} → ${stage.displayName}" onclick="window.deployStage('${prevStage.id}', '${stage.id}', '${prevStage.displayName}', '${stage.displayName}')">→</button>`;
+            container.appendChild(connector);
+          }
+
+          const items = stageItems[stage.id] || [];
+          const card = document.createElement("div");
+          card.className = "stage-card";
+          card.innerHTML = `
+            <div class="stage-name">${stage.displayName}</div>
+            <div class="stage-workspace" title="${stage.workspaceName || 'No workspace'}">${stage.workspaceName || "No workspace assigned"}</div>
+            <div class="stage-items-count">${items.length} item${items.length !== 1 ? "s" : ""}</div>
+            <span class="stage-badge ${stage.workspaceId ? 'assigned' : 'unassigned'}">${stage.workspaceId ? '● Connected' : '○ Unassigned'}</span>
+          `;
+          container.appendChild(card);
+        });
+      } catch (e) {
+        container.innerHTML = `<div class="empty-state"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D13438" stroke-width="1.5"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg><div style="margin-top:8px">Error loading stages: ${e.message}</div></div>`;
+      }
+    }
+
+    async function loadOperations() {
+      const card = document.getElementById("opsCard");
+      const content = document.getElementById("opsContent");
+      card.style.display = "block";
+      content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading operations...</div>';
+
+      try {
+        const result = await app.callServerTool({ name: "get_pipeline_operations", arguments: { pipelineId: currentPipelineId } });
+        const ops = JSON.parse(result.content[0].text);
+
+        if (ops.length === 0) {
+          content.innerHTML = '<div class="empty-state"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#A19F9D" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h3"/></svg><div style="margin-top:8px">No deployments yet for this pipeline</div></div>';
+          return;
+        }
+
+        const stageMap = {};
+        stages.forEach((s) => { stageMap[s.id] = s.displayName; });
+
+        content.innerHTML = `
+          <table class="ops-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Source → Target</th>
+                <th>Changes</th>
+                <th>Started</th>
+                <th>By</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${ops.map((op) => `
+                <tr>
+                  <td>${statusBadge(op.status)}</td>
+                  <td style="font-weight:500;">${stageMap[op.sourceStageId] || "?"} → ${stageMap[op.targetStageId] || "?"}</td>
+                  <td>
+                    <div class="diff-info">
+                      <span class="new">+${op.preDeploymentDiffInformation?.newItemsCount || 0} new</span>
+                      <span class="changed">~${op.preDeploymentDiffInformation?.differentItemsCount || 0} changed</span>
+                      <span class="same">=${op.preDeploymentDiffInformation?.noDifferenceItemsCount || 0} same</span>
+                    </div>
+                  </td>
+                  <td style="white-space:nowrap;">${formatDate(op.executionStartTime)}</td>
+                  <td>${op.performedBy?.displayName || op.performedBy?.type || "—"}</td>
+                  <td style="max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${op.note?.content || ""}">${op.note?.content || "—"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } catch (e) {
+        content.innerHTML = `<div class="empty-state"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D13438" stroke-width="1.5"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg><div style="margin-top:8px">Error loading operations: ${e.message}</div></div>`;
+      }
+    }
+
+    window.loadOperations = loadOperations;
+
+    window.deployStage = async (sourceId, targetId, sourceName, targetName) => {
+      if (!confirm(`Deploy from "${sourceName}" to "${targetName}"?`)) return;
+
+      const note = prompt("Deployment note (optional):", "") || "";
+      showToast(`Deploying ${sourceName} → ${targetName}...`);
+
+      try {
+        const result = await app.callServerTool({
+          name: "deploy_pipeline_stage",
+          arguments: {
+            pipelineId: currentPipelineId,
+            sourceStageId: sourceId,
+            targetStageId: targetId,
+            note: note,
+          },
+        });
+        showToast("Deployment triggered successfully");
+        // Refresh operations after a short delay
+        setTimeout(() => loadOperations(), 2000);
+        try {
+          await app.updateModelContext({
+            content: [{ type: "text", text: `Deployment triggered: ${sourceName} → ${targetName} in pipeline ${currentPipelineId}` }],
+          });
+        } catch (_) {}
+      } catch (e) {
+        showToast("Deploy failed: " + e.message);
+      }
+    };
+
+    // Init
+    async function init() {
+      try {
+        await loadPipelines();
+      } catch (e) {
+        console.warn("MCP App init:", e);
+        document.getElementById("pipelineSelect").innerHTML = '<option value="">MCP connection unavailable</option>';
+      }
+    }
+
+    app.connect().then(() => init());
+  </script>
+</body>
+</html>

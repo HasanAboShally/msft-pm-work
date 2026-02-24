@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0D1B30; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark-alt.png'); background-size: cover; }
+.wrap { margin: 34pt 50pt 24pt 50pt; width: 620pt; }
+.header { margin-bottom: 16pt; }
+.header p { font-size: 9pt; color: #00B4D8; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 6pt 0; }
+.header h1 { font-size: 22pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.header h1 span { color: #FF6B35; }
+.cols { display: flex; gap: 18pt; }
+.col-today { flex: 1; }
+.col-tomorrow { flex: 1; }
+.col-label { margin-bottom: 8pt; }
+.col-label p { font-size: 9pt; font-weight: bold; margin: 0; letter-spacing: 1pt; }
+.col-label-red p { color: #FF6B35; }
+.col-label-green p { color: #4ADE80; }
+.today-steps { background: rgba(255,107,53,0.06); border-radius: 6pt; padding: 12pt 12pt; border: 1pt solid rgba(255,107,53,0.15); }
+.today-steps ol { margin: 0; padding: 0 0 0 14pt; }
+.today-steps li { font-size: 8pt; color: #B0BEC5; margin-bottom: 5pt; line-height: 1.4; }
+.today-result { margin-top: 8pt; background: rgba(255,107,53,0.12); border-radius: 4pt; padding: 8pt 10pt; }
+.today-result p { font-size: 8.5pt; color: #FF9F73; margin: 0; font-weight: bold; text-align: center; }
+.tomorrow-box { background: rgba(74,222,128,0.06); border-radius: 6pt; padding: 12pt 12pt; border: 1pt solid rgba(74,222,128,0.15); margin-bottom: 8pt; }
+.tomorrow-box h3 { font-size: 9pt; color: #4ADE80; margin: 0 0 6pt 0; font-weight: bold; }
+.tomorrow-box p { font-size: 8pt; color: #B0BEC5; margin: 0 0 3pt 0; line-height: 1.4; }
+.mockup { background: rgba(0,180,216,0.08); border-radius: 6pt; padding: 10pt 12pt; border: 1pt solid rgba(0,180,216,0.2); }
+.mockup h3 { font-size: 9pt; color: #48CAE4; margin: 0 0 6pt 0; font-weight: bold; }
+.mockup-line { display: flex; gap: 6pt; margin-bottom: 3pt; }
+.mockup-line p { font-size: 7.5pt; color: #90CAF9; margin: 0; font-family: 'Courier New', monospace; }
+.bottom-why { margin-top: 12pt; background: rgba(255,255,255,0.04); border-radius: 6pt; padding: 10pt 16pt; }
+.bottom-why p { font-size: 9pt; color: #CFD8DC; margin: 0; text-align: center; }
+.bottom-why p span { color: #FFFFFF; font-weight: bold; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Making it Real</p>
+    <h1>Troubleshooting: <span>Today vs Tomorrow</span></h1>
+  </div>
+  <div class="cols">
+    <div class="col-today">
+      <div class="col-label col-label-red"><p>TODAY: Portal-Only Pain</p></div>
+      <div class="today-steps">
+        <ol>
+          <li>Open the Fabric portal</li>
+          <li>Navigate workspace → find pipeline → open run history</li>
+          <li>Find failed run → read vague error message</li>
+          <li>Switch tab → open Azure Monitor</li>
+          <li>Search scattered logs across Spark, Pipeline, Eventhouse</li>
+          <li>Manually correlate timestamps between tools</li>
+          <li>Google the error → find old community post</li>
+          <li>Try fix → redeploy → wait → repeat</li>
+        </ol>
+        <div class="today-result"><p>Hours to resolution. Miserable experience.</p></div>
+      </div>
+    </div>
+    <div class="col-tomorrow">
+      <div class="col-label col-label-green"><p>TOMORROW: Embedded Experience</p></div>
+      <div class="tomorrow-box">
+        <h3>Foundational Layer</h3>
+        <p>Unified Logging API aggregates all sources</p>
+        <p>CLI: fab monitor logs --workspace ws --last-run</p>
+        <p>Error enrichment API with suggested causes</p>
+      </div>
+      <div class="mockup">
+        <h3>Agentic Layer — MCP App in VS Code</h3>
+        <div class="mockup-line"><p>🔴 Pipeline Failure: ETL-Finance-Daily</p></div>
+        <div class="mockup-line"><p>📍 Stage: Data Transform (Step 3/7)</p></div>
+        <div class="mockup-line"><p>💡 Root Cause: Memory overflow (87% conf)</p></div>
+        <div class="mockup-line"><p>   Input data grew 3.2x from yesterday</p></div>
+        <div class="mockup-line"><p>✅ [Increase memory] [Add partitioning]</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-why">
+    <p>This example shows why we need <span>both layers</span> — infrastructure makes it possible, embedding makes it accessible.</p>
+  </div>
+</div>
+</body></html>

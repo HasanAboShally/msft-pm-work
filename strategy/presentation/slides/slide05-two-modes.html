@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0A1628; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark.png'); background-size: cover; }
+.wrap { margin: 38pt 50pt 28pt 50pt; width: 620pt; }
+.header { margin-bottom: 22pt; }
+.header p { font-size: 9pt; color: #00B4D8; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 6pt 0; }
+.header h1 { font-size: 24pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.cols { display: flex; gap: 20pt; }
+.col { flex: 1; background: rgba(255,255,255,0.04); border-radius: 8pt; padding: 18pt 16pt; }
+.col-interactive { border-top: 3pt solid #00B4D8; }
+.col-autonomous { border-top: 3pt solid #FF6B35; }
+.col-title { margin-bottom: 10pt; }
+.col-title h2 { font-size: 15pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.row { display: flex; margin-bottom: 8pt; }
+.row-label { width: 50pt; }
+.row-label p { font-size: 8pt; color: #6B7B8D; text-transform: uppercase; letter-spacing: 1pt; margin: 0; }
+.row-val p { font-size: 9pt; color: #CFD8DC; margin: 0; line-height: 1.4; }
+.icon-row { margin-top: 10pt; padding-top: 10pt; border-top: 1pt solid rgba(255,255,255,0.08); }
+.icon-row p { font-size: 8.5pt; color: #48CAE4; margin: 0; }
+.icon-row-warm p { color: #FF9F73; }
+.bottom-note { margin-top: 18pt; text-align: center; }
+.bottom-note p { font-size: 10pt; color: #B0BEC5; margin: 0; }
+.bottom-note p span { color: #FFFFFF; font-weight: bold; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Interaction Modes</p>
+    <h1>Two Scenarios Drive Everything</h1>
+  </div>
+  <div class="cols">
+    <div class="col col-interactive">
+      <div class="col-title"><h2>Interactive Agents</h2></div>
+      <div class="row"><div class="row-label"><p>Who</p></div><div class="row-val"><p>Human + AI copilot, working together</p></div></div>
+      <div class="row"><div class="row-label"><p>How</p></div><div class="row-val"><p>Conversational, visual, in-context</p></div></div>
+      <div class="row"><div class="row-label"><p>Surface</p></div><div class="row-val"><p>MCP Apps, embedded UIs, IDE, chat</p></div></div>
+      <div class="row"><div class="row-label"><p>Example</p></div><div class="row-val"><p>Troubleshooting assistant in VS Code; pipeline builder in Copilot</p></div></div>
+      <div class="icon-row"><p>Key need: Rich, discoverable, composable experiences</p></div>
+    </div>
+    <div class="col col-autonomous">
+      <div class="col-title"><h2>Autonomous Agents</h2></div>
+      <div class="row"><div class="row-label"><p>Who</p></div><div class="row-val"><p>Software agents operating independently</p></div></div>
+      <div class="row"><div class="row-label"><p>How</p></div><div class="row-val"><p>Headless, API-driven, unattended</p></div></div>
+      <div class="row"><div class="row-label"><p>Surface</p></div><div class="row-val"><p>APIs, CLI, CI/CD pipelines</p></div></div>
+      <div class="row"><div class="row-label"><p>Example</p></div><div class="row-val"><p>Nightly deployment agent; capacity scaler; automated governance</p></div></div>
+      <div class="icon-row icon-row-warm"><p>Key need: Reliable, complete, well-governed APIs and tools</p></div>
+    </div>
+  </div>
+  <div class="bottom-note">
+    <p>Both modes depend on a shared infrastructure — which is why we invest in <span>two layers</span>.</p>
+  </div>
+</div>
+</body></html>

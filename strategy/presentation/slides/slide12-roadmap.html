@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0A1628; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark.png'); background-size: cover; }
+.wrap { margin: 30pt 50pt 20pt 50pt; width: 620pt; }
+.header { margin-bottom: 12pt; }
+.header p { font-size: 9pt; color: #00B4D8; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 5pt 0; }
+.header h1 { font-size: 22pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.phases { display: flex; gap: 10pt; margin-bottom: 10pt; }
+.phase { flex: 1; border-radius: 6pt; padding: 10pt; }
+.phase-1 { background: rgba(0,180,216,0.08); border-top: 3pt solid #00B4D8; }
+.phase-2 { background: rgba(167,139,250,0.08); border-top: 3pt solid #A78BFA; }
+.phase-3 { background: rgba(74,222,128,0.08); border-top: 3pt solid #4ADE80; }
+.phase h3 { font-size: 10pt; color: #FFFFFF; margin: 0 0 2pt 0; font-weight: bold; }
+.phase h3 span { font-size: 8pt; font-weight: normal; }
+.phase-sub { margin-bottom: 6pt; }
+.phase-sub p { font-size: 7.5pt; color: #90CAF9; margin: 0; font-style: italic; }
+.phase ul { margin: 0; padding: 0 0 0 12pt; }
+.phase li { font-size: 7.5pt; color: #B0BEC5; margin-bottom: 3pt; line-height: 1.35; }
+.arrow-row { display: flex; align-items: center; justify-content: center; margin-bottom: 10pt; }
+.arrow-row p { font-size: 10pt; color: #455A64; margin: 0 6pt; }
+.workstreams { margin-bottom: 8pt; }
+.workstreams h3 { font-size: 9pt; color: #CFD8DC; margin: 0 0 6pt 0; font-weight: bold; }
+.ws-row { display: flex; gap: 8pt; }
+.ws-item { flex: 1; background: rgba(255,255,255,0.04); border-radius: 4pt; padding: 6pt 8pt; text-align: center; border: 1pt solid rgba(255,255,255,0.06); }
+.ws-item p { font-size: 7pt; color: #90A4AE; margin: 0; }
+.ws-item h3 { font-size: 8pt; color: #FFFFFF; margin: 0 0 2pt 0; }
+.bottom-note { margin-top: 6pt; }
+.bottom-note p { font-size: 8pt; color: #78909C; margin: 0; text-align: center; font-style: italic; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Execution Plan</p>
+    <h1>Phased Roadmap</h1>
+  </div>
+  <div class="phases">
+    <div class="phase phase-1">
+      <h3>Phase 1 <span>(H2 2025 - H1 2026)</span></h3>
+      <div class="phase-sub"><p>Build the Foundation</p></div>
+      <ul>
+        <li>REST API gap closure and coverage expansion</li>
+        <li>Unified logging and monitoring APIs</li>
+        <li>CLI v2 with automation-first design</li>
+        <li>SDK improvements (Python, .NET, JS)</li>
+        <li>MCP Server quality and breadth</li>
+      </ul>
+    </div>
+    <div class="phase phase-2">
+      <h3>Phase 2 <span>(H2 2026 - H1 2027)</span></h3>
+      <div class="phase-sub"><p>Light Up the Agentic Layer</p></div>
+      <ul>
+        <li>MCP App GA (interactive agent experiences)</li>
+        <li>CI/CD pipeline integration (GitHub, ADO)</li>
+        <li>Customer-facing MCP Server GA</li>
+        <li>Smart error resolution and recommendations</li>
+        <li>Autonomous workflow patterns</li>
+      </ul>
+    </div>
+    <div class="phase phase-3">
+      <h3>Phase 3 <span>(H2 2027 - 2029)</span></h3>
+      <div class="phase-sub"><p>Scale and Differentiate</p></div>
+      <ul>
+        <li>Full autonomous data operations</li>
+        <li>Multi-platform embeddings</li>
+        <li>Third-party ecosystem enablement</li>
+        <li>Industry-specific agent templates</li>
+        <li>Fabric becomes default embedded data layer</li>
+      </ul>
+    </div>
+  </div>
+  <div class="workstreams">
+    <h3>Key Workstreams Running Across All Phases</h3>
+    <div class="ws-row">
+      <div class="ws-item"><h3>APIs</h3><p>Coverage, quality, consistency</p></div>
+      <div class="ws-item"><h3>CLI</h3><p>Automation backbone</p></div>
+      <div class="ws-item"><h3>MCP</h3><p>Agent integration</p></div>
+      <div class="ws-item"><h3>SDKs</h3><p>Ecosystem reach</p></div>
+      <div class="ws-item"><h3>DevOps</h3><p>CI/CD pipelines</p></div>
+    </div>
+  </div>
+  <div class="bottom-note">
+    <p>Each phase builds on the last — foundational APIs in Phase 1 directly enable agent capabilities in Phase 2.</p>
+  </div>
+</div>
+</body></html>

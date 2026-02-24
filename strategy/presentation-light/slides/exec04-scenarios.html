@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 22pt 44pt 16pt 44pt; width: 632pt; }
+.label { margin-bottom: 2pt; }
+.label p { font-size: 8pt; color: #0078D4; letter-spacing: 2pt; text-transform: uppercase; margin: 0; font-weight: bold; }
+.header h1 { font-size: 18pt; color: #1A1A2E; margin: 0 0 10pt 0; font-weight: bold; }
+.scenarios { display: flex; flex-wrap: wrap; gap: 8pt; }
+.scenario { width: 306pt; background: #F5F7FA; border-radius: 5pt; padding: 8pt 10pt; border-left: 3pt solid #0078D4; }
+.scenario h2 { font-size: 9pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.scenario p { font-size: 7.5pt; color: #4A5568; margin: 0 0 4pt 0; line-height: 1.35; }
+.scenario .result { background: #EBF5FF; border-radius: 3pt; padding: 3pt 6pt; display: inline-block; }
+.scenario .result p { font-size: 7.5pt; color: #0078D4; margin: 0; font-weight: bold; }
+.scenario-2 { border-left-color: #00A79D; }
+.scenario-2 .result { background: #E6F7F5; }
+.scenario-2 .result p { color: #00A79D; }
+.scenario-3 { border-left-color: #6C5CE7; }
+.scenario-3 .result { background: #F0F0FF; }
+.scenario-3 .result p { color: #6C5CE7; }
+.scenario-4 { border-left-color: #E8553D; }
+.scenario-4 .result { background: #FFF0EC; }
+.scenario-4 .result p { color: #E8553D; }
+.bottom { margin-top: 6pt; text-align: center; }
+.bottom p { font-size: 8pt; color: #64748B; margin: 0; font-style: italic; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Executive Summary</p></div>
+  <div class="header">
+    <h1>What This Vision Enables</h1>
+  </div>
+  <div class="scenarios">
+    <div class="scenario">
+      <h2>Scenario 1: Developer in VS Code</h2>
+      <p>Pipeline fails → asks Copilot "Why did this fail?" → agent pulls logs via MCP → identifies memory issue → suggests fix → applies it → re-runs pipeline</p>
+      <div class="result"><p>4 min vs 20+ min in portal</p></div>
+    </div>
+    <div class="scenario scenario-2">
+      <h2>Scenario 2: Business User in Claude</h2>
+      <p>"Create a Q4 marketing report" → agent discovers semantic models → suggests layout → user refines → creates report via API → schedules refresh</p>
+      <div class="result"><p>Never opened Fabric portal</p></div>
+    </div>
+    <div class="scenario scenario-3">
+      <h2>Scenario 3: Autonomous CI/CD Agent</h2>
+      <p>PR merged → GitHub Actions triggers → agent deploys to staging → runs validation → tests fail → auto-rollback → posts summary to PR</p>
+      <div class="result"><p>Zero human intervention</p></div>
+    </div>
+    <div class="scenario scenario-4">
+      <h2>Scenario 4: Visual Pipeline via MCP App</h2>
+      <p>Analytics engineer in Claude → asks to configure pipeline → MCP App renders visual builder inline → user adjusts and confirms → deployed</p>
+      <div class="result"><p>Portal-like experience, anywhere</p></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>Same three layers power all scenarios. The difference is the level of human involvement — configurable, not hard-coded.</p>
+  </div>
+</div>
+</body></html>

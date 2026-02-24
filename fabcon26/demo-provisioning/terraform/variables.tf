@@ -17,13 +17,9 @@ variable "capacity_name" {
 }
 
 variable "username" {
-  description = "Username suffix for workspace naming (e.g., 'hasan', 'user001')."
+  description = "Username for tagging/auditing (no longer used in workspace naming)."
   type        = string
-
-  validation {
-    condition     = can(regex("^[a-zA-Z0-9_-]+$", var.username))
-    error_message = "username must contain only alphanumeric characters, hyphens, or underscores."
-  }
+  default     = ""
 }
 
 # -----------------------------------------------------------------------------
@@ -31,15 +27,15 @@ variable "username" {
 # -----------------------------------------------------------------------------
 
 variable "workspace_prefix" {
-  description = "Prefix for the workspace name. Full name = <prefix>_<username>."
+  description = "Prefix for workspace names. Names: <prefix>-dev, <prefix>-test, <prefix>-prod."
   type        = string
-  default     = "DEWorkshop"
+  default     = "cicd-fabcon-us26"
 }
 
 variable "workspace_description" {
   description = "Description for the development workspace."
   type        = string
-  default     = "FabCon 26 DevX Cornerstone Demo — Data Engineering CI/CD Workshop"
+  default     = "Fabric Data Engineering Workshop — provisioned by fabric-e2e-demo"
 }
 
 variable "enable_lakehouse_schemas" {
@@ -74,4 +70,44 @@ variable "upn_object_id" {
   description = "Object ID of the user (UPN). If set with SPN auth, grants user Admin on the workspace."
   type        = string
   default     = null
+}
+
+# -----------------------------------------------------------------------------
+# Capacity Provisioning (ARM — optional)
+# -----------------------------------------------------------------------------
+
+variable "create_capacity" {
+  description = "If true, provision a new Fabric capacity via ARM (azurerm provider) before creating workspaces."
+  type        = bool
+  default     = false
+}
+
+variable "capacity_resource_group" {
+  description = "Resource group name where the new Fabric capacity will be created."
+  type        = string
+  default     = "rg-cicd-fabconus26"
+}
+
+variable "capacity_location" {
+  description = "Azure region for the new Fabric capacity (e.g. 'East US')."
+  type        = string
+  default     = "Central US EUAP"
+}
+
+variable "capacity_sku" {
+  description = "SKU tier for the new Fabric capacity (e.g. F2, F4, F8, F16, F32, F64)."
+  type        = string
+  default     = "F64"
+}
+
+variable "capacity_admin_upn" {
+  description = "UPN/email of the Fabric capacity admin. Required when create_capacity = true."
+  type        = string
+  default     = null
+}
+
+variable "skip_spn_role_assignment" {
+  description = "Skip SPN workspace role assignment (SPN is already admin as workspace creator)."
+  type        = bool
+  default     = true
 }

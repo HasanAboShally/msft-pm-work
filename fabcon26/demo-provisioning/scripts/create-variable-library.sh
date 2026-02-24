@@ -25,7 +25,7 @@ source "${SCRIPT_DIR}/lib/fab-helpers.sh"
 # MAIN
 # =============================================================================
 
-log_header "FabCon 26 Demo — Create Variable Library"
+log_header "Fabric E2E Demo — Create Variable Library"
 
 # Load configuration
 load_terraform_outputs

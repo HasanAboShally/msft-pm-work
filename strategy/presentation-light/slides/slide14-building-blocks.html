@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.header p { font-size: 9pt; color: #64748B; margin: 0 0 14pt 0; line-height: 1.4; }
+.columns { display: flex; gap: 14pt; }
+.col { flex: 1; }
+.col-title { margin: 0 0 8pt 0; padding-bottom: 5pt; border-bottom: 2pt solid; }
+.col-title p { font-size: 11pt; font-weight: bold; margin: 0; }
+.col-foundation .col-title { border-bottom-color: #4A5568; }
+.col-foundation .col-title p { color: #4A5568; }
+.col-programmatic .col-title { border-bottom-color: #6C5CE7; }
+.col-programmatic .col-title p { color: #6C5CE7; }
+.col-agentic .col-title { border-bottom-color: #0078D4; }
+.col-agentic .col-title p { color: #0078D4; }
+.block { border-radius: 5pt; padding: 6pt 8pt; margin-bottom: 5pt; }
+.col-foundation .block { background: #F5F7FA; border: 1pt solid #E2E8F0; }
+.col-programmatic .block { background: #F0F0FF; border: 1pt solid #D4D4F7; }
+.col-agentic .block { background: #EBF5FF; border: 1pt solid #B3D9FF; }
+.block h3 { font-size: 8.5pt; color: #1A1A2E; margin: 0 0 1pt 0; font-weight: bold; }
+.block p { font-size: 7.5pt; color: #64748B; margin: 0; line-height: 1.35; }
+.callout { margin-top: 10pt; background: #F5F7FA; border-radius: 4pt; padding: 7pt 12pt; border-left: 4pt solid #0078D4; }
+.callout p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.4; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Building Blocks: What We Need to Build</h1>
+    <p>Key efforts across the three layers that enable the vision. This is a living list — teams can add their building blocks.</p>
+  </div>
+  <div class="columns">
+    <div class="col col-foundation">
+      <div class="col-title"><p>Foundation Layer</p></div>
+      <div class="block">
+        <h3>Internal API Tooling</h3>
+        <p>Tools for Fabric teams to complete, test, and document their APIs</p>
+      </div>
+      <div class="block">
+        <h3>CLI v2</h3>
+        <p>Composable commands, scripting support, live log streaming</p>
+      </div>
+      <div class="block">
+        <h3>SDK Expansion</h3>
+        <p>Python SDK GA, .NET SDK improvements</p>
+      </div>
+      <div class="block">
+        <h3>Identity & SPN</h3>
+        <p>Service principal support for all item types</p>
+      </div>
+      <div class="block">
+        <h3>Monitoring APIs</h3>
+        <p>Unified logging across all Fabric engines</p>
+      </div>
+    </div>
+    <div class="col col-programmatic">
+      <div class="col-title"><p>Programmatic Layer</p></div>
+      <div class="block">
+        <h3>Terraform Coverage</h3>
+        <p>100% coverage for GA items</p>
+      </div>
+      <div class="block">
+        <h3>CI/CD Toolkit</h3>
+        <p>GitHub Actions, Azure DevOps integrations</p>
+      </div>
+      <div class="block">
+        <h3>Scripting in Fabric</h3>
+        <p>Script item type, Copilot Script Mode</p>
+      </div>
+    </div>
+    <div class="col col-agentic">
+      <div class="col-title"><p>Agentic Layer</p></div>
+      <div class="block">
+        <h3>MCP Platform</h3>
+        <p>Remote/Hosted MCP for external agents</p>
+      </div>
+      <div class="block">
+        <h3>MCP Apps</h3>
+        <p>Interactive agent-rendered experiences</p>
+      </div>
+      <div class="block">
+        <h3>MCP Tools Library</h3>
+        <p>Comprehensive Fabric operation coverage</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <p>Each building block maps to a specific scenario and layer. Teams can add their efforts to this framework.</p>
+  </div>
+</div>
+</body></html>

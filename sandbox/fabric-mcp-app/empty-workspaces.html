@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empty Workspaces</title>
+  <style>
+    :root {
+      --fabric-primary: #117865;
+      --fabric-primary-dark: #0E624F;
+      --fabric-blue: #0078D4;
+      --fabric-success: #107C10;
+      --fabric-warning: #FFB900;
+      --fabric-error: #D13438;
+      --fabric-bg: #FAF9F8;
+      --fabric-surface: #FFFFFF;
+      --fabric-surface-hover: #F3F2F1;
+      --fabric-border: #EDEBE9;
+      --fabric-border-strong: #C8C6C4;
+      --fabric-text: #323130;
+      --fabric-text-secondary: #605E5C;
+      --fabric-text-tertiary: #A19F9D;
+      --fabric-shadow: 0 1.6px 3.6px rgba(0,0,0,0.132), 0 0.3px 0.9px rgba(0,0,0,0.108);
+      --fabric-shadow-8: 0 3.2px 7.2px rgba(0,0,0,0.132), 0 0.6px 1.8px rgba(0,0,0,0.108);
+      --font: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--fabric-bg); color: var(--fabric-text); font-size: 14px; line-height: 1.5; }
+    .container { max-width: 780px; margin: 0 auto; padding: 24px 16px; }
+
+    /* Header */
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .fabric-logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .fabric-logo svg { width: 32px; height: 32px; }
+    .header h1 { font-size: 20px; font-weight: 600; }
+    .header-sub { font-size: 13px; color: var(--fabric-text-secondary); margin-bottom: 20px; }
+
+    /* Stats bar */
+    .stats-bar { display: flex; gap: 16px; margin-bottom: 20px; }
+    .stat-card {
+      flex: 1; background: var(--fabric-surface); border: 1px solid var(--fabric-border);
+      border-radius: 8px; padding: 16px; box-shadow: var(--fabric-shadow);
+    }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--fabric-primary); }
+    .stat-label { font-size: 12px; color: var(--fabric-text-secondary); margin-top: 2px; }
+
+    /* Table */
+    .card { background: var(--fabric-surface); border: 1px solid var(--fabric-border); border-radius: 8px; box-shadow: var(--fabric-shadow); overflow: hidden; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--fabric-border); }
+    .card-title { font-size: 15px; font-weight: 600; }
+    .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge-warning { background: #FFF3E0; color: #E65100; }
+    .badge-success { background: #E8F5E9; color: var(--fabric-success); }
+
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; padding: 10px 20px; background: var(--fabric-surface-hover); border-bottom: 2px solid var(--fabric-border); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--fabric-text-secondary); }
+    td { padding: 12px 20px; border-bottom: 1px solid var(--fabric-border); font-size: 13px; }
+    tr:hover td { background: var(--fabric-surface-hover); }
+    tr:last-child td { border-bottom: none; }
+
+    .ws-name { font-weight: 600; color: var(--fabric-text); }
+    .ws-id { font-size: 11px; color: var(--fabric-text-tertiary); font-family: 'SF Mono', 'Cascadia Code', monospace; }
+    .ws-type { font-size: 12px; color: var(--fabric-text-secondary); }
+    .ws-capacity { font-size: 12px; color: var(--fabric-text-secondary); }
+
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--fabric-text-secondary); }
+    .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; color: var(--fabric-text-tertiary); }
+    .empty-state h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--fabric-text); }
+
+    /* Loading */
+    .loading { text-align: center; padding: 48px 20px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--fabric-border); border-top-color: var(--fabric-primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 13px; color: var(--fabric-text-secondary); }
+
+    /* Error */
+    .error-box { background: #FDE7E9; border-left: 3px solid var(--fabric-error); padding: 12px 16px; border-radius: 4px; font-size: 13px; color: var(--fabric-error); margin: 16px 0; }
+
+    /* Link button */
+    .link-btn { color: var(--fabric-blue); text-decoration: none; font-size: 12px; cursor: pointer; background: none; border: none; font-family: var(--font); }
+    .link-btn:hover { text-decoration: underline; }
+
+    /* Refresh button */
+    .btn-refresh {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      background: var(--fabric-surface); border: 1px solid var(--fabric-border-strong);
+      border-radius: 4px; font-family: var(--font); font-size: 13px; cursor: pointer; color: var(--fabric-text);
+    }
+    .btn-refresh:hover { background: var(--fabric-surface-hover); }
+    .btn-refresh svg { width: 14px; height: 14px; }
+
+    .footer { padding-top: 16px; text-align: center; font-size: 11px; color: var(--fabric-text-tertiary); }
+
+    /* Delete button */
+    .btn-delete {
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+      background: var(--fabric-error); color: white; border: none; border-radius: 4px;
+      font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-delete:hover { background: #B52E31; }
+    .btn-delete:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-delete svg { width: 14px; height: 14px; }
+
+    /* Confirmation dialog */
+    .confirm-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .confirm-dialog {
+      background: var(--fabric-surface); border-radius: 8px; padding: 24px;
+      box-shadow: var(--fabric-shadow-8); max-width: 420px; width: 90%;
+    }
+    .confirm-dialog h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--fabric-error); }
+    .confirm-dialog p { font-size: 13px; color: var(--fabric-text-secondary); margin-bottom: 16px; line-height: 1.6; }
+    .confirm-dialog .btn-row { display: flex; justify-content: flex-end; gap: 8px; }
+    .btn-cancel {
+      padding: 6px 16px; background: var(--fabric-surface); border: 1px solid var(--fabric-border-strong);
+      border-radius: 4px; font-family: var(--font); font-size: 13px; cursor: pointer; color: var(--fabric-text);
+    }
+    .btn-cancel:hover { background: var(--fabric-surface-hover); }
+    .btn-confirm-delete {
+      padding: 6px 16px; background: var(--fabric-error); color: white; border: none;
+      border-radius: 4px; font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-confirm-delete:hover { background: #B52E31; }
+
+    /* Delete progress section */
+    .delete-progress { margin-top: 16px; }
+    .delete-progress .progress-bar-track {
+      width: 100%; height: 4px; background: var(--fabric-border); border-radius: 2px; overflow: hidden; margin-bottom: 10px;
+    }
+    .delete-progress .progress-bar-fill {
+      height: 100%; background: var(--fabric-error); width: 0%; transition: width 0.3s;
+    }
+    .delete-log { max-height: 200px; overflow-y: auto; }
+    .delete-log .log-item { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; }
+    .delete-log .log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .delete-log .log-dot.success { background: var(--fabric-success); }
+    .delete-log .log-dot.error { background: var(--fabric-error); }
+    .delete-log .log-dot.running { background: var(--fabric-warning); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .delete-result {
+      margin-top: 12px; padding: 10px 14px; border-radius: 4px; font-size: 13px; font-weight: 500;
+    }
+    .delete-result.success { background: #E8F5E9; color: var(--fabric-success); }
+    .delete-result.partial { background: #FFF3E0; color: #E65100; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="fabric-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 2L6 9v14l11.5 7L28 23V9L17.5 2z" fill="#117865"/>
+          <path d="M17.5 2L6 9l11.5 7L28 9 17.5 2z" fill="#1DB393" opacity="0.9"/>
+          <path d="M17.5 16L6 9v14l11.5 7V16z" fill="#0D6552" opacity="0.8"/>
+          <path d="M17.5 30V16L28 9v14l-10.5 7z" fill="#117865" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Empty Workspaces</h1>
+      </div>
+    </div>
+    <div class="header-sub">Find workspaces that contain no items — candidates for cleanup or provisioning.</div>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="statsBar" style="display:none;">
+      <div class="stat-card">
+        <div class="stat-value" id="totalCount">—</div>
+        <div class="stat-label">Total workspaces</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="emptyCount" style="color: var(--fabric-warning);">—</div>
+        <div class="stat-label">Empty workspaces</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="emptyPct" style="color: var(--fabric-error);">—</div>
+        <div class="stat-label">Empty percentage</div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="mainContent">
+      <div class="loading" id="loadingState">
+        <div class="spinner"></div>
+        <div class="loading-text">Scanning workspaces for items...</div>
+        <div class="loading-text" id="progressText" style="margin-top: 6px; font-size: 12px; color: var(--fabric-text-tertiary);"></div>
+      </div>
+    </div>
+
+    <div class="footer">Powered by MCP Apps &middot; Microsoft Fabric API</div>
+  </div>
+
+  <script type="module">
+    import { App } from "@modelcontextprotocol/ext-apps";
+
+    const app = new App({ name: "empty-workspaces", version: "1.0.0" });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderResults(data) {
+      const totalWorkspaces = data.totalWorkspaces || 0;
+      const emptyWorkspaces = data.emptyWorkspaces || [];
+
+      // Show stats
+      const statsBar = document.getElementById("statsBar");
+      statsBar.style.display = "flex";
+      document.getElementById("totalCount").textContent = totalWorkspaces;
+      document.getElementById("emptyCount").textContent = emptyWorkspaces.length;
+      const pct = totalWorkspaces > 0 ? Math.round((emptyWorkspaces.length / totalWorkspaces) * 100) : 0;
+      document.getElementById("emptyPct").textContent = `${pct}%`;
+
+      const mainContent = document.getElementById("mainContent");
+
+      if (emptyWorkspaces.length === 0) {
+        mainContent.innerHTML = `
+          <div class="card">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3>All clear!</h3>
+              <p>No empty workspaces found. All ${totalWorkspaces} workspaces have at least one item.</p>
+            </div>
+          </div>`;
+      } else {
+        // Store for delete operation
+        window._emptyWorkspaces = emptyWorkspaces;
+
+        mainContent.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Empty workspaces</span>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="badge badge-warning">${emptyWorkspaces.length} found</span>
+                <button class="btn-delete" id="deleteAllBtn" onclick="window._showDeleteConfirm()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                  Delete all empty
+                </button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Workspace</th>
+                  <th>Type</th>
+                  <th>Capacity ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${emptyWorkspaces.map(ws => `
+                  <tr id="row-${ws.id}">
+                    <td>
+                      <div class="ws-name">${escapeHtml(ws.displayName)}</div>
+                      <div class="ws-id">${ws.id}</div>
+                      ${ws.description ? `<div style="font-size:12px;color:var(--fabric-text-secondary);margin-top:2px;">${escapeHtml(ws.description)}</div>` : ''}
+                    </td>
+                    <td><span class="ws-type">${ws.type || '—'}</span></td>
+                    <td><span class="ws-capacity">${ws.capacityId ? ws.capacityId.substring(0, 8) + '...' : '—'}</span></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+          <div class="delete-progress" id="deleteProgress" style="display:none;">
+            <div class="progress-bar-track"><div class="progress-bar-fill" id="deleteBar"></div></div>
+            <div class="delete-log" id="deleteLog"></div>
+            <div id="deleteResult"></div>
+          </div>`;
+      }
+    }
+
+    // ── Delete flow ──────────────────────────────
+    window._showDeleteConfirm = () => {
+      const count = (window._emptyWorkspaces || []).length;
+      if (!count) return;
+      const overlay = document.createElement('div');
+      overlay.className = 'confirm-overlay';
+      overlay.id = 'confirmOverlay';
+      overlay.innerHTML = `
+        <div class="confirm-dialog">
+          <h3>Delete ${count} empty workspace${count !== 1 ? 's' : ''}?</h3>
+          <p>This will permanently delete <strong>${count}</strong> empty workspace${count !== 1 ? 's' : ''}.
+          This action cannot be undone.</p>
+          <div class="btn-row">
+            <button class="btn-cancel" onclick="window._cancelDelete()">Cancel</button>
+            <button class="btn-confirm-delete" onclick="window._executeDeleteAll()">Delete all</button>
+          </div>
+        </div>`;
+      document.body.appendChild(overlay);
+    };
+
+    window._cancelDelete = () => {
+      const overlay = document.getElementById('confirmOverlay');
+      if (overlay) overlay.remove();
+    };
+
+    window._executeDeleteAll = async () => {
+      // Close dialog
+      const overlay = document.getElementById('confirmOverlay');
+      if (overlay) overlay.remove();
+
+      const workspaces = window._emptyWorkspaces || [];
+      if (!workspaces.length) return;
+
+      // Disable the button
+      const btn = document.getElementById('deleteAllBtn');
+      if (btn) btn.disabled = true;
+
+      // Show progress section
+      const progress = document.getElementById('deleteProgress');
+      progress.style.display = 'block';
+      const bar = document.getElementById('deleteBar');
+      const log = document.getElementById('deleteLog');
+      const resultDiv = document.getElementById('deleteResult');
+      log.innerHTML = '';
+      resultDiv.innerHTML = '';
+
+      let completed = 0, succeeded = 0, failed = 0;
+      const total = workspaces.length;
+
+      function addLog(cls, msg) {
+        const div = document.createElement('div');
+        div.className = 'log-item';
+        div.innerHTML = `<span class="log-dot ${cls}"></span><span>${msg}</span>`;
+        log.appendChild(div);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      for (const ws of workspaces) {
+        addLog('running', `Deleting "${ws.displayName}"...`);
+        try {
+          await app.callServerTool({ name: "ew_delete_workspace", arguments: { workspaceId: ws.id } });
+          succeeded++;
+          addLog('success', `Deleted "${ws.displayName}"`);
+          // Fade out the row
+          const row = document.getElementById(`row-${ws.id}`);
+          if (row) { row.style.opacity = '0.3'; row.style.textDecoration = 'line-through'; }
+        } catch (e) {
+          failed++;
+          addLog('error', `Failed to delete "${ws.displayName}": ${e.message}`);
+        }
+        completed++;
+        bar.style.width = `${(completed / total) * 100}%`;
+      }
+
+      // Update stats
+      const emptyCountEl = document.getElementById('emptyCount');
+      const emptyPctEl = document.getElementById('emptyPct');
+      const totalWs = parseInt(document.getElementById('totalCount').textContent) || 0;
+      const remaining = total - succeeded;
+      if (emptyCountEl) emptyCountEl.textContent = remaining;
+      if (emptyPctEl && totalWs > 0) emptyPctEl.textContent = `${Math.round((remaining / totalWs) * 100)}%`;
+
+      if (failed === 0) {
+        resultDiv.innerHTML = `<div class="delete-result success">All ${succeeded} empty workspaces deleted successfully.</div>`;
+      } else {
+        resultDiv.innerHTML = `<div class="delete-result partial">${succeeded} deleted, ${failed} failed.</div>`;
+      }
+
+      // Update model context
+      try {
+        await app.updateModelContext({
+          content: [{ type: "text", text: `Deleted ${succeeded} empty workspaces (${failed} failed).` }],
+        });
+      } catch (_) {}
+    };
+
+    async function initApp() {
+      try {
+        const result = await app.callServerTool({ name: "ew_find_empty_workspaces", arguments: {} });
+        const data = JSON.parse(result?.content?.[0]?.text ?? "{}");
+        renderResults(data);
+      } catch (e) {
+        document.getElementById("mainContent").innerHTML = `
+          <div class="error-box">Failed to load workspace data: ${e.message}</div>`;
+      }
+    }
+
+    app.connect().then(() => initApp());
+  </script>
+</body>
+</html>

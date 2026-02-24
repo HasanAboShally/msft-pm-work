@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create a workspace</title>
+  <style>
+    :root {
+      --fabric-primary: #117865;
+      --fabric-primary-hover: #0E624F;
+      --fabric-blue: #0078D4;
+      --fabric-success: #107C10;
+      --fabric-warning: #FFB900;
+      --fabric-error: #D13438;
+      --fabric-bg: #FAF9F8;
+      --fabric-surface: #FFFFFF;
+      --fabric-surface-hover: #F3F2F1;
+      --fabric-border: #EDEBE9;
+      --fabric-border-strong: #C8C6C4;
+      --fabric-text: #323130;
+      --fabric-text-secondary: #605E5C;
+      --fabric-text-tertiary: #A19F9D;
+      --fabric-shadow: 0 1.6px 3.6px rgba(0,0,0,0.132), 0 0.3px 0.9px rgba(0,0,0,0.108);
+      --font: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--fabric-bg); color: var(--fabric-text); font-size: 14px; line-height: 1.5; }
+    .container { max-width: 640px; margin: 0 auto; padding: 24px 20px; }
+
+    /* Header */
+    .app-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .fabric-logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .fabric-logo svg { width: 32px; height: 32px; }
+    .page-title { font-size: 20px; font-weight: 600; margin-bottom: 2px; }
+    .page-subtitle { font-size: 13px; color: var(--fabric-text-secondary); }
+
+    /* Templates row - matches Fabric "Welcome" horizontal cards */
+    .templates-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--fabric-text-secondary); }
+    .templates-row { display: flex; gap: 10px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px; }
+    .tpl-card {
+      flex: 0 0 auto; width: 130px; border: 1px solid var(--fabric-border); border-radius: 6px;
+      padding: 14px 12px; cursor: pointer; background: var(--fabric-surface); text-align: center;
+      transition: border-color 0.15s, box-shadow 0.15s; user-select: none;
+    }
+    .tpl-card:hover { border-color: var(--fabric-primary); box-shadow: var(--fabric-shadow); }
+    .tpl-card.active { border-color: var(--fabric-primary); border-width: 2px; padding: 13px 11px; }
+    .tpl-icon { width: 32px; height: 32px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; }
+    .tpl-icon svg { width: 28px; height: 28px; }
+    .tpl-name { font-size: 12px; font-weight: 600; color: var(--fabric-text); line-height: 1.3; }
+
+    /* Divider */
+    hr { border: none; border-top: 1px solid var(--fabric-border); margin: 0 0 20px; }
+
+    /* Form fields — matching Fabric's Create workspace dialog */
+    .field { margin-bottom: 16px; }
+    .field-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .field-label .req { color: var(--fabric-error); }
+    input[type="text"], textarea, select {
+      width: 100%; padding: 8px 12px; border: 1px solid var(--fabric-border-strong); border-radius: 4px;
+      font-family: var(--font); font-size: 14px; background: var(--fabric-surface); color: var(--fabric-text);
+      appearance: none;
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' stroke='%23605E5C' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--fabric-primary); border-bottom-width: 2px; }
+    textarea { resize: vertical; min-height: 56px; }
+    input::placeholder, textarea::placeholder { color: var(--fabric-text-tertiary); }
+
+    /* Item grid — matching Fabric's New Item dialog */
+    .section-label { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 12px; }
+    .item-card {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border: 1px solid var(--fabric-border); border-radius: 6px; cursor: pointer;
+      background: var(--fabric-surface); transition: all 0.12s; user-select: none;
+    }
+    .item-card:hover { border-color: var(--fabric-blue); background: #F0F6FF; }
+    .item-card.selected { border-color: var(--fabric-primary); background: #E8F5EE; }
+    .item-card-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+    .item-card-icon svg { width: 20px; height: 20px; }
+    .item-card-label { font-size: 13px; font-weight: 500; }
+
+    /* Icon colors matching Fabric product icons */
+    .ic-lakehouse { color: #0E7A0D; }
+    .ic-warehouse { color: #0078D4; }
+    .ic-notebook { color: #8764B8; }
+    .ic-pipeline { color: #0078D4; }
+    .ic-model { color: #E3008C; }
+    .ic-eventhouse { color: #FF8C00; }
+    .ic-kql { color: #00B7C3; }
+    .ic-environment { color: #498205; }
+    .ic-eventstream { color: #D83B01; }
+    .ic-spark { color: #E3008C; }
+    .ic-ml { color: #8764B8; }
+    .ic-sql { color: #0078D4; }
+
+    /* Selected items list */
+    .selected-list { margin-top: 8px; }
+    .sel-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+      border: 1px solid var(--fabric-border); border-radius: 4px; margin-bottom: 4px;
+      background: var(--fabric-surface); font-size: 13px;
+    }
+    .sel-item-type { font-weight: 600; min-width: 100px; color: var(--fabric-text-secondary); font-size: 12px; }
+    .sel-item input { flex: 1; border: 1px solid transparent; padding: 3px 6px; border-radius: 3px; font-size: 13px; font-family: var(--font); }
+    .sel-item input:hover { border-color: var(--fabric-border-strong); }
+    .sel-item input:focus { border-color: var(--fabric-primary); outline: none; }
+    .sel-item-remove { background: none; border: none; color: var(--fabric-text-tertiary); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 3px; }
+    .sel-item-remove:hover { background: #FDE7E9; color: var(--fabric-error); }
+
+    /* Buttons */
+    .actions { display: flex; gap: 8px; margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--fabric-border); }
+    .btn-primary {
+      padding: 6px 20px; background: var(--fabric-primary); color: white; border: none; border-radius: 4px;
+      font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--fabric-primary-hover); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-secondary {
+      padding: 6px 20px; background: var(--fabric-surface); color: var(--fabric-text); border: 1px solid var(--fabric-border-strong);
+      border-radius: 4px; font-family: var(--font); font-size: 14px; cursor: pointer;
+    }
+    .btn-secondary:hover { background: var(--fabric-surface-hover); }
+
+    /* Progress */
+    .progress-section { display: none; margin-top: 20px; }
+    .progress-section.active { display: block; }
+    .progress-bar-bg { height: 2px; background: var(--fabric-border); border-radius: 1px; overflow: hidden; margin-bottom: 12px; }
+    .progress-bar { height: 100%; background: var(--fabric-primary); transition: width 0.4s ease; width: 0; }
+    .log-list { max-height: 200px; overflow-y: auto; }
+    .log-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; color: var(--fabric-text-secondary); }
+    .log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .log-dot.success { background: var(--fabric-success); }
+    .log-dot.error { background: var(--fabric-error); }
+    .log-dot.running { background: var(--fabric-blue); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    .result-box { padding: 12px 14px; border-radius: 4px; margin-top: 12px; font-size: 13px; }
+    .result-box.success { background: #E8F5E9; border-left: 3px solid var(--fabric-success); }
+    .result-box.error { background: #FDE7E9; border-left: 3px solid var(--fabric-error); }
+    .result-box a { color: var(--fabric-blue); text-decoration: none; font-weight: 600; }
+    .result-box a:hover { text-decoration: underline; }
+
+    .footer { padding-top: 16px; text-align: center; font-size: 11px; color: var(--fabric-text-tertiary); }
+    .footer a { color: var(--fabric-text-tertiary); text-decoration: none; }
+    .footer a:hover { color: var(--fabric-primary); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="app-header">
+      <div class="fabric-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 2L6 9v14l11.5 7L28 23V9L17.5 2z" fill="#117865"/>
+          <path d="M17.5 2L6 9l11.5 7L28 9 17.5 2z" fill="#1DB393" opacity="0.9"/>
+          <path d="M17.5 16L6 9v14l11.5 7V16z" fill="#0D6552" opacity="0.8"/>
+          <path d="M17.5 30V16L28 9v14l-10.5 7z" fill="#117865" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="page-title">Create a workspace</div>
+        <div class="page-subtitle">Create a workspace with a predesigned template, or start from scratch.</div>
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <div class="templates-label">Quick start templates</div>
+    <div class="templates-row">
+      <div class="tpl-card" onclick="applyTemplate('analytics')" id="tpl-analytics">
+        <div class="tpl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E3008C" stroke-width="1.5"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg></div>
+        <div class="tpl-name">Basic data analytics</div>
+      </div>
+      <div class="tpl-card" onclick="applyTemplate('dataeng')" id="tpl-dataeng">
+        <div class="tpl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0078D4" stroke-width="1.5"><path d="M4 6h16M4 6v12a2 2 0 002 2h12a2 2 0 002-2V6M9 10l2 2 4-4"/></svg></div>
+        <div class="tpl-name">Data engineering</div>
+      </div>
+      <div class="tpl-card" onclick="applyTemplate('realtime')" id="tpl-realtime">
+        <div class="tpl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="tpl-name">Event analytics</div>
+      </div>
+      <div class="tpl-card" onclick="applyTemplate('warehouse')" id="tpl-warehouse">
+        <div class="tpl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0078D4" stroke-width="1.5"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg></div>
+        <div class="tpl-name">Data warehouse</div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Name -->
+    <div class="field">
+      <label class="field-label">Name <span class="req">*</span></label>
+      <input type="text" id="wsName" placeholder="Name this workspace" />
+    </div>
+
+    <!-- Description -->
+    <div class="field">
+      <label class="field-label">Description</label>
+      <textarea id="wsDesc" placeholder="Describe this workspace"></textarea>
+    </div>
+
+    <!-- Capacity -->
+    <div class="field">
+      <label class="field-label">Capacity</label>
+      <select id="wsCapacity"><option value="">Loading capacities...</option></select>
+    </div>
+
+    <hr />
+
+    <!-- Items -->
+    <div class="section-label">New items</div>
+    <div class="items-grid" id="itemsGrid"></div>
+    <div class="selected-list" id="selectedList"></div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn-primary" id="provisionBtn" onclick="provision()" disabled>Apply</button>
+      <button class="btn-secondary" onclick="resetForm()">Cancel</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-section" id="progressSection">
+      <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="log-list" id="logList"></div>
+      <div id="resultSummary"></div>
+    </div>
+
+    <div class="footer">Powered by <a href="#">MCP Apps</a> &middot; Microsoft Fabric API</div>
+  </div>
+
+  <script type="module">
+    import { App } from "@modelcontextprotocol/ext-apps";
+
+    const ITEM_TYPES = [
+      { type: "Lakehouse", cls: "ic-lakehouse", label: "Lakehouse",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.8L18 11v7H6v-7l6-5.2z"/></svg>' },
+      { type: "Warehouse", cls: "ic-warehouse", label: "Warehouse",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="6" rx="8" ry="2.5"/><path d="M4 6v5c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5V6"/><path d="M4 11v5c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5v-5"/></svg>' },
+      { type: "Notebook", cls: "ic-notebook", label: "Notebook",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm1 4v2h10V6H7zm0 4v2h7v-2H7z"/></svg>' },
+      { type: "DataPipeline", cls: "ic-pipeline", label: "Pipeline",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 12l4-4v3h5V8h-3l4-4 4 4h-3v3h5V8h-3l4 4-4 4h3v-3h-5v3h3l-4 4-4-4h3v-3H6v3h3l-4-4z"/></svg>' },
+      { type: "SemanticModel", cls: "ic-model", label: "Semantic Model",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v7H3zm4-4h2v11H7zm4-3h2v14h-2zm4 5h2v9h-2zm4-7h2v16h-2z"/></svg>' },
+      { type: "Eventhouse", cls: "ic-eventhouse", label: "Eventhouse",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>' },
+      { type: "KQLDatabase", cls: "ic-kql", label: "KQL Database",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5a6.5 6.5 0 10-6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1114 9.5 4.5 4.5 0 019.5 14z"/></svg>' },
+      { type: "Environment", cls: "ic-environment", label: "Environment",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 17.93A8 8 0 014.07 13H7v-2H4.07A8 8 0 0111 4.07V7h2V4.07A8 8 0 0119.93 11H17v2h2.93A8 8 0 0113 19.93V17h-2v2.93z"/></svg>' },
+      { type: "Eventstream", cls: "ic-eventstream", label: "Eventstream",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 4h4V5h-4v4zm0 5h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4z"/></svg>' },
+      { type: "SparkJobDefinition", cls: "ic-spark", label: "Spark Job",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.48 12.35c-1.57-4.08-7.16-4.3-5.81-10.23.1-.44-.37-.78-.75-.55C9.29 3.71 6.68 8 8.87 13.62c.18.46-.36.89-.75.59-1.81-1.37-2-3.34-1.84-4.75.06-.52-.62-.77-.91-.34C4.69 10.16 4 11.84 4 14.37c.38 5.6 5.11 7.32 6.81 7.54 2.43.31 5.06-.14 6.95-1.87 2.08-1.93 2.84-5.01 1.72-7.69z"/></svg>' },
+      { type: "MLExperiment", cls: "ic-ml", label: "ML Experiment",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2h1v14a4 4 0 008 0V4h1V2H7zm4 16a2 2 0 01-2-2V4h2v5h2V4h2v12a2 2 0 01-2 2h-2z"/></svg>' },
+      { type: "SQLDatabase", cls: "ic-sql", label: "SQL Database",
+        svg: '<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.5"/><path d="M4.5 5.5v4c0 1.38 3.36 2.5 7.5 2.5s7.5-1.12 7.5-2.5v-4"/><path d="M4.5 9.5v4c0 1.38 3.36 2.5 7.5 2.5s7.5-1.12 7.5-2.5v-4"/><path d="M4.5 13.5v4c0 1.38 3.36 2.5 7.5 2.5s7.5-1.12 7.5-2.5v-4"/></svg>' },
+    ];
+
+    const TEMPLATES = {
+      analytics: { name: "Sales Analytics", items: ["Lakehouse", "Notebook", "SemanticModel"] },
+      dataeng: { name: "Data Engineering", items: ["Lakehouse", "SparkJobDefinition", "DataPipeline", "Environment"] },
+      realtime: { name: "Real-Time Analytics", items: ["Eventhouse", "KQLDatabase", "Eventstream"] },
+      warehouse: { name: "Data Warehouse", items: ["Warehouse", "DataPipeline", "SemanticModel"] },
+    };
+
+    let selectedItems = [];
+    let activeTemplate = null;
+    const app = new App({ name: "workspace-provisioner", version: "1.0.0" });
+
+    // Build item grid
+    const grid = document.getElementById("itemsGrid");
+    ITEM_TYPES.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "item-card";
+      card.dataset.type = item.type;
+      card.innerHTML = `<div class="item-card-icon ${item.cls}">${item.svg}</div><div class="item-card-label">${item.label}</div>`;
+      card.onclick = () => toggleItem(item.type);
+      grid.appendChild(card);
+    });
+
+    function toggleItem(type) {
+      const exists = selectedItems.find((i) => i.type === type);
+      if (exists) {
+        selectedItems = selectedItems.filter((i) => i.type !== type);
+      } else {
+        const meta = ITEM_TYPES.find((t) => t.type === type);
+        selectedItems.push({ id: Date.now(), type, name: `My ${meta?.label || type}` });
+      }
+      renderSelected();
+      updateSummary();
+    }
+
+    function addItemByType(type) {
+      const meta = ITEM_TYPES.find((t) => t.type === type);
+      selectedItems.push({ id: Date.now(), type, name: `My ${meta?.label || type}` });
+    }
+
+    function renderSelected() {
+      // Update card highlights
+      document.querySelectorAll(".item-card").forEach((card) => {
+        const type = card.dataset.type;
+        card.classList.toggle("selected", selectedItems.some((i) => i.type === type));
+      });
+
+      const list = document.getElementById("selectedList");
+      if (selectedItems.length === 0) { list.innerHTML = ""; return; }
+      list.innerHTML = selectedItems.map((item) => `
+        <div class="sel-item">
+          <span class="sel-item-type">${item.type}</span>
+          <input type="text" value="${item.name}" onchange="window._rename(${item.id}, this.value)" />
+          <button class="sel-item-remove" onclick="window._remove(${item.id})" title="Remove">&times;</button>
+        </div>
+      `).join("");
+    }
+
+    window._remove = (id) => { selectedItems = selectedItems.filter((i) => i.id !== id); renderSelected(); updateSummary(); };
+    window._rename = (id, name) => { const item = selectedItems.find((i) => i.id === id); if (item) item.name = name; };
+
+    function updateSummary() {
+      const name = document.getElementById("wsName").value.trim();
+      document.getElementById("provisionBtn").disabled = !name;
+    }
+
+    window.applyTemplate = (key) => {
+      const tpl = TEMPLATES[key];
+      if (!tpl) return;
+      // Highlight template card
+      document.querySelectorAll(".tpl-card").forEach((c) => c.classList.remove("active"));
+      document.getElementById("tpl-" + key)?.classList.add("active");
+      activeTemplate = key;
+      const nameInput = document.getElementById("wsName");
+      if (!nameInput.value.trim()) nameInput.value = tpl.name;
+      selectedItems = [];
+      tpl.items.forEach((type) => addItemByType(type));
+      renderSelected();
+      updateSummary();
+    };
+
+    window.resetForm = () => {
+      document.getElementById("wsName").value = "";
+      document.getElementById("wsDesc").value = "";
+      selectedItems = [];
+      activeTemplate = null;
+      document.querySelectorAll(".tpl-card").forEach((c) => c.classList.remove("active"));
+      renderSelected();
+      updateSummary();
+    };
+
+    document.getElementById("wsName").addEventListener("input", updateSummary);
+
+    // MCP init
+    async function initApp() {
+      try {
+        const capResult = await app.callServerTool({ name: "list_capacities", arguments: {} });
+        const capacities = JSON.parse(capResult?.content?.[0]?.text ?? "[]");
+        const select = document.getElementById("wsCapacity");
+        select.innerHTML = '<option value="">No specific capacity</option>';
+        capacities.forEach((c) => {
+          select.innerHTML += `<option value="${c.id}">${c.displayName} (${c.sku} - ${c.region})</option>`;
+        });
+      } catch (e) {
+        document.getElementById("wsCapacity").innerHTML = '<option value="">Default capacity</option>';
+      }
+    }
+
+    // Provision
+    window.provision = async () => {
+      const name = document.getElementById("wsName").value.trim();
+      const desc = document.getElementById("wsDesc").value.trim();
+      const capacityId = document.getElementById("wsCapacity").value;
+      if (!name) return;
+
+      const section = document.getElementById("progressSection");
+      section.classList.add("active");
+      const logList = document.getElementById("logList");
+      const bar = document.getElementById("progressBar");
+      const resultDiv = document.getElementById("resultSummary");
+      logList.innerHTML = ""; resultDiv.innerHTML = "";
+      document.getElementById("provisionBtn").disabled = true;
+
+      const totalSteps = 1 + selectedItems.length;
+      let completed = 0, workspaceId = null, hasError = false;
+
+      function addLog(cls, msg) {
+        const div = document.createElement("div");
+        div.className = "log-item";
+        div.innerHTML = `<span class="log-dot ${cls}"></span><span>${msg}</span>`;
+        logList.appendChild(div);
+        logList.scrollTop = logList.scrollHeight;
+      }
+      function step() { completed++; bar.style.width = `${(completed / totalSteps) * 100}%`; }
+
+      addLog("running", `Creating workspace "${name}"...`);
+      try {
+        const wsResult = await app.callServerTool({
+          name: "create_workspace",
+          arguments: { displayName: name, description: desc, ...(capacityId ? { capacityId } : {}) },
+        });
+        const ws = JSON.parse(wsResult.content[0].text);
+        workspaceId = ws.id;
+        step();
+        addLog("success", `Workspace created: ${ws.displayName}`);
+      } catch (e) {
+        addLog("error", `Failed to create workspace: ${e.message}`);
+        resultDiv.innerHTML = `<div class="result-box error">Provisioning failed at workspace creation. ${e.message}</div>`;
+        return;
+      }
+
+      for (const item of selectedItems) {
+        addLog("running", `Creating ${item.type}: "${item.name}"...`);
+        try {
+          await app.callServerTool({
+            name: "create_item",
+            arguments: { workspaceId, displayName: item.name, type: item.type },
+          });
+          step();
+          addLog("success", `${item.type} created: "${item.name}"`);
+        } catch (e) {
+          addLog("error", `Failed to create ${item.type} "${item.name}": ${e.message}`);
+          hasError = true;
+        }
+      }
+
+      const url = `https://app.fabric.microsoft.com/groups/${workspaceId}`;
+      if (hasError) {
+        resultDiv.innerHTML = `<div class="result-box error">Workspace created with some errors. <a href="${url}" target="_blank">Open in Fabric</a></div>`;
+      } else {
+        resultDiv.innerHTML = `<div class="result-box success">Workspace "${name}" provisioned with ${selectedItems.length} items. <a href="${url}" target="_blank">Open in Fabric</a></div>`;
+      }
+
+      try {
+        await app.updateModelContext({
+          content: [{ type: "text", text: `Workspace "${name}" (ID: ${workspaceId}) provisioned with ${selectedItems.length} items: ${selectedItems.map(i => `${i.type}:"${i.name}"`).join(", ")}` }],
+        });
+      } catch (_) {}
+    };
+
+    app.connect().then(() => initApp());
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+  display: flex;
+  gap: 15pt;
+}
+.col {
+  flex: 1;
+}
+h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 10pt 0;
+  padding-bottom: 6pt;
+  
+}
+.tool-list {
+  background: #F5F5F5;
+  padding: 10pt 12pt;
+  border-radius: 4pt;
+  margin-bottom: 6pt;
+}
+.tool-list p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+  line-height: 1.6;
+  font-family: Courier New, monospace;
+}
+.desc {
+  color: #666666;
+  font-style: normal;
+  font-family: Arial, sans-serif;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Available Tools: Workspaces &amp; Roles</h1>
+</div>
+<div class="content">
+  <div class="col">
+    <h2>Workspace Management</h2>
+    <div class="tool-list">
+      <p>list_workspaces <span class="desc">- List all workspaces</span></p>
+      <p>get_workspace <span class="desc">- Get workspace details</span></p>
+      <p>create_workspace <span class="desc">- Create new workspace</span></p>
+      <p>update_workspace <span class="desc">- Update name/description</span></p>
+      <p>delete_workspace <span class="desc">- Delete workspace</span></p>
+    </div>
+  </div>
+  <div class="col">
+    <h2>Workspace Role Assignments</h2>
+    <div class="tool-list">
+      <p>add_workspace_role <span class="desc">- Grant access</span></p>
+      <p>list_workspace_roles <span class="desc">- List all assignments</span></p>
+      <p>get_workspace_role <span class="desc">- Get role details</span></p>
+      <p>update_workspace_role <span class="desc">- Change role</span></p>
+      <p>delete_workspace_role <span class="desc">- Revoke access</span></p>
+    </div>
+    <p style="color: #666666; font-size: 9pt; margin-top: 8pt;">Roles: Admin, Member, Contributor, Viewer</p>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>11</p>
+</div>
+</body>
+</html>

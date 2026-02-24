@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 25pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 28pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 25pt 50pt;
+  display: flex;
+  gap: 30pt;
+}
+.left {
+  flex: 1;
+}
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 14pt;
+}
+.step-num {
+  background: #0078D4;
+  min-width: 24pt;
+  height: 24pt;
+  border-radius: 12pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12pt;
+}
+.step-num p {
+  color: #ffffff;
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 0;
+}
+.step-text p {
+  color: #333333;
+  font-size: 12pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.code-box {
+  background: #1E1E1E;
+  padding: 12pt 16pt;
+  border-radius: 4pt;
+  margin-top: 5pt;
+}
+.code-box p {
+  color: #9CDCFE;
+  font-size: 9pt;
+  font-family: Courier New, monospace;
+  margin: 0;
+}
+.tip-box {
+  background: #FFF4CE;
+  border-left: 4pt solid #FFB900;
+  padding: 12pt 16pt;
+  margin-top: 15pt;
+}
+.tip-box p {
+  color: #333333;
+  font-size: 11pt;
+  margin: 0;
+}
+h2 {
+  color: #0078D4;
+  font-size: 14pt;
+  margin: 0 0 15pt 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>TL;DR - 2-Minute Setup</h1>
+</div>
+<div class="content">
+  <div class="left">
+    <h2>VS Code + GitHub Copilot</h2>
+    <div class="step">
+      <div class="step-num"><p>1</p></div>
+      <div class="step-text">
+        <p><b>Cmd+Shift+P</b> (or Ctrl+Shift+P)</p>
+        <p>Type "MCP: Add Server" > HTTP</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>2</p></div>
+      <div class="step-text">
+        <p><b>Enter URL:</b></p>
+        <div class="code-box"><p>https://api.fabric.microsoft.com/v1/mcp</p></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>3</p></div>
+      <div class="step-text"><p><b>Sign in</b> when prompted (browser-based)</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>4</p></div>
+      <div class="step-text"><p><b>Ask Copilot:</b> "List all my Fabric workspaces"</p></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="tip-box">
+      <p><b>Recommended:</b> Also add Microsoft Graph MCP to enable commands like "Add john@contoso.com to my workspace"</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>3</p>
+</div>
+</body>
+</html>

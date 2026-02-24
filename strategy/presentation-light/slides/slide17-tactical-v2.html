@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.header p { font-size: 9pt; color: #64748B; margin: 0 0 14pt 0; line-height: 1.4; }
+.blocks { display: flex; gap: 10pt; margin-bottom: 12pt; }
+.block { flex: 1; border-radius: 8pt; padding: 12pt 10pt 10pt 10pt; }
+.block-foundation { background: #F5F7FA; border-top: 4pt solid #4A5568; }
+.block-programmatic { background: #F0F0FF; border-top: 4pt solid #6C5CE7; }
+.block-agentic { background: #EBF5FF; border-top: 4pt solid #0078D4; }
+.block-proof { background: #FFF8F0; border-top: 4pt solid #E8553D; }
+.block-label p { font-size: 7pt; letter-spacing: 0.8pt; text-transform: uppercase; margin: 0 0 4pt 0; font-weight: bold; }
+.block-foundation .block-label p { color: #4A5568; }
+.block-programmatic .block-label p { color: #6C5CE7; }
+.block-agentic .block-label p { color: #0078D4; }
+.block-proof .block-label p { color: #E8553D; }
+.block h2 { font-size: 11pt; color: #1A1A2E; margin: 0 0 5pt 0; font-weight: bold; }
+.block p { font-size: 8pt; color: #4A5568; margin: 0 0 6pt 0; line-height: 1.4; }
+.block-detail { background: #FFFFFF; border-radius: 4pt; padding: 5pt 8pt; border: 1pt solid #E2E8F0; }
+.block-detail p { font-size: 7.5pt; color: #64748B; margin: 0; line-height: 1.4; }
+.bottom-row { display: flex; gap: 10pt; }
+.caveat { flex: 1; background: #FFFBF0; border: 1pt solid #F5D990; border-radius: 6pt; padding: 10pt 14pt; border-left: 4pt solid #E8A317; }
+.caveat h3 { font-size: 9pt; color: #1A1A2E; font-weight: bold; margin: 0 0 3pt 0; }
+.caveat p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.45; }
+.why { flex: 1; background: #F0FFF4; border: 1pt solid #B7E4C7; border-radius: 6pt; padding: 10pt 14pt; border-left: 4pt solid #00A79D; }
+.why h3 { font-size: 9pt; color: #00A79D; font-weight: bold; margin: 0 0 3pt 0; }
+.why p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.45; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Where We Think We Should Start</h1>
+    <p>Four building blocks we propose to invest in first — each unlocks capabilities across the three-layer model.</p>
+  </div>
+  <div class="blocks">
+    <div class="block block-foundation">
+      <div class="block-label"><p>Foundation</p></div>
+      <h2>API Gaps & Throttling</h2>
+      <p>Close the top API gaps. Fix throttling for agent-scale traffic.</p>
+      <div class="block-detail">
+        <p>Prerequisite for everything else — scripts, agents, CI/CD all depend on complete, reliable APIs.</p>
+      </div>
+    </div>
+    <div class="block block-foundation">
+      <div class="block-label"><p>Foundation</p></div>
+      <h2>Internal API Tooling</h2>
+      <p>Build tools that help other Fabric teams complete their APIs faster.</p>
+      <div class="block-detail">
+        <p>As the platform team, we accelerate the entire Fabric ecosystem — not just our own surface.</p>
+      </div>
+    </div>
+    <div class="block block-agentic">
+      <div class="block-label"><p>Agentic</p></div>
+      <h2>Troubleshooting MCP App</h2>
+      <p>Proof-of-concept of the three-layer model, end-to-end.</p>
+      <div class="block-detail">
+        <p>Grounded in #1 CAT pain point (opp score 6.1). Demonstrates the full vision in one tangible experience.</p>
+      </div>
+    </div>
+    <div class="block block-programmatic">
+      <div class="block-label"><p>Programmatic</p></div>
+      <h2>CLI v2 + Scripting</h2>
+      <p>The composable execution backbone for both programmatic and agentic layers.</p>
+      <div class="block-detail">
+        <p>Open-source, extensible CLI framework. Powers scripts, CI/CD, and agent tool invocations.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <div class="caveat">
+      <h3>⚠️ This Is Not a Full Plan Yet</h3>
+      <p>We first need alignment on the vision and the three-layer model. Once aligned, we scope, resource, and timeline these efforts together as a team.</p>
+    </div>
+    <div class="why">
+      <h3>✅ Why These Four?</h3>
+      <p>They span all three layers, address the #1 customer pain point, and each one unlocks capabilities that compound across the entire strategy.</p>
+    </div>
+  </div>
+</div>
+</body></html>

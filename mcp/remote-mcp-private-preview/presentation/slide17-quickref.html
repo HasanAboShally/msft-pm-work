@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 25pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 12pt 50pt;
+  display: flex;
+  gap: 12pt;
+}
+.ref-box {
+  background: #1E1E1E;
+  padding: 10pt;
+  border-radius: 6pt;
+  flex: 1;
+}
+.ref-box h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 10pt 0;
+  padding-bottom: 6pt;
+  
+}
+.ref-row {
+  display: flex;
+  margin-bottom: 4pt;
+}
+.ref-label {
+  width: 100pt;
+}
+.ref-label p {
+  color: #9CDCFE;
+  font-size: 9pt;
+  font-family: Courier New, monospace;
+  margin: 0;
+}
+.ref-value p {
+  color: #CE9178;
+  font-size: 9pt;
+  font-family: Courier New, monospace;
+  margin: 0;
+}
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3pt;
+}
+.tool-item p {
+  color: #DCDCAA;
+  font-size: 8pt;
+  font-family: Courier New, monospace;
+  margin: 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Quick Reference</h1>
+</div>
+<div class="content">
+  <div class="ref-box">
+    <h2>CONNECTION</h2>
+    <div class="ref-row">
+      <div class="ref-label"><p>Endpoint</p></div>
+      <div class="ref-value"><p>api.fabric.microsoft.com/v1/mcp</p></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label"><p>Auth</p></div>
+      <div class="ref-value"><p>OAuth2 via Microsoft Entra ID</p></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label"><p>VS Code</p></div>
+      <div class="ref-value"><p>Cmd+Shift+P > "MCP: Add Server"</p></div>
+    </div>
+    <h2 style="margin-top: 15pt;">WORKSPACES</h2>
+    <div class="tools-grid">
+      <div class="tool-item"><p>list_workspaces</p></div>
+      <div class="tool-item"><p>get_workspace</p></div>
+      <div class="tool-item"><p>create_workspace</p></div>
+      <div class="tool-item"><p>update_workspace</p></div>
+      <div class="tool-item"><p>delete_workspace</p></div>
+    </div>
+    <h2 style="margin-top: 12pt;">ROLES</h2>
+    <div class="tools-grid">
+      <div class="tool-item"><p>add_workspace_role</p></div>
+      <div class="tool-item"><p>list_workspace_roles</p></div>
+      <div class="tool-item"><p>update_workspace_role</p></div>
+      <div class="tool-item"><p>delete_workspace_role</p></div>
+    </div>
+  </div>
+  <div class="ref-box">
+    <h2>ITEMS</h2>
+    <div class="tools-grid">
+      <div class="tool-item"><p>list_items</p></div>
+      <div class="tool-item"><p>get_item</p></div>
+      <div class="tool-item"><p>create_item</p></div>
+      <div class="tool-item"><p>update_item</p></div>
+      <div class="tool-item"><p>delete_item</p></div>
+      <div class="tool-item"><p>get_item_definition</p></div>
+      <div class="tool-item"><p>bulk_move_items</p></div>
+    </div>
+    <h2 style="margin-top: 12pt;">FOLDERS</h2>
+    <div class="tools-grid">
+      <div class="tool-item"><p>create_folder</p></div>
+      <div class="tool-item"><p>list_folders</p></div>
+      <div class="tool-item"><p>get_folder</p></div>
+      <div class="tool-item"><p>update_folder</p></div>
+      <div class="tool-item"><p>delete_folder</p></div>
+      <div class="tool-item"><p>move_folder</p></div>
+    </div>
+    <h2 style="margin-top: 12pt;">OTHER</h2>
+    <div class="tools-grid">
+      <div class="tool-item"><p>list_capacities</p></div>
+      <div class="tool-item"><p>get_operation_state</p></div>
+      <div class="tool-item"><p>get_operation_result</p></div>
+      <div class="tool-item"><p>get_knowledge</p></div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>17</p>
+</div>
+</body>
+</html>

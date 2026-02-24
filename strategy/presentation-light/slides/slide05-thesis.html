@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #F0F4FF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-soft.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 0; width: 720pt; height: 405pt; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.label p { font-size: 10pt; color: #0078D4; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 12pt 0; font-weight: bold; }
+.thesis { max-width: 540pt; margin-bottom: 24pt; }
+.thesis h1 { font-size: 22pt; color: #1A1A2E; margin: 0; font-weight: bold; line-height: 1.5; }
+.thesis h1 span { color: #0078D4; }
+.examples { display: flex; gap: 12pt; max-width: 560pt; }
+.ex { flex: 1; background: #FFFFFF; border-radius: 6pt; padding: 10pt 12pt; border-top: 3pt solid #0078D4; text-align: left; }
+.ex p { font-size: 9pt; color: #4A5568; margin: 0; line-height: 1.45; }
+.ex-coral { border-top-color: #E8553D; }
+.ex-teal { border-top-color: #00A79D; }
+.ex-purple { border-top-color: #6C5CE7; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Our Thesis</p></div>
+  <div class="thesis">
+    <h1>Every Fabric capability should be <span>embeddable, invocable, and composable</span> — by humans, scripts, and AI agents.</h1>
+  </div>
+  <div class="examples">
+    <div class="ex">
+      <p>A developer troubleshoots a pipeline from VS Code — no portal visit needed</p>
+    </div>
+    <div class="ex ex-coral">
+      <p>A ChatGPT user provisions a workspace in-place with a single request</p>
+    </div>
+    <div class="ex ex-teal">
+      <p>An autonomous CI/CD agent deploys and monitors headlessly</p>
+    </div>
+    <div class="ex ex-purple">
+      <p>A citizen developer builds a data pipeline inside Copilot</p>
+    </div>
+  </div>
+</div>
+</body></html>

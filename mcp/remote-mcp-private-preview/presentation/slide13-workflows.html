@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+  display: flex;
+  gap: 15pt;
+}
+.workflow {
+  flex: 1;
+  background: #F5F5F5;
+  padding: 10pt;
+  border-radius: 8pt;
+  border-top: 4pt solid #0078D4;
+}
+.workflow h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 12pt 0;
+}
+.prompt {
+  background: #ffffff;
+  border-left: 3pt solid #107C10;
+  padding: 8pt 12pt;
+  margin-bottom: 8pt;
+  border-radius: 0 4pt 4pt 0;
+}
+.prompt p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+  font-style: italic;
+}
+.label {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0 0 3pt 0;
+  text-transform: uppercase;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Example Workflows</h1>
+</div>
+<div class="content">
+  <div class="workflow">
+    <h2>1. Explore Your Environment</h2>
+    <p class="label">Read-only discovery</p>
+    <div class="prompt"><p>"List all my Fabric workspaces"</p></div>
+    <div class="prompt"><p>"Show me all items in Sales Analytics"</p></div>
+    <div class="prompt"><p>"What Lakehouses exist here?"</p></div>
+    <div class="prompt"><p>"Get the definition of CustomerData model"</p></div>
+  </div>
+  <div class="workflow">
+    <h2>2. Create Dev Environment</h2>
+    <p class="label">Clone production for development</p>
+    <div class="prompt"><p>"Create workspace Sales Analytics Dev"</p></div>
+    <div class="prompt"><p>"Create Lakehouse CustomerData_Dev"</p></div>
+    <div class="prompt"><p>"Add john@contoso.com as Contributor"</p></div>
+  </div>
+  <div class="workflow">
+    <h2>3. Manage Permissions</h2>
+    <p class="label">Audit and update access</p>
+    <div class="prompt"><p>"List all role assignments for Finance"</p></div>
+    <div class="prompt"><p>"Who has Admin access?"</p></div>
+    <div class="prompt"><p>"Change Marketing to Contributor"</p></div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>13</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 30pt 50pt 18pt 50pt; width: 620pt; }
+.header { margin-bottom: 8pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.header p { font-size: 9pt; color: #64748B; margin: 0; }
+.grid { display: flex; flex-wrap: wrap; gap: 6pt; margin-bottom: 8pt; }
+.item { flex: 1 1 47%; background: #F5F7FA; border-radius: 5pt; padding: 7pt 10pt; border-left: 3pt solid #0078D4; display: flex; gap: 8pt; align-items: flex-start; }
+.item-icon p { font-size: 14pt; margin: 0; }
+.item-text { flex: 1; }
+.item-text h3 { font-size: 10pt; color: #1A1A2E; margin: 0 0 2pt 0; font-weight: bold; }
+.item-text p { font-size: 8pt; color: #64748B; margin: 0; line-height: 1.35; }
+.item-purple { border-left-color: #6C5CE7; }
+.item-teal { border-left-color: #00A79D; }
+.item-coral { border-left-color: #E8553D; }
+.item-amber { border-left-color: #F59E0B; }
+.item-dark { border-left-color: #1A1A2E; }
+.bottom { background: #EBF5FF; border-radius: 5pt; padding: 9pt 14pt; border-left: 3pt solid #0078D4; }
+.bottom p { font-size: 10pt; color: #1A1A2E; margin: 0; font-weight: bold; line-height: 1.4; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>We Already Own the Building Blocks</h1>
+    <p>No other team owns both the foundational infrastructure and the embedding surface.</p>
+  </div>
+  <div class="grid">
+    <div class="item">
+      <div class="item-icon"><p>📊</p></div>
+      <div class="item-text">
+        <h3>Fabric Embed</h3>
+        <p>We embed Fabric items into external apps today. This vision extends it to embed any experience.</p>
+      </div>
+    </div>
+    <div class="item item-purple">
+      <div class="item-icon"><p>🔌</p></div>
+      <div class="item-text">
+        <h3>Public APIs</h3>
+        <p>We own the foundational layer — the APIs everything is built upon. 110K MAU, 13% MoM growth.</p>
+      </div>
+    </div>
+    <div class="item item-teal">
+      <div class="item-icon"><p>🤖</p></div>
+      <div class="item-text">
+        <h3>Fabric MCP (Local + Hosted)</h3>
+        <p>We own agent infrastructure — Local MCP (GA at FabCon March '26) and Remote/Hosted MCP.</p>
+      </div>
+    </div>
+    <div class="item item-coral">
+      <div class="item-icon"><p>⌨️</p></div>
+      <div class="item-text">
+        <h3>CLI</h3>
+        <p>Composable execution layer for scripts, agents, and power users. 168K downloads.</p>
+      </div>
+    </div>
+    <div class="item item-amber">
+      <div class="item-icon"><p>📦</p></div>
+      <div class="item-text">
+        <h3>SDKs + Terraform</h3>
+        <p>.NET SDK GA, Python SDK in preview, Terraform provider — developer tools ecosystem.</p>
+      </div>
+    </div>
+    <div class="item item-dark">
+      <div class="item-icon"><p>🛡️</p></div>
+      <div class="item-text">
+        <h3>MCP Platform</h3>
+        <p>We provide the MCP infrastructure for additional Fabric teams to build their MCP tools and apps.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>We are the only team that owns both the infrastructure (APIs, CLI, SDKs) and the embedding surface (Embed, MCP, Control Plane).</p>
+  </div>
+</div>
+</body></html>

@@ -73,7 +73,7 @@ done
 # Main
 # -----------------------------------------------------------------------------
 
-log_header "FabCon 26 Demo — Template Setup"
+log_header "Fabric E2E Demo — Template Setup"
 
 # Step 1: Get the source templates
 if [[ -n "${LOCAL_PATH}" ]]; then

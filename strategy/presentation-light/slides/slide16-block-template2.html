@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 32pt 56pt 24pt 56pt; width: 608pt; }
+.header h1 { font-size: 24pt; color: #1A1A2E; margin: 0 0 18pt 0; font-weight: bold; }
+.form { display: flex; flex-direction: column; gap: 10pt; }
+.field { display: flex; align-items: flex-start; gap: 10pt; }
+.field-label { min-width: 130pt; font-size: 10pt; font-weight: bold; color: #1A1A2E; padding-top: 6pt; }
+.field-label p { margin: 0; font-size: inherit; color: inherit; font-weight: inherit; }
+.field-value { flex: 1; background: #F5F7FA; border: 1pt solid #E2E8F0; border-radius: 5pt; padding: 7pt 12pt; min-height: 14pt; }
+.field-value p { font-size: 9pt; color: #94A3B8; margin: 0; font-style: italic; line-height: 1.4; }
+.field-value-lg { min-height: 28pt; }
+.status-pills { display: flex; gap: 6pt; }
+.status-pill { border-radius: 4pt; padding: 3pt 10pt; font-size: 8pt; font-weight: bold; border: 1pt solid #E2E8F0; color: #94A3B8; background: #FFFFFF; }
+.status-pill.active { border-color: #0078D4; color: #0078D4; background: #EBF5FF; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Building Block: [Effort Name]</h1>
+  </div>
+  <div class="form">
+    <div class="field">
+      <div class="field-label"><p>Owner</p></div>
+      <div class="field-value"><p>[Team / PM Name]</p></div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Layer</p></div>
+      <div class="field-value">
+        <div class="status-pills">
+          <span class="status-pill">Foundation</span>
+          <span class="status-pill">Programmatic</span>
+          <span class="status-pill">Agentic</span>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Description</p></div>
+      <div class="field-value field-value-lg"><p>[What is this effort and why does it matter?]</p></div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Key Deliverables</p></div>
+      <div class="field-value field-value-lg"><p>[List of concrete deliverables]</p></div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Dependencies</p></div>
+      <div class="field-value"><p>[What does this effort depend on?]</p></div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Scenarios Enabled</p></div>
+      <div class="field-value"><p>[Which end-to-end scenarios does this unlock?]</p></div>
+    </div>
+    <div class="field">
+      <div class="field-label"><p>Status</p></div>
+      <div class="field-value">
+        <div class="status-pills">
+          <span class="status-pill">Not Started</span>
+          <span class="status-pill">In Progress</span>
+          <span class="status-pill">Shipped</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

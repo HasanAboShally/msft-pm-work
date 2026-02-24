@@ -1,6 +1,6 @@
 
 
-* When creating or editing .md files, always add a timestamp of the date-and-time-last-edited to the prefix of the file name, for example, file name would be: 202511092310-product-spec.md
+<!-- * When creating or editing .md files, always add a timestamp of the date-and-time-last-edited to the prefix of the file name, for example, file name would be: 202511092310-product-spec.md -->
 
 * ignore files and folders in /__archive-dont-use
 
@@ -11,3 +11,11 @@
 * Whenever applicable, bring trusted sources and links as supportive evidence to your claims (especially when you mention stats of numbers)
 
 * don't be afraid to consume more tokens or to work harder if that could help you do better and bring more valuable results.
+
+* when creating a file that is a new version of another file (e.g., v5.md-->v6.md), make sure there is always a ⭐ emoji at the name of the newer file, and remove it from the older file.
+
+
+* after significant changes to key files that the user is working on (updated version, drastic changes etc..), suggest to the user to do a commit and push changes.
+
+
+

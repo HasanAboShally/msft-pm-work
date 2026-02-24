@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+  display: flex;
+  gap: 15pt;
+}
+.col {
+  flex: 1;
+}
+h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 10pt 0;
+  padding-bottom: 6pt;
+  
+}
+.tool-list {
+  background: #F5F5F5;
+  padding: 10pt 12pt;
+  border-radius: 4pt;
+  margin-bottom: 6pt;
+}
+.tool-list p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+  line-height: 1.6;
+  font-family: Courier New, monospace;
+}
+.desc {
+  color: #666666;
+  font-style: normal;
+  font-family: Arial, sans-serif;
+}
+.note {
+  background: #E6F7FF;
+  padding: 8pt 12pt;
+  border-radius: 4pt;
+  margin-top: 8pt;
+}
+.note p {
+  color: #002050;
+  font-size: 8pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Available Tools: Items &amp; Folders</h1>
+</div>
+<div class="content">
+  <div class="col">
+    <h2>Item Management</h2>
+    <div class="tool-list">
+      <p>list_items <span class="desc">- List items in workspace</span></p>
+      <p>get_item <span class="desc">- Get item metadata</span></p>
+      <p>create_item <span class="desc">- Create new item</span></p>
+      <p>update_item <span class="desc">- Update item metadata</span></p>
+      <p>delete_item <span class="desc">- Delete item</span></p>
+      <p>get_item_definition <span class="desc">- Get item schema</span></p>
+      <p>update_item_definition <span class="desc">- Update definition</span></p>
+      <p>bulk_move_items <span class="desc">- Move items to folder</span></p>
+    </div>
+    <div class="note">
+      <p><b>Supported Types:</b> Report, SemanticModel, Lakehouse, Notebook, DataPipeline, Warehouse, Dashboard, Dataflow, KQLDatabase, MLExperiment, and 20+ more</p>
+    </div>
+  </div>
+  <div class="col">
+    <h2>Folder Management</h2>
+    <div class="tool-list">
+      <p>create_folder <span class="desc">- Create folder</span></p>
+      <p>list_folders <span class="desc">- List folders</span></p>
+      <p>get_folder <span class="desc">- Get folder metadata</span></p>
+      <p>update_folder <span class="desc">- Rename folder</span></p>
+      <p>delete_folder <span class="desc">- Delete empty folder</span></p>
+      <p>move_folder <span class="desc">- Move to new parent</span></p>
+    </div>
+    <h2 style="margin-top: 15pt;">Capacity &amp; Operations</h2>
+    <div class="tool-list">
+      <p>list_capacities <span class="desc">- List capacities</span></p>
+      <p>get_operation_state <span class="desc">- Check async op</span></p>
+      <p>get_operation_result <span class="desc">- Get op result</span></p>
+      <p>get_knowledge <span class="desc">- Get item guidelines</span></p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>12</p>
+</div>
+</body>
+</html>

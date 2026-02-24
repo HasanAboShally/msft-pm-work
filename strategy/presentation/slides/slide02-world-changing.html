@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0A1628; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark.png'); background-size: cover; }
+.wrap { margin: 40pt 50pt 30pt 50pt; width: 620pt; }
+.header { margin-bottom: 28pt; }
+.header p { font-size: 9pt; color: #00B4D8; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 6pt 0; }
+.header h1 { font-size: 26pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.cards { display: flex; gap: 16pt; }
+.card { flex: 1; background: rgba(255,255,255,0.05); border-radius: 8pt; padding: 18pt 16pt; border-left: 3pt solid #00B4D8; }
+.card-warm { border-left-color: #FF6B35; }
+.card-purple { border-left-color: #A78BFA; }
+.card-label p { font-size: 8pt; color: #00B4D8; letter-spacing: 2pt; text-transform: uppercase; margin: 0 0 8pt 0; }
+.card-label-warm p { color: #FF6B35; }
+.card-label-purple p { color: #A78BFA; }
+.card h2 { font-size: 13pt; color: #FFFFFF; margin: 0 0 8pt 0; font-weight: bold; }
+.card p { font-size: 9pt; color: #B0BEC5; margin: 0 0 4pt 0; line-height: 1.5; }
+.stat { margin-top: 8pt; }
+.stat p { font-size: 9pt; color: #48CAE4; margin: 0; font-style: italic; }
+.stat-warm p { color: #FF9F73; }
+.stat-purple p { color: #C4B5FD; }
+.bottom { margin-top: 20pt; background: rgba(255,107,53,0.08); border-radius: 6pt; padding: 12pt 16pt; border: 1pt solid rgba(255,107,53,0.2); }
+.bottom p { font-size: 10pt; color: #FF9F73; margin: 0; text-align: center; font-style: italic; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Context</p>
+    <h1>The World Is Changing</h1>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-label"><p>Shift 1</p></div>
+      <h2>Search → Chat</h2>
+      <p>58.5% of Google searches now end in zero clicks. Gartner predicts 25% decline in traditional search by 2026.</p>
+      <div class="stat"><p>Source: SparkToro/Datos 2024, Gartner 2024</p></div>
+    </div>
+    <div class="card card-warm">
+      <div class="card-label card-label-warm"><p>Shift 2</p></div>
+      <h2>Websites → On-the-fly UI</h2>
+      <p>MCP protocol adopted by VS Code, Claude, ChatGPT. 70% of developers aware of MCP in just 9 months.</p>
+      <div class="stat stat-warm"><p>Source: Postman State of API 2025</p></div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-label card-label-purple"><p>Shift 3</p></div>
+      <h2>Portals → Embedded</h2>
+      <p>Users expect platforms to come to them — in their IDE, their chat, their workflow. Not the other way around.</p>
+      <div class="stat stat-purple"><p>82% of orgs are now API-first (Postman 2025)</p></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>The era of classic portals is at risk. Platforms that don't externalize their capabilities risk becoming invisible.</p>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 25pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 28pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 25pt 50pt;
+  display: flex;
+  gap: 30pt;
+}
+.col {
+  flex: 1;
+}
+h2 {
+  color: #0078D4;
+  font-size: 16pt;
+  margin: 0 0 15pt 0;
+}
+.h2-underline {
+  height: 2pt;
+  background: #E1DFDD;
+  margin-bottom: 15pt;
+}
+.mode-box {
+  background: #F5F5F5;
+  padding: 15pt;
+  border-radius: 6pt;
+  margin-bottom: 12pt;
+}
+.mode-box h3 {
+  color: #002050;
+  font-size: 14pt;
+  margin: 0 0 8pt 0;
+}
+.mode-box p {
+  color: #333333;
+  font-size: 11pt;
+  margin: 0 0 8pt 0;
+  line-height: 1.4;
+}
+.example {
+  background: #E1DFDD;
+  padding: 6pt 10pt;
+  border-radius: 3pt;
+  display: inline-block;
+}
+.example p {
+  color: #666666;
+  font-size: 10pt;
+  font-style: italic;
+  margin: 0;
+}
+.highlight {
+  background: #E6F7FF;
+  border: 2pt solid #0078D4;
+}
+.badge {
+  display: inline-block;
+  background: #107C10;
+  padding: 3pt 8pt;
+  border-radius: 3pt;
+}
+.badge p {
+  color: #ffffff;
+  font-size: 9pt;
+  font-weight: bold;
+  margin: 0;
+}
+.tip {
+  background: #FFF4CE;
+  border-left: 4pt solid #FFB900;
+  padding: 8pt 12pt;
+  margin-top: 10pt;
+}
+.tip p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Local vs. Remote MCP Servers</h1>
+</div>
+<div class="content">
+  <div class="col">
+    <h2>Local MCP Server</h2>
+    <div class="mode-box">
+      <h3>Runs on your machine</h3>
+      <p>Typically as a subprocess. Requires local installation and hosting.</p>
+      <div class="example"><p>File system access, local databases</p></div>
+    </div>
+    <div class="tip">
+      <p><b>Try our local Fabric MCP:</b> aka.ms/FabricMCP/local-server</p>
+    </div>
+  </div>
+  <div class="col">
+    <h2>Remote MCP Server</h2>
+    <div class="mode-box highlight">
+      <h3>Cloud-hosted via HTTPS</h3>
+      <div class="badge"><p>FABRIC MCP</p></div>
+      <p>No local installation required. Just point your agent to the endpoint.</p>
+      <div class="example"><p>Fabric MCP Server, Microsoft Graph MCP</p></div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>5</p>
+</div>
+</body>
+</html>

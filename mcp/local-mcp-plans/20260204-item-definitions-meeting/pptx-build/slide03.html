@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #FFFFFF; }
+body {
+    width: 720pt; height: 405pt; margin: 0; padding: 0;
+    background: #FFFFFF;
+    font-family: Arial, sans-serif;
+    display: flex; flex-direction: column;
+}
+.header { background: #1C2833; padding: 20pt 40pt; }
+.header-title { color: #FFFFFF; font-size: 28pt; font-weight: bold; margin: 0; }
+.content { padding: 30pt 40pt; flex: 1; display: flex; flex-direction: column; gap: 18pt; }
+.goal { display: flex; align-items: flex-start; gap: 15pt; }
+.number { background: #0078D4; color: #FFFFFF; font-size: 18pt; font-weight: bold; width: 36pt; height: 36pt; border-radius: 18pt; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.number-text { color: #FFFFFF; font-size: 18pt; font-weight: bold; margin: 0; }
+.goal-content { flex: 1; }
+.goal-verb { color: #0078D4; font-size: 18pt; font-weight: bold; margin: 0; display: inline; }
+.goal-text { color: #1C2833; font-size: 18pt; margin: 0; display: inline; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1 class="header-title">Meeting Goals</h1>
+</div>
+<div class="content">
+    <div class="goal">
+        <div class="number"><p class="number-text">1</p></div>
+        <div class="goal-content">
+            <p class="goal-verb">Align </p><p class="goal-text">on the next phase of Local MCP capabilities</p>
+        </div>
+    </div>
+    <div class="goal">
+        <div class="number"><p class="number-text">2</p></div>
+        <div class="goal-content">
+            <p class="goal-verb">Finalize </p><p class="goal-text">design direction for Import/Export tools</p>
+        </div>
+    </div>
+    <div class="goal">
+        <div class="number"><p class="number-text">3</p></div>
+        <div class="goal-content">
+            <p class="goal-verb">Confirm </p><p class="goal-text">CLI integration requirements and open questions</p>
+        </div>
+    </div>
+    <div class="goal">
+        <div class="number"><p class="number-text">4</p></div>
+        <div class="goal-content">
+            <p class="goal-verb">Assign </p><p class="goal-text">owners and timelines for implementation</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

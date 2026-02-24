@@ -1,0 +1,560 @@
+# =============================================================================
+# Provision Fabric Workspace — Azure DevOps Pipeline
+# =============================================================================
+# End-to-end pipeline that provisions a complete Fabric Data Engineering
+# workspace using Terraform (infra) and fabric-cli (items).
+#
+# Authentication (choose via 'auth_method' parameter):
+#
+#   "service_principal" — Recommended for production / CI:
+#     Set these secret pipeline variables:
+#       ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_TENANT_ID, ARM_SUBSCRIPTION_ID
+#
+#   "refresh_token" — For quick testing with user credentials:
+#     Set these secret pipeline variables:
+#       AZURE_REFRESH_TOKEN   — MSAL refresh token from ~/.azure/msal_token_cache.json
+#       AZURE_HOME_ACCOUNT_ID — e.g. <object_id>.<tenant_id>
+#       AZURE_USERNAME        — e.g. habos@microsoft.com
+#       ARM_TENANT_ID         — e.g. 72f988bf-86f1-41af-91ab-2d7cd011db47
+#       ARM_SUBSCRIPTION_ID   — e.g. fdd15bfe-0311-4f77-8ddf-346fbdc1ebff
+#
+# What it does:
+#   Stage 1: Install tools (Terraform, fabric-cli, jq)
+#   Stage 2: Clone workshop templates (setup.sh)
+#   Stage 3: Terraform init + apply (workspace, lakehouses, role assignments)
+#   Stage 4: Provision all Fabric items (provision-items.sh)
+#   Stage 5: (Optional) Run data pipeline
+# =============================================================================
+
+trigger: none  # Disable CI trigger to prevent concurrent runs
+
+pr: none  # Don't run on PRs — this pipeline provisions real resources
+
+parameters:
+  - name: capacity_name
+    displayName: 'Fabric Capacity Name'
+    type: string
+    default: 'fabcon26'  # ARM name (lowercase letters+numbers, 3-63 chars)
+
+  - name: workspace_prefix
+    displayName: 'Workspace name prefix (creates -dev, -test, -prod)'
+    type: string
+    default: 'cicd-fabcon-us26'
+
+  - name: terraform_version
+    displayName: 'Terraform Version'
+    type: string
+    default: '1.11.4'
+
+  - name: auth_method
+    displayName: 'Authentication Method'
+    type: string
+    default: 'service_principal'
+    values:
+      - service_principal
+      - refresh_token
+
+  - name: run_provisioning
+    displayName: 'Run item provisioning after Terraform?'
+    type: boolean
+    default: true
+
+  - name: run_data_pipeline
+    displayName: 'Run data pipeline after provisioning?'
+    type: boolean
+    default: true
+
+  # ---- Capacity provisioning (ARM) ----
+  - name: create_capacity
+    displayName: 'Create F-SKU capacity via ARM?'
+    type: boolean
+    default: false
+
+  - name: capacity_sku
+    displayName: 'Fabric Capacity SKU'
+    type: string
+    default: 'F64'
+
+  - name: capacity_resource_group
+    displayName: 'Resource Group for capacity'
+    type: string
+    default: 'rg-cicd-fabconus26'
+
+  - name: capacity_location
+    displayName: 'Azure Region for capacity'
+    type: string
+    default: 'Central US EUAP'
+
+  - name: capacity_admin_upn
+    displayName: 'Capacity Admin UPN (email)'
+    type: string
+    default: 'AdminUser01@dxtprimary11282025.onmicrosoft.com'
+
+variables:
+  - name: terraformWorkingDir
+    value: '$(System.DefaultWorkingDirectory)/terraform'
+  - name: scriptsDir
+    value: '$(System.DefaultWorkingDirectory)/scripts'
+
+  # DXT (staging) Fabric API endpoint — used by Terraform provider + delete step.
+  # NOTE: FAB_API_ENDPOINT_FABRIC / FAB_API_ENDPOINT_ONELAKE are NOT set here
+  # because ADO auto-injects pipeline variables as env vars to ALL steps, and the
+  # fabric_cli hostname validator crashes on import if those vars are set before
+  # `fab` is installed. They are exported inline only in the fab CLI steps below.
+  - name: FABRIC_ENDPOINT
+    value: 'https://dxtapi.fabric.microsoft.com'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  # ===========================================================================
+  # Stage 1: Install Tools
+  # ===========================================================================
+  - stage: Setup
+    displayName: 'Setup & Install Tools'
+    jobs:
+      - job: InstallTools
+        displayName: 'Install Terraform, fabric-cli, jq'
+        steps:
+          - checkout: self
+            fetchDepth: 1
+
+          - script: |
+              echo "##[section]Installing Terraform ${{ parameters.terraform_version }}..."
+              curl -fsSL "https://releases.hashicorp.com/terraform/${{ parameters.terraform_version }}/terraform_${{ parameters.terraform_version }}_linux_amd64.zip" -o /tmp/terraform.zip
+              unzip -o /tmp/terraform.zip -d /usr/local/bin/
+              rm /tmp/terraform.zip
+              terraform version
+            displayName: 'Install Terraform ${{ parameters.terraform_version }}'
+
+          - script: |
+              echo "##[section]Installing fabric-cli..."
+              pip install ms-fabric-cli -q
+              fab --version
+            displayName: 'Install fabric-cli'
+
+          - script: jq --version
+            displayName: 'Verify jq'
+
+  # ===========================================================================
+  # Stage 2: Publish Committed Templates
+  # ===========================================================================
+  # NOTE: Previously ran setup.sh to clone DaniBunny/Fabric-DE-CICD repo.
+  # Now we use the templates committed in our repo directly (allows customisation).
+  # To refresh from upstream, run: ./scripts/setup.sh locally and commit.
+  - stage: Templates
+    displayName: 'Publish Committed Templates'
+    dependsOn: Setup
+    jobs:
+      - job: SetupTemplates
+        displayName: 'Publish templates'
+        steps:
+          - checkout: self
+            fetchDepth: 1
+
+          - script: |
+              echo "Using committed templates (setup.sh skipped)"
+              ls -la $(System.DefaultWorkingDirectory)/templates/
+            displayName: 'List committed templates'
+
+          - publish: $(System.DefaultWorkingDirectory)/templates
+            artifact: templates
+            displayName: 'Publish templates artifact'
+
+  # ===========================================================================
+  # Stage 3: Terraform — Create Workspace & Lakehouses
+  # ===========================================================================
+  - stage: Infrastructure
+    displayName: 'Terraform — Provision Infrastructure'
+    dependsOn: Templates
+    jobs:
+      - job: TerraformApply
+        displayName: 'Terraform Init + Apply'
+        steps:
+          - checkout: self
+            fetchDepth: 1
+
+          # ---------- Azure Login ----------
+          - script: |
+              set -euo pipefail
+              echo "##[section]Azure Login (method: ${{ parameters.auth_method }})..."
+
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                # --allow-no-subscriptions lets az login succeed even with no ARM subscription,
+                # populating the CLI credential cache so Terraform (use_cli=true) can get tokens.
+                az login --service-principal \
+                  -u "$(ARM_CLIENT_ID)" \
+                  -p "$ARM_CLIENT_SECRET" \
+                  --tenant "$(ARM_TENANT_ID)" \
+                  --allow-no-subscriptions \
+                  --output none
+                echo "SPN login OK (client=$(ARM_CLIENT_ID) tenant=$(ARM_TENANT_ID))"
+              else
+                pip install msal -q 2>&1 | tail -1
+                python3 $(System.DefaultWorkingDirectory)/scripts/lib/az-login-refresh-token.py
+                az account set --subscription "$(ARM_SUBSCRIPTION_ID)"
+                echo "Logged in as:"
+                az account show --query '{user:user.name, subscription:name, tenant:tenantId}' -o table
+              fi
+            displayName: 'Azure Login'
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+              AZURE_REFRESH_TOKEN: $(AZURE_REFRESH_TOKEN)
+              AZURE_HOME_ACCOUNT_ID: $(AZURE_HOME_ACCOUNT_ID)
+
+          # ---------- Install Terraform ----------
+          - script: |
+              echo "##[section]Installing Terraform ${{ parameters.terraform_version }}..."
+              curl -fsSL "https://releases.hashicorp.com/terraform/${{ parameters.terraform_version }}/terraform_${{ parameters.terraform_version }}_linux_amd64.zip" -o /tmp/terraform.zip
+              sudo unzip -o /tmp/terraform.zip -d /usr/local/bin/
+              rm /tmp/terraform.zip
+              terraform version
+            displayName: 'Install Terraform'
+
+          # ---------- Delete existing workspaces (if any) ----------
+          # Each pipeline run starts with fresh Terraform state (no remote backend),
+          # so if workspaces already exist Terraform will fail with
+          # "WorkspaceNameAlreadyExists". We delete them first so Terraform can
+          # create clean workspaces (dev, test, prod).
+          - script: |
+              set -euo pipefail
+              echo "##[section]Checking for existing workspaces to clean up"
+
+              # Get Fabric token — works for both SPN (ARM_* vars) and CLI auth
+              pip install msal -q 2>&1 | tail -1
+              FABRIC_TOKEN=$(python3 $(System.DefaultWorkingDirectory)/scripts/lib/get-fabric-token.py 2>/tmp/fab-token-err.txt) || true
+
+              if [ -z "$FABRIC_TOKEN" ]; then
+                echo "Could not get Fabric token: $(cat /tmp/fab-token-err.txt 2>/dev/null)"
+                echo "Skipping cleanup (Terraform may fail if workspaces exist)"
+                exit 0
+              fi
+
+              WS_JSON=$(curl -s --max-time 15 -H "Authorization: Bearer $FABRIC_TOKEN" \
+                "$(FABRIC_ENDPOINT)/v1/workspaces") || {
+                echo "##[warning]Could not reach Fabric API at $(FABRIC_ENDPOINT) — skipping workspace cleanup"
+                exit 0
+              }
+
+              # Delete all 3 workspaces: dev, test, prod
+              for WORKSPACE_NAME in \
+                "${{ parameters.workspace_prefix }}-dev" \
+                "${{ parameters.workspace_prefix }}-test" \
+                "${{ parameters.workspace_prefix }}-prod"; do
+
+                WS_ID=$(echo "$WS_JSON" | python3 -c "
+              import sys, json
+              d = json.load(sys.stdin)
+              match = [w['id'] for w in d.get('value', []) if w['displayName'] == '$WORKSPACE_NAME']
+              print(match[0] if match else '')
+              ")
+
+                if [ -z "$WS_ID" ]; then
+                  echo "Workspace '$WORKSPACE_NAME' does not exist — nothing to clean up"
+                else
+                  echo "Deleting existing workspace '$WORKSPACE_NAME' (id=$WS_ID)..."
+                  HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+                    -X DELETE -H "Authorization: Bearer $FABRIC_TOKEN" \
+                    "$(FABRIC_ENDPOINT)/v1/workspaces/$WS_ID")
+                  if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "204" ]; then
+                    echo "Deleted '$WORKSPACE_NAME' (HTTP $HTTP_CODE)"
+                  else
+                    echo "##[warning]DELETE '$WORKSPACE_NAME' returned HTTP $HTTP_CODE — continuing anyway"
+                  fi
+                fi
+              done
+
+              echo "Waiting 10s for deletion propagation..."
+              sleep 10
+            displayName: 'Delete existing workspaces (fresh start)'
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)  # needed by get-fabric-token.py for SPN path
+
+          # ---------- Terraform Init & Apply ----------
+          - script: |
+              set -euo pipefail
+
+              # Export ARM env vars for Terraform provider (SPN method)
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                export ARM_CLIENT_ID="$(ARM_CLIENT_ID)"
+                export ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET"
+                export ARM_TENANT_ID="$(ARM_TENANT_ID)"
+                export ARM_SUBSCRIPTION_ID="$(ARM_SUBSCRIPTION_ID)"
+              else
+                # For refresh_token: unset ARM_* vars that ADO auto-injects from
+                # pipeline variables — otherwise the Fabric provider detects them
+                # and switches to SPN auth (ignoring use_cli=true in providers.tf)
+                unset ARM_CLIENT_ID ARM_CLIENT_SECRET ARM_TENANT_ID ARM_SUBSCRIPTION_ID 2>/dev/null || true
+              fi
+              # For refresh_token method, Terraform uses use_cli=true (az login from prior step)
+
+              echo "##[section]Setting up Terraform variables..."
+              cd $(terraformWorkingDir)
+
+              # ADO renders booleans as 'True'/'False'; Terraform requires lowercase
+              CREATE_CAP=$([ "${{ parameters.create_capacity }}" = "True" ] && echo "true" || echo "false")
+
+              cat > terraform.tfvars <<EOF
+              capacity_name           = "${{ parameters.capacity_name }}"
+              workspace_prefix        = "${{ parameters.workspace_prefix }}"
+              create_capacity         = ${CREATE_CAP}
+              capacity_sku            = "${{ parameters.capacity_sku }}"
+              capacity_resource_group = "${{ parameters.capacity_resource_group }}"
+              capacity_location       = "${{ parameters.capacity_location }}"
+              capacity_admin_upn      = "${{ parameters.capacity_admin_upn }}"
+              spn_object_id           = "13b10046-0cb1-442e-a51f-495080c81810"
+              upn_object_id           = "b884c4f5-5625-4a06-b74d-0b8c9644956a"
+              EOF
+
+              echo "##[section]Terraform Init..."
+              terraform init -input=false
+
+              # Import existing resources to avoid "already exists" errors on re-runs
+              echo "##[section]Importing existing resources..."
+              CAPACITY_ID="/subscriptions/$(ARM_SUBSCRIPTION_ID)/resourceGroups/${{ parameters.capacity_resource_group }}/providers/Microsoft.Fabric/capacities/${{ parameters.capacity_name }}"
+              if [ "${CREATE_CAP}" = "true" ]; then
+                terraform import -input=false 'azurerm_fabric_capacity.this[0]' "$CAPACITY_ID" 2>/dev/null || echo "  (capacity not found or already in state — will create)"
+              fi
+
+              echo "##[section]Terraform Plan..."
+              terraform plan -input=false -out=tfplan
+
+              echo "##[section]Terraform Apply..."
+              terraform apply -input=false -auto-approve tfplan
+
+              echo "##[section]Terraform Outputs..."
+              terraform output -json > $(Build.ArtifactStagingDirectory)/terraform-outputs.json
+
+              # Generate .env file for scripts (skip multiline outputs like next_steps)
+              terraform output -json | python3 -c "
+              import json, sys
+              outputs = json.load(sys.stdin)
+              env_lines = []
+              for key, val in outputs.items():
+                  v = str(val['value'])
+                  if '\n' in v:
+                      continue
+                  env_key = key.upper()
+                  env_lines.append(f'{env_key}=\"{v}\"')
+              print('\n'.join(sorted(env_lines)))
+              " > $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+
+              echo "##[section]Generated .terraform-outputs.env:"
+              cat $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+            displayName: 'Terraform Init & Apply'
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+          - publish: $(Build.ArtifactStagingDirectory)/terraform-outputs.json
+            artifact: terraform-outputs
+            displayName: 'Publish Terraform outputs'
+
+          - publish: $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+            artifact: env-file
+            displayName: 'Publish .terraform-outputs.env'
+
+  # ===========================================================================
+  # Stage 4: Provision Fabric Items
+  # ===========================================================================
+  - stage: Provisioning
+    displayName: 'Provision Fabric Items'
+    dependsOn: Infrastructure
+    condition: and(succeeded(), eq('${{ parameters.run_provisioning }}', 'true'))
+    jobs:
+      - job: ProvisionItems
+        displayName: 'Run provision-items.sh'
+        timeoutInMinutes: 30
+        steps:
+          - checkout: self
+            fetchDepth: 1
+
+          - download: current
+            artifact: templates
+            displayName: 'Download templates'
+
+          - download: current
+            artifact: env-file
+            displayName: 'Download .terraform-outputs.env'
+
+          - script: |
+              cp -r $(Pipeline.Workspace)/templates/* $(System.DefaultWorkingDirectory)/templates/
+              cp $(Pipeline.Workspace)/env-file/.terraform-outputs.env $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+              echo "Templates and env file restored"
+              ls -la $(System.DefaultWorkingDirectory)/templates/
+              cat $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+            displayName: 'Restore templates & env file'
+
+          # ---------- Azure Login ----------
+          - script: |
+              set -euo pipefail
+              echo "##[section]Azure Login (method: ${{ parameters.auth_method }})..."
+
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                az login --service-principal \
+                  -u "$(ARM_CLIENT_ID)" \
+                  -p "$ARM_CLIENT_SECRET" \
+                  --tenant "$(ARM_TENANT_ID)" \
+                  --allow-no-subscriptions \
+                  --output none
+                echo "SPN login OK (client=$(ARM_CLIENT_ID) tenant=$(ARM_TENANT_ID))"
+              else
+                pip install msal -q 2>&1 | tail -1
+                python3 $(System.DefaultWorkingDirectory)/scripts/lib/az-login-refresh-token.py
+                az account set --subscription "$(ARM_SUBSCRIPTION_ID)"
+                az account show -o table
+              fi
+            displayName: 'Azure Login'
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+              AZURE_REFRESH_TOKEN: $(AZURE_REFRESH_TOKEN)
+              AZURE_HOME_ACCOUNT_ID: $(AZURE_HOME_ACCOUNT_ID)
+
+          # ---------- Provision Items ----------
+          - script: |
+              set -euo pipefail
+
+              echo "##[section]Installing fabric-cli..."
+              pip install ms-fabric-cli -q
+              fab --version
+
+              echo "##[section]Patching fab_cli for DXT (multi-level subdomain support)..."
+              python3 $(scriptsDir)/lib/patch-fab-hostname-validator.py
+
+              # Set DXT endpoints AFTER patch (validator now accepts multi-level subdomains)
+              export FAB_API_ENDPOINT_FABRIC="dxtapi.fabric.microsoft.com"
+              export FAB_API_ENDPOINT_ONELAKE="onelake.dfs.dxt.fabric.microsoft.com"
+              echo "FAB_API_ENDPOINT_FABRIC=$FAB_API_ENDPOINT_FABRIC"
+              echo "FAB_API_ENDPOINT_ONELAKE=$FAB_API_ENDPOINT_ONELAKE"
+
+              echo "##[section]Authenticating fabric-cli (headless)..."
+              # Linux CI has no keyring — enable plaintext token fallback
+              fab config set encryption_fallback_enabled true
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                # SPN: non-interactive login with flags
+                fab auth login \
+                  -u "$(ARM_CLIENT_ID)" \
+                  -p "$(ARM_CLIENT_SECRET)" \
+                  --tenant "$(ARM_TENANT_ID)"
+              else
+                # Refresh token path: Azure CLI is already logged in.
+                # Use FAB_TOKEN env var — no interactive login needed.
+                export FAB_TOKEN=$(az account get-access-token \
+                  --resource https://api.fabric.microsoft.com \
+                  --query accessToken -o tsv)
+                export FAB_TENANT_ID=$(az account show --query tenantId -o tsv)
+                echo "FAB_TOKEN acquired (length: ${#FAB_TOKEN})"
+                # Make env vars available to subsequent commands in this step
+                echo "##vso[task.setvariable variable=FAB_TOKEN]$FAB_TOKEN"
+                echo "##vso[task.setvariable variable=FAB_TENANT_ID]$FAB_TENANT_ID"
+              fi
+
+              chmod +x $(scriptsDir)/*.sh $(scriptsDir)/lib/*.sh
+              echo "##[section]Running provision-items.sh..."
+              cd $(System.DefaultWorkingDirectory)
+
+              # Pass ADO org/project info for Git connection step
+              export ADO_ORGANIZATION=$(echo "$(System.CollectionUri)" | sed 's|https://dev.azure.com/||;s|/||g')
+              export ADO_PROJECT_NAME="$(System.TeamProject)"
+              export ADO_REPO_NAME="$(Build.Repository.Name)"
+              export SPN_OBJECT_ID="13b10046-0cb1-442e-a51f-495080c81810"
+              export ADLS_STORAGE_ACCOUNT_NAME="fabconus26data"
+              export ADLS_STORAGE_RESOURCE_GROUP="rg-cicd-fabconus26"
+              echo "ADO_ORGANIZATION=$ADO_ORGANIZATION"
+              echo "ADO_PROJECT_NAME=$ADO_PROJECT_NAME"
+              echo "ADO_REPO_NAME=$ADO_REPO_NAME"
+              echo "ADLS_STORAGE_ACCOUNT_NAME=$ADLS_STORAGE_ACCOUNT_NAME"
+
+              $(scriptsDir)/provision-items.sh --skip-data
+            displayName: 'Provision all Fabric items (import only)'
+            timeoutInMinutes: 25
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+
+  # ===========================================================================
+  # Stage 5: Run Data Pipeline (Optional)
+  # ===========================================================================
+  - stage: DataPipeline
+    displayName: 'Run Data Pipeline'
+    dependsOn: Provisioning
+    condition: and(succeeded(), eq('${{ parameters.run_data_pipeline }}', 'true'))
+    jobs:
+      - job: RunPipeline
+        displayName: 'Run copy jobs + notebooks'
+        timeoutInMinutes: 35
+        steps:
+          - checkout: self
+            fetchDepth: 1
+
+          - download: current
+            artifact: env-file
+            displayName: 'Download .terraform-outputs.env'
+
+          - script: |
+              cp $(Pipeline.Workspace)/env-file/.terraform-outputs.env $(System.DefaultWorkingDirectory)/.terraform-outputs.env
+            displayName: 'Restore env file'
+
+          # ---------- Azure Login ----------
+          - script: |
+              set -euo pipefail
+              echo "##[section]Azure Login (method: ${{ parameters.auth_method }})..."
+
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                az login --service-principal \
+                  -u "$(ARM_CLIENT_ID)" \
+                  -p "$ARM_CLIENT_SECRET" \
+                  --tenant "$(ARM_TENANT_ID)" \
+                  --allow-no-subscriptions \
+                  --output none
+                echo "SPN login OK (client=$(ARM_CLIENT_ID) tenant=$(ARM_TENANT_ID))"
+              else
+                pip install msal -q 2>&1 | tail -1
+                python3 $(System.DefaultWorkingDirectory)/scripts/lib/az-login-refresh-token.py
+                az account set --subscription "$(ARM_SUBSCRIPTION_ID)"
+                az account show -o table
+              fi
+            displayName: 'Azure Login'
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+              AZURE_REFRESH_TOKEN: $(AZURE_REFRESH_TOKEN)
+              AZURE_HOME_ACCOUNT_ID: $(AZURE_HOME_ACCOUNT_ID)
+
+          # ---------- Run Data Pipeline ----------
+          - script: |
+              set -euo pipefail
+
+              pip install ms-fabric-cli -q
+              fab --version
+
+              echo "##[section]Patching fab_cli for DXT (multi-level subdomain support)..."
+              python3 $(scriptsDir)/lib/patch-fab-hostname-validator.py
+
+              export FAB_API_ENDPOINT_FABRIC="dxtapi.fabric.microsoft.com"
+              export FAB_API_ENDPOINT_ONELAKE="onelake.dfs.dxt.fabric.microsoft.com"
+
+              echo "##[section]Authenticating fabric-cli (headless)..."
+              # Linux CI has no keyring — enable plaintext token fallback
+              fab config set encryption_fallback_enabled true
+              if [ "${{ parameters.auth_method }}" = "service_principal" ]; then
+                fab auth login \
+                  -u "$(ARM_CLIENT_ID)" \
+                  -p "$(ARM_CLIENT_SECRET)" \
+                  --tenant "$(ARM_TENANT_ID)"
+              else
+                export FAB_TOKEN=$(az account get-access-token \
+                  --resource https://api.fabric.microsoft.com \
+                  --query accessToken -o tsv)
+                export FAB_TENANT_ID=$(az account show --query tenantId -o tsv)
+                echo "FAB_TOKEN acquired (length: ${#FAB_TOKEN})"
+                echo "##vso[task.setvariable variable=FAB_TOKEN]$FAB_TOKEN"
+                echo "##vso[task.setvariable variable=FAB_TENANT_ID]$FAB_TENANT_ID"
+              fi
+
+              chmod +x $(scriptsDir)/*.sh $(scriptsDir)/lib/*.sh
+              echo "##[section]Running data pipeline..."
+              cd $(System.DefaultWorkingDirectory)
+              $(scriptsDir)/run-data-pipeline.sh
+            displayName: 'Run data pipeline'
+            timeoutInMinutes: 30
+            env:
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)

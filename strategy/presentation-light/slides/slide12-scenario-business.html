@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header h1 { font-size: 18pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.persona { font-size: 8.5pt; color: #64748B; margin: 0 0 12pt 0; }
+.steps { display: flex; flex-direction: column; gap: 4pt; }
+.step { display: flex; align-items: flex-start; gap: 8pt; }
+.step-num { min-width: 18pt; height: 18pt; border-radius: 50%; background: #6C5CE7; color: #FFFFFF; font-size: 8pt; font-weight: bold; text-align: center; line-height: 18pt; margin-top: 1pt; }
+.step-num p { margin: 0; font-size: inherit; color: inherit; font-weight: inherit; line-height: 18pt; }
+.step-num-success { background: #00A79D; }
+.step-content { flex: 1; }
+.step-title { font-size: 9.5pt; color: #1A1A2E; font-weight: bold; margin: 0; }
+.step-desc { font-size: 8.5pt; color: #64748B; margin: 1pt 0 0 0; line-height: 1.4; }
+.step-success .step-title { color: #00A79D; }
+.layers-bar { margin-top: 10pt; background: #F5F7FA; border-radius: 4pt; padding: 6pt 12pt; display: flex; align-items: center; gap: 4pt; }
+.layers-bar p { font-size: 7.5pt; color: #64748B; margin: 0; }
+.layers-bar span { font-weight: bold; color: #4A5568; }
+.layers-arrow { color: #94A3B8; font-size: 8pt; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Scenario 2: Business User Creates a Report from Claude Desktop</h1>
+  </div>
+  <p class="persona">👤 Persona: Business Analyst &nbsp;|&nbsp; 📍 Where: Claude Desktop (organization account) &nbsp;|&nbsp; 🎯 Goal: Quickly create and share a visual report</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num"><p>1</p></div>
+      <div class="step-content">
+        <p class="step-title">Need arises</p>
+        <p class="step-desc">A business analyst needs to present quarterly sales data at a meeting in 2 hours</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>2</p></div>
+      <div class="step-content">
+        <p class="step-title">Opens Claude Desktop</p>
+        <p class="step-desc">The organization has Claude Desktop with Fabric MCP connected. The analyst types: "I need a visual report of Q4 sales by region"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>3</p></div>
+      <div class="step-content">
+        <p class="step-title">MCP discovers workspace</p>
+        <p class="step-desc">Claude uses Fabric MCP tools to find the analyst's workspace and available datasets</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>4</p></div>
+      <div class="step-content">
+        <p class="step-title">Builds the report</p>
+        <p class="step-desc">Claude creates a Power BI report with regional breakdowns, trend lines, and KPIs — all through the MCP interface</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>5</p></div>
+      <div class="step-content">
+        <p class="step-title">Preview and refine</p>
+        <p class="step-desc">An MCP App renders a preview of the report inline. The analyst says "Add a comparison to Q3" — Claude updates it</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>6</p></div>
+      <div class="step-content">
+        <p class="step-title">Embed and share</p>
+        <p class="step-desc">The analyst asks "Embed this in our team's SharePoint page" — Claude generates the embed code and deploys it</p>
+      </div>
+    </div>
+    <div class="step step-success">
+      <div class="step-num step-num-success"><p>✓</p></div>
+      <div class="step-content">
+        <p class="step-title">Ready to present</p>
+        <p class="step-desc">A polished, interactive BI report — created without ever opening the Fabric portal or Power BI Desktop</p>
+      </div>
+    </div>
+  </div>
+  <div class="layers-bar">
+    <p><span>Layers used:</span> Foundation (APIs, workspace access) <span class="layers-arrow">→</span> Agentic (MCP tools, interactive experience)</p>
+  </div>
+</div>
+</body></html>

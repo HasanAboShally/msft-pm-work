@@ -14,7 +14,7 @@ Thank you for your interest in contributing to this project!
 
 ```bash
 # Clone and set up
-git clone <your-fork-url> && cd demo-provisioning
+git clone <your-fork-url> && cd fabric-e2e-demo
 ./scripts/setup.sh
 
 # Configure Terraform

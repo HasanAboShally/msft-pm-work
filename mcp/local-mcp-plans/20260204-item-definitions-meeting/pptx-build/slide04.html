@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #FFFFFF; }
+body {
+    width: 720pt; height: 405pt; margin: 0; padding: 0;
+    background: #FFFFFF;
+    font-family: Arial, sans-serif;
+    display: flex; flex-direction: column;
+}
+.header { background: #1C2833; padding: 15pt 40pt; }
+.part-label { color: #4FC3F7; font-size: 12pt; margin: 0 0 4pt 0; text-transform: uppercase; letter-spacing: 1pt; }
+.header-title { color: #FFFFFF; font-size: 26pt; font-weight: bold; margin: 0; }
+.content { padding: 25pt 40pt; flex: 1; }
+.definition { color: #1C2833; font-size: 16pt; margin: 0 0 25pt 0; line-height: 1.4; }
+.bold { font-weight: bold; }
+.diagram { display: flex; justify-content: center; align-items: center; gap: 20pt; margin-top: 15pt; }
+.box { background: #F4F6F6; border: 2pt solid #AAB7B8; padding: 18pt 20pt; text-align: center; border-radius: 6pt; }
+.box-center { background: #0078D4; border: 2pt solid #0078D4; padding: 18pt 20pt; text-align: center; border-radius: 6pt; }
+.box-title { color: #1C2833; font-size: 13pt; font-weight: bold; margin: 0; }
+.box-title-white { color: #FFFFFF; font-size: 13pt; font-weight: bold; margin: 0; }
+.box-sub { color: #666666; font-size: 10pt; margin: 4pt 0 0 0; }
+.box-sub-white { color: #E8F4FD; font-size: 10pt; margin: 4pt 0 0 0; }
+.arrow { color: #0078D4; font-size: 24pt; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="header">
+    <p class="part-label">Part 1: Local MCP Recap</p>
+    <h1 class="header-title">What Is Fabric Local MCP?</h1>
+</div>
+<div class="content">
+    <p class="definition">An <b>open-source MCP server</b> running on developer machines that gives AI agents (Copilot, Claude) direct access to Fabric context.</p>
+    <div class="diagram">
+        <div class="box">
+            <p class="box-title">GitHub Copilot</p>
+            <p class="box-sub">Claude / IDE</p>
+        </div>
+        <p class="arrow">→</p>
+        <div class="box-center">
+            <p class="box-title-white">Fabric Local</p>
+            <p class="box-sub-white">MCP Server</p>
+        </div>
+        <p class="arrow">→</p>
+        <div class="box">
+            <p class="box-title">Fabric Cloud</p>
+            <p class="box-sub">APIs / OneLake</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

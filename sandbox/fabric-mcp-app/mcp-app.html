@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace Refresh Card</title>
+  <style>
+    /* ─── Fabric Design System ─────────────────────────────── */
+    :root {
+      /* Fabric Colors */
+      --fabric-primary: #117865;
+      --fabric-primary-dark: #0E624F;
+      --fabric-blue: #0078D4;
+      --fabric-blue-dark: #106EBE;
+      --fabric-success: #107C10;
+      --fabric-warning: #FFB900;
+      --fabric-error: #D13438;
+      --fabric-info: #0078D4;
+
+      /* Neutrals */
+      --fabric-bg: #FAF9F8;
+      --fabric-surface: #FFFFFF;
+      --fabric-surface-hover: #F3F2F1;
+      --fabric-border: #EDEBE9;
+      --fabric-border-strong: #C8C6C4;
+      --fabric-text-primary: #323130;
+      --fabric-text-secondary: #605E5C;
+      --fabric-text-tertiary: #A19F9D;
+
+      /* Shadows */
+      --fabric-shadow-4: 0 1.6px 3.6px rgba(0,0,0,0.132), 0 0.3px 0.9px rgba(0,0,0,0.108);
+      --fabric-shadow-8: 0 3.2px 7.2px rgba(0,0,0,0.132), 0 0.6px 1.8px rgba(0,0,0,0.108);
+      --fabric-shadow-16: 0 6.4px 14.4px rgba(0,0,0,0.132), 0 1.2px 3.6px rgba(0,0,0,0.108);
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-s: 8px;
+      --spacing-m: 12px;
+      --spacing-l: 16px;
+      --spacing-xl: 20px;
+      --spacing-xxl: 24px;
+
+      /* Typography */
+      --font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-size-xs: 10px;
+      --font-size-s: 12px;
+      --font-size-m: 14px;
+      --font-size-l: 16px;
+      --font-size-xl: 20px;
+      --font-size-xxl: 24px;
+      --font-size-hero: 28px;
+
+      /* Border radius */
+      --radius-s: 4px;
+      --radius-m: 6px;
+      --radius-l: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-m);
+      color: var(--fabric-text-primary);
+      background: var(--fabric-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout ───────────────────────────────────────────── */
+    .app-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+    }
+
+    /* ─── Header ───────────────────────────────────────────── */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-m);
+      margin-bottom: var(--spacing-xxl);
+    }
+
+    .fabric-logo {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fabric-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .app-header h1 {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--fabric-text-primary);
+    }
+
+    .app-header .subtitle {
+      font-size: var(--font-size-s);
+      color: var(--fabric-text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── Workspace Selector ───────────────────────────────── */
+    .workspace-selector {
+      background: var(--fabric-surface);
+      border: 1px solid var(--fabric-border);
+      border-radius: var(--radius-l);
+      padding: var(--spacing-l);
+      margin-bottom: var(--spacing-xl);
+      box-shadow: var(--fabric-shadow-4);
+    }
+
+    .workspace-selector label {
+      display: block;
+      font-size: var(--font-size-s);
+      font-weight: 600;
+      color: var(--fabric-text-secondary);
+      margin-bottom: var(--spacing-s);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .workspace-dropdown {
+      width: 100%;
+      padding: 8px 12px;
+      font-family: var(--font-family);
+      font-size: var(--font-size-m);
+      color: var(--fabric-text-primary);
+      background: var(--fabric-surface);
+      border: 1px solid var(--fabric-border-strong);
+      border-radius: var(--radius-s);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' stroke='%23605E5C' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    .workspace-dropdown:hover {
+      border-color: var(--fabric-text-secondary);
+    }
+
+    .workspace-dropdown:focus {
+      border-color: var(--fabric-primary);
+      box-shadow: 0 0 0 1px var(--fabric-primary);
+    }
+
+    /* ─── Summary Cards ────────────────────────────────────── */
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spacing-l);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .summary-card {
+      background: var(--fabric-surface);
+      border: 1px solid var(--fabric-border);
+      border-radius: var(--radius-l);
+      padding: var(--spacing-l);
+      box-shadow: var(--fabric-shadow-4);
+      transition: box-shadow 0.15s ease;
+    }
+
+    .summary-card:hover {
+      box-shadow: var(--fabric-shadow-8);
+    }
+
+    .summary-card .card-label {
+      font-size: var(--font-size-s);
+      color: var(--fabric-text-secondary);
+      font-weight: 400;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .summary-card .card-value {
+      font-size: var(--font-size-hero);
+      font-weight: 600;
+      color: var(--fabric-text-primary);
+    }
+
+    .summary-card .card-detail {
+      font-size: var(--font-size-xs);
+      color: var(--fabric-text-tertiary);
+      margin-top: var(--spacing-xs);
+    }
+
+    .summary-card.success .card-value { color: var(--fabric-success); }
+    .summary-card.error .card-value { color: var(--fabric-error); }
+    .summary-card.in-progress .card-value { color: var(--fabric-blue); }
+
+    /* ─── Dataset Table ────────────────────────────────────── */
+    .datasets-section {
+      background: var(--fabric-surface);
+      border: 1px solid var(--fabric-border);
+      border-radius: var(--radius-l);
+      box-shadow: var(--fabric-shadow-4);
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-l) var(--spacing-xl);
+      border-bottom: 1px solid var(--fabric-border);
+    }
+
+    .section-header h2 {
+      font-size: var(--font-size-l);
+      font-weight: 600;
+    }
+
+    .section-header .btn-refresh-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: var(--fabric-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-s);
+      font-family: var(--font-family);
+      font-size: var(--font-size-s);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .section-header .btn-refresh-all:hover {
+      background: var(--fabric-primary-dark);
+    }
+
+    .section-header .btn-refresh-all:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .section-header .btn-refresh-all .icon {
+      font-size: 14px;
+    }
+
+    .dataset-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .dataset-table thead th {
+      text-align: left;
+      padding: var(--spacing-m) var(--spacing-xl);
+      font-size: var(--font-size-s);
+      font-weight: 600;
+      color: var(--fabric-text-secondary);
+      background: var(--fabric-bg);
+      border-bottom: 1px solid var(--fabric-border);
+      white-space: nowrap;
+    }
+
+    .dataset-table tbody tr {
+      border-bottom: 1px solid var(--fabric-border);
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+
+    .dataset-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .dataset-table tbody tr:hover {
+      background: var(--fabric-surface-hover);
+    }
+
+    .dataset-table tbody tr.expanded {
+      background: #F0FAFF;
+    }
+
+    .dataset-table tbody td {
+      padding: var(--spacing-m) var(--spacing-xl);
+      font-size: var(--font-size-m);
+      vertical-align: middle;
+    }
+
+    .dataset-name {
+      font-weight: 600;
+      color: var(--fabric-text-primary);
+    }
+
+    .dataset-type {
+      font-size: var(--font-size-s);
+      color: var(--fabric-text-secondary);
+    }
+
+    /* ─── Status Badge ─────────────────────────────────────── */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: var(--font-size-s);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .status-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-badge.completed {
+      background: #DFF6DD;
+      color: #0B6A0B;
+    }
+    .status-badge.completed .dot { background: var(--fabric-success); }
+
+    .status-badge.failed {
+      background: #FDE7E9;
+      color: #A4262C;
+    }
+    .status-badge.failed .dot { background: var(--fabric-error); }
+
+    .status-badge.in-progress {
+      background: #DEECF9;
+      color: #004578;
+    }
+    .status-badge.in-progress .dot {
+      background: var(--fabric-blue);
+      animation: pulse 1.5s infinite;
+    }
+
+    .status-badge.unknown {
+      background: #F3F2F1;
+      color: var(--fabric-text-secondary);
+    }
+    .status-badge.unknown .dot { background: var(--fabric-text-tertiary); }
+
+    .status-badge.no-data {
+      background: #F3F2F1;
+      color: var(--fabric-text-tertiary);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ─── Refresh Action Button (inline) ───────────────────── */
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      background: transparent;
+      border: 1px solid var(--fabric-border-strong);
+      border-radius: var(--radius-s);
+      font-family: var(--font-family);
+      font-size: var(--font-size-s);
+      color: var(--fabric-text-primary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action:hover {
+      background: var(--fabric-surface-hover);
+      border-color: var(--fabric-text-secondary);
+    }
+
+    .btn-action:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-action.refreshing {
+      color: var(--fabric-blue);
+      border-color: var(--fabric-blue);
+    }
+
+    /* ─── Expanded Row — Refresh History ────────────────────── */
+    .history-panel {
+      padding: var(--spacing-l) var(--spacing-xl);
+      padding-left: 60px;
+      background: #FAFCFE;
+      border-bottom: 1px solid var(--fabric-border);
+    }
+
+    .history-panel h4 {
+      font-size: var(--font-size-s);
+      font-weight: 600;
+      color: var(--fabric-text-secondary);
+      margin-bottom: var(--spacing-m);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-s);
+    }
+
+    .history-entry {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-l);
+      padding: var(--spacing-s) var(--spacing-m);
+      border-radius: var(--radius-s);
+      font-size: var(--font-size-s);
+    }
+
+    .history-entry:hover {
+      background: var(--fabric-surface-hover);
+    }
+
+    .history-entry .time {
+      color: var(--fabric-text-secondary);
+      min-width: 140px;
+    }
+
+    .history-entry .duration {
+      color: var(--fabric-text-tertiary);
+      min-width: 80px;
+    }
+
+    .history-entry .type {
+      color: var(--fabric-text-tertiary);
+      min-width: 80px;
+    }
+
+    /* ─── Loading / Empty States ────────────────────────────── */
+    .loading-state, .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px var(--spacing-xl);
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--fabric-border);
+      border-top-color: var(--fabric-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: var(--spacing-l);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .empty-state .empty-icon {
+      margin-bottom: var(--spacing-m);
+      opacity: 0.6;
+    }
+
+    .empty-state .empty-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .empty-state p {
+      color: var(--fabric-text-secondary);
+      font-size: var(--font-size-m);
+    }
+
+    /* ─── Toast Notifications ──────────────────────────────── */
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-s);
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-m);
+      padding: var(--spacing-m) var(--spacing-l);
+      background: var(--fabric-surface);
+      border-radius: var(--radius-m);
+      box-shadow: var(--fabric-shadow-16);
+      font-size: var(--font-size-s);
+      animation: slideIn 0.3s ease;
+      max-width: 360px;
+    }
+
+    .toast.success { border-left: 3px solid var(--fabric-success); }
+    .toast.error { border-left: 3px solid var(--fabric-error); }
+    .toast.info { border-left: 3px solid var(--fabric-info); }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ─── Powered-by Footer ────────────────────────────────── */
+    .app-footer {
+      text-align: center;
+      padding: var(--spacing-xl) 0 var(--spacing-l);
+      font-size: var(--font-size-xs);
+      color: var(--fabric-text-tertiary);
+    }
+
+    .app-footer a {
+      color: var(--fabric-primary);
+      text-decoration: none;
+    }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .summary-row { grid-template-columns: 1fr 1fr; }
+      .dataset-table thead th:nth-child(3),
+      .dataset-table tbody td:nth-child(3) { display: none; }
+      .history-panel { padding-left: var(--spacing-xl); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="app-header">
+      <div class="fabric-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 2L6 9v14l11.5 7L28 23V9L17.5 2z" fill="#117865"/>
+          <path d="M17.5 2L6 9l11.5 7L28 9 17.5 2z" fill="#1DB393" opacity="0.9"/>
+          <path d="M17.5 16L6 9v14l11.5 7V16z" fill="#0D6552" opacity="0.8"/>
+          <path d="M17.5 30V16L28 9v14l-10.5 7z" fill="#117865" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Workspace Refresh Card</h1>
+        <div class="subtitle">Monitor and manage dataset refreshes</div>
+      </div>
+    </div>
+
+    <!-- Workspace Selector -->
+    <div class="workspace-selector" id="workspace-selector">
+      <label>Workspace</label>
+      <select class="workspace-dropdown" id="workspace-select">
+        <option value="">Select a workspace...</option>
+      </select>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-row" id="summary-row" style="display:none">
+      <div class="summary-card" id="card-total">
+        <div class="card-label">Total Datasets</div>
+        <div class="card-value" id="total-count">—</div>
+        <div class="card-detail" id="total-detail">Refreshable models</div>
+      </div>
+      <div class="summary-card success" id="card-success">
+        <div class="card-label">Succeeded</div>
+        <div class="card-value" id="success-count">—</div>
+        <div class="card-detail">Last 24 hours</div>
+      </div>
+      <div class="summary-card error" id="card-error">
+        <div class="card-label">Failed</div>
+        <div class="card-value" id="error-count">—</div>
+        <div class="card-detail">Needs attention</div>
+      </div>
+      <div class="summary-card in-progress" id="card-progress">
+        <div class="card-label">In Progress</div>
+        <div class="card-value" id="progress-count">—</div>
+        <div class="card-detail">Currently running</div>
+      </div>
+    </div>
+
+    <!-- Datasets Table -->
+    <div class="datasets-section" id="datasets-section" style="display:none">
+      <div class="section-header">
+        <h2>Datasets</h2>
+        <button class="btn-refresh-all" id="btn-refresh-all" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          Refresh All
+        </button>
+      </div>
+      <table class="dataset-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Last Refresh</th>
+            <th>Status</th>
+            <th>Duration</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="datasets-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" id="loading-state" style="display:none">
+      <div class="loading-spinner"></div>
+      <p>Loading workspace data...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#A19F9D" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17v-4M12 17V9M17 17v-6"/></svg></div>
+      <p>Select a workspace to view refresh status</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="app-footer">
+      Powered by <strong>MCP Apps</strong> · Microsoft Fabric API
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module">
+    import { App } from "@modelcontextprotocol/ext-apps";
+
+    // ─── MCP App Connection ───────────────────────────────────
+    const app = new App({ name: "workspace-refresh-card", version: "1.0.0" });
+
+    let currentWorkspaceId = null;
+    let datasets = [];
+    let refreshHistories = {};
+    let expandedDatasetId = null;
+
+    // ─── DOM Elements ─────────────────────────────────────────
+    const workspaceSelect = document.getElementById("workspace-select");
+    const summaryRow = document.getElementById("summary-row");
+    const datasetsSection = document.getElementById("datasets-section");
+    const datasetsTbody = document.getElementById("datasets-tbody");
+    const loadingState = document.getElementById("loading-state");
+    const emptyState = document.getElementById("empty-state");
+    const btnRefreshAll = document.getElementById("btn-refresh-all");
+    const totalCount = document.getElementById("total-count");
+    const successCount = document.getElementById("success-count");
+    const errorCount = document.getElementById("error-count");
+    const progressCount = document.getElementById("progress-count");
+
+    // ─── Toast System ─────────────────────────────────────────
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      const icon = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
+      toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(100%)";
+        toast.style.transition = "all 0.3s";
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // ─── Format Helpers ───────────────────────────────────────
+    function formatTime(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      const now = new Date();
+      const diffMs = now - d;
+      const diffMin = Math.floor(diffMs / 60000);
+      const diffHr = Math.floor(diffMin / 60);
+      const diffDay = Math.floor(diffHr / 24);
+
+      if (diffMin < 1) return "Just now";
+      if (diffMin < 60) return `${diffMin}m ago`;
+      if (diffHr < 24) return `${diffHr}h ago`;
+      if (diffDay < 7) return `${diffDay}d ago`;
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+
+    function formatDuration(start, end) {
+      if (!start || !end) return "—";
+      const ms = new Date(end) - new Date(start);
+      const sec = Math.floor(ms / 1000);
+      if (sec < 60) return `${sec}s`;
+      const min = Math.floor(sec / 60);
+      const remSec = sec % 60;
+      if (min < 60) return `${min}m ${remSec}s`;
+      const hr = Math.floor(min / 60);
+      const remMin = min % 60;
+      return `${hr}h ${remMin}m`;
+    }
+
+    function statusClass(status) {
+      if (!status) return "unknown";
+      switch (status.toLowerCase()) {
+        case "completed": return "completed";
+        case "failed": case "disabled": return "failed";
+        case "inprogress": return "in-progress";
+        default: return "unknown";
+      }
+    }
+
+    function statusLabel(status) {
+      if (!status) return "No data";
+      switch (status.toLowerCase()) {
+        case "completed": return "Completed";
+        case "failed": return "Failed";
+        case "disabled": return "Disabled";
+        case "inprogress": return "In Progress";
+        case "cancelled": return "Cancelled";
+        default: return status;
+      }
+    }
+
+    // ─── Show/Hide Helpers ────────────────────────────────────
+    function showView(view) {
+      loadingState.style.display = view === "loading" ? "flex" : "none";
+      emptyState.style.display = view === "empty" ? "flex" : "none";
+      summaryRow.style.display = view === "data" ? "grid" : "none";
+      datasetsSection.style.display = view === "data" ? "block" : "none";
+    }
+
+    // ─── Load Workspaces ──────────────────────────────────────
+    async function loadWorkspaces() {
+      try {
+        const result = await app.callServerTool({
+          name: "list_workspaces",
+          arguments: {},
+        });
+        const text = result?.content?.[0]?.text;
+        if (!text) return;
+        const workspaces = JSON.parse(text);
+        workspaces.forEach((ws) => {
+          const opt = document.createElement("option");
+          opt.value = ws.id;
+          opt.textContent = ws.displayName;
+          workspaceSelect.appendChild(opt);
+        });
+      } catch (err) {
+        console.error("Failed to load workspaces:", err);
+        showToast("Failed to load workspaces", "error");
+      }
+    }
+
+    // ─── Load Datasets ────────────────────────────────────────
+    async function loadDatasets(workspaceId) {
+      currentWorkspaceId = workspaceId;
+      showView("loading");
+
+      try {
+        const result = await app.callServerTool({
+          name: "list_datasets",
+          arguments: { workspaceId },
+        });
+        const text = result?.content?.[0]?.text;
+        if (!text) { showView("empty"); return; }
+
+        datasets = JSON.parse(text);
+        const refreshable = datasets.filter((d) => d.isRefreshable);
+
+        if (refreshable.length === 0) {
+          showView("empty");
+          return;
+        }
+
+        // Load refresh history for each dataset in parallel
+        const histories = await Promise.allSettled(
+          refreshable.map(async (ds) => {
+            const histResult = await app.callServerTool({
+              name: "get_refresh_history",
+              arguments: { workspaceId, datasetId: ds.id },
+            });
+            const hText = histResult?.content?.[0]?.text;
+            return { id: ds.id, history: hText ? JSON.parse(hText) : [] };
+          })
+        );
+
+        refreshHistories = {};
+        histories.forEach((h) => {
+          if (h.status === "fulfilled") {
+            refreshHistories[h.value.id] = h.value.history;
+          }
+        });
+
+        renderDashboard(refreshable);
+        showView("data");
+        btnRefreshAll.disabled = false;
+      } catch (err) {
+        console.error("Failed to load datasets:", err);
+        showToast("Failed to load dataset information", "error");
+        showView("empty");
+      }
+    }
+
+    // ─── Render Dashboard ─────────────────────────────────────
+    function renderDashboard(refreshable) {
+      // Summary counts
+      let succeeded = 0, failed = 0, inProgress = 0;
+      refreshable.forEach((ds) => {
+        const hist = refreshHistories[ds.id];
+        if (hist && hist.length > 0) {
+          const latest = hist[0];
+          if (latest.status === "Completed") succeeded++;
+          else if (latest.status === "Failed") failed++;
+          else if (latest.status === "InProgress" || latest.status === "Unknown") inProgress++;
+        }
+      });
+
+      totalCount.textContent = refreshable.length;
+      successCount.textContent = succeeded;
+      errorCount.textContent = failed;
+      progressCount.textContent = inProgress;
+
+      // Table rows
+      datasetsTbody.innerHTML = "";
+      refreshable.forEach((ds) => {
+        const hist = refreshHistories[ds.id] || [];
+        const latest = hist[0];
+        const sc = latest ? statusClass(latest.status) : "no-data";
+
+        const tr = document.createElement("tr");
+        tr.dataset.id = ds.id;
+        tr.innerHTML = `
+          <td>
+            <div class="dataset-name">${escapeHtml(ds.name)}</div>
+            <div class="dataset-type">Semantic Model</div>
+          </td>
+          <td>${latest ? formatTime(latest.endTime || latest.startTime) : "Never"}</td>
+          <td>
+            <span class="status-badge ${sc}">
+              ${sc !== "no-data" ? '<span class="dot"></span>' : ""}
+              ${latest ? statusLabel(latest.status) : "No data"}
+            </span>
+          </td>
+          <td>${latest ? formatDuration(latest.startTime, latest.endTime) : "—"}</td>
+          <td>
+            <button class="btn-action btn-refresh-single" data-id="${ds.id}" data-name="${escapeHtml(ds.name)}">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh
+            </button>
+          </td>
+        `;
+
+        tr.addEventListener("click", (e) => {
+          if (e.target.closest(".btn-action")) return;
+          toggleHistory(ds.id);
+        });
+
+        datasetsTbody.appendChild(tr);
+      });
+
+      // Attach refresh button handlers
+      document.querySelectorAll(".btn-refresh-single").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          triggerSingleRefresh(btn.dataset.id, btn.dataset.name);
+        });
+      });
+    }
+
+    // ─── Toggle History Panel ─────────────────────────────────
+    function toggleHistory(datasetId) {
+      // Remove any existing history panels
+      document.querySelectorAll(".history-panel").forEach((p) => p.remove());
+      document.querySelectorAll("tr.expanded").forEach((r) => r.classList.remove("expanded"));
+
+      if (expandedDatasetId === datasetId) {
+        expandedDatasetId = null;
+        return;
+      }
+
+      expandedDatasetId = datasetId;
+      const row = datasetsTbody.querySelector(`tr[data-id="${datasetId}"]`);
+      if (!row) return;
+      row.classList.add("expanded");
+
+      const hist = refreshHistories[datasetId] || [];
+      const panel = document.createElement("tr");
+      panel.innerHTML = `<td colspan="5" style="padding:0"><div class="history-panel">
+        <h4>Refresh History</h4>
+        <div class="history-list">
+          ${hist.length === 0
+            ? '<div style="color:var(--fabric-text-tertiary);font-size:12px">No refresh history available</div>'
+            : hist.slice(0, 8).map((h) => `
+              <div class="history-entry">
+                <span class="status-badge ${statusClass(h.status)}" style="min-width:100px">
+                  <span class="dot"></span> ${statusLabel(h.status)}
+                </span>
+                <span class="time">${new Date(h.startTime).toLocaleString()}</span>
+                <span class="duration">${formatDuration(h.startTime, h.endTime)}</span>
+                <span class="type">${h.refreshType || "—"}</span>
+              </div>
+            `).join("")
+          }
+        </div>
+      </div></td>`;
+
+      row.after(panel);
+    }
+
+    // ─── Trigger Refresh ──────────────────────────────────────
+    async function triggerSingleRefresh(datasetId, datasetName) {
+      const btn = document.querySelector(`.btn-refresh-single[data-id="${datasetId}"]`);
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add("refreshing");
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 0.8s linear infinite"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refreshing...';
+      }
+
+      try {
+        await app.callServerTool({
+          name: "trigger_refresh",
+          arguments: { workspaceId: currentWorkspaceId, datasetId },
+        });
+        showToast(`Refresh triggered for "${datasetName}"`, "success");
+
+        // Update the model context so the LLM knows what happened
+        await app.updateModelContext({
+          content: [{ type: "text", text: `User triggered a refresh for dataset "${datasetName}" (${datasetId}) in workspace ${currentWorkspaceId}.` }],
+        });
+
+        // Reload after a brief delay
+        setTimeout(() => loadDatasets(currentWorkspaceId), 3000);
+      } catch (err) {
+        console.error("Refresh failed:", err);
+        showToast(`Failed to refresh "${datasetName}"`, "error");
+        if (btn) {
+          btn.disabled = false;
+          btn.classList.remove("refreshing");
+          btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh';
+        }
+      }
+    }
+
+    // ─── Refresh All ──────────────────────────────────────────
+    btnRefreshAll.addEventListener("click", async () => {
+      const refreshable = datasets.filter((d) => d.isRefreshable);
+      if (refreshable.length === 0) return;
+
+      btnRefreshAll.disabled = true;
+      btnRefreshAll.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 0.8s linear infinite"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refreshing...';
+
+      let triggered = 0;
+      for (const ds of refreshable) {
+        try {
+          await app.callServerTool({
+            name: "trigger_refresh",
+            arguments: { workspaceId: currentWorkspaceId, datasetId: ds.id },
+          });
+          triggered++;
+        } catch (err) {
+          console.error(`Failed to refresh ${ds.name}:`, err);
+        }
+      }
+
+      showToast(`Triggered refresh for ${triggered}/${refreshable.length} datasets`, triggered > 0 ? "success" : "error");
+      await app.updateModelContext({
+        content: [{ type: "text", text: `User triggered refresh for ${triggered} datasets in workspace ${currentWorkspaceId}.` }],
+      });
+
+      setTimeout(() => loadDatasets(currentWorkspaceId), 3000);
+    });
+
+    // ─── Workspace Change ─────────────────────────────────────
+    workspaceSelect.addEventListener("change", (e) => {
+      const wsId = e.target.value;
+      if (wsId) {
+        loadDatasets(wsId);
+      } else {
+        showView("empty");
+      }
+    });
+
+    // ─── Handle Tool Result (initial data from LLM call) ─────
+    app.ontoolresult = (result) => {
+      try {
+        const text = result?.content?.[0]?.text;
+        if (!text) return;
+        const data = JSON.parse(text);
+
+        if (data.workspaceId && data.datasets) {
+          // Pre-select workspace and render data
+          currentWorkspaceId = data.workspaceId;
+          datasets = data.datasets;
+
+          // Mark the workspace in dropdown if it exists
+          for (const opt of workspaceSelect.options) {
+            if (opt.value === data.workspaceId) {
+              opt.selected = true;
+              break;
+            }
+          }
+
+          // Load full data
+          loadDatasets(data.workspaceId);
+        } else if (data.workspaces) {
+          // Populate workspace list
+          data.workspaces.forEach((ws) => {
+            const opt = document.createElement("option");
+            opt.value = ws.id;
+            opt.textContent = ws.displayName;
+            workspaceSelect.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error("Error handling tool result:", err);
+      }
+    };
+
+    // ─── Escape HTML ──────────────────────────────────────────
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ─── Initialize ───────────────────────────────────────────
+    async function init() {
+      showView("empty");
+      await app.connect();
+      loadWorkspaces();
+    }
+
+    init();
+  </script>
+</body>
+</html>

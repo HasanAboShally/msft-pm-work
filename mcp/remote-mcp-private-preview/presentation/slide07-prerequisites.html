@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 18pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 28pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 20pt 50pt;
+}
+h2 {
+  color: #0078D4;
+  font-size: 16pt;
+  margin: 0 0 20pt 0;
+}
+.table {
+  width: 100%;
+}
+.row {
+  display: flex;
+  border-bottom: 1pt solid #E1DFDD;
+  padding: 8pt 0;
+}
+.row-header {
+  background: #F5F5F5;
+  border-bottom: 2pt solid #0078D4;
+}
+.cell {
+  flex: 1;
+  padding: 0 10pt;
+}
+.cell p {
+  color: #333333;
+  font-size: 12pt;
+  margin: 0;
+}
+.cell-label p {
+  color: #002050;
+  font-weight: bold;
+}
+.row-header .cell p {
+  font-weight: bold;
+  color: #002050;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Prerequisites</h1>
+</div>
+<div class="content">
+  <h2>Before you begin, ensure you have:</h2>
+  <div class="table">
+    <div class="row row-header">
+      <div class="cell"><p>Requirement</p></div>
+      <div class="cell"><p>Details</p></div>
+    </div>
+    <div class="row">
+      <div class="cell cell-label"><p>Private Preview Access</p></div>
+      <div class="cell"><p>You should have received confirmation of your enrollment</p></div>
+    </div>
+    <div class="row">
+      <div class="cell cell-label"><p>Microsoft Fabric Access</p></div>
+      <div class="cell"><p>An active Fabric tenant with at least one workspace you can access</p></div>
+    </div>
+    <div class="row">
+      <div class="cell cell-label"><p>MCP-Compatible Agent</p></div>
+      <div class="cell"><p>VS Code with GitHub Copilot (recommended), Claude Desktop, or any MCP client</p></div>
+    </div>
+    <div class="row">
+      <div class="cell cell-label"><p>Entra ID Account</p></div>
+      <div class="cell"><p>Your Microsoft work or school account with Fabric permissions</p></div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>7</p>
+</div>
+</body>
+</html>

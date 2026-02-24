@@ -26,7 +26,7 @@ FORCE=false
 load_terraform_outputs
 require_vars WORKSPACE_NAME
 
-log_header "FabCon 26 Demo — Teardown"
+log_header "Fabric E2E Demo — Teardown"
 echo "  ⚠️  This will permanently delete:"
 echo "      Workspace: ${WORKSPACE_NAME}"
 echo "      And ALL items within it."

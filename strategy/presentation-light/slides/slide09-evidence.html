@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 34pt 56pt 26pt 56pt; width: 608pt; }
+.header { margin-bottom: 10pt; }
+.header h1 { font-size: 24pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.header p { font-size: 10pt; color: #64748B; margin: 0; }
+.stats-row { display: flex; gap: 10pt; margin-bottom: 14pt; }
+.stat-card { flex: 1; background: #F5F7FA; border-radius: 6pt; padding: 10pt; text-align: center; }
+.stat-card h2 { font-size: 20pt; color: #0078D4; margin: 0 0 2pt 0; font-weight: bold; }
+.stat-card p { font-size: 8pt; color: #64748B; margin: 0; }
+.stat-warn h2 { color: #E8553D; }
+.priorities { display: flex; gap: 10pt; margin-bottom: 10pt; }
+.priority { flex: 1; background: #FFFFFF; border-radius: 6pt; padding: 10pt; border-left: 4pt solid #0078D4; border: 1pt solid #E2E8F0; border-left: 4pt solid #0078D4; }
+.priority h3 { font-size: 10pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.priority p { font-size: 8.5pt; color: #64748B; margin: 0; line-height: 1.4; }
+.p-red { border-left-color: #E8553D; }
+.p-amber { border-left-color: #F59E0B; }
+.p-teal { border-left-color: #00A79D; }
+.quote-bar { background: #FFF8F0; border-radius: 6pt; padding: 10pt 16pt; border-left: 4pt solid #F59E0B; }
+.quote-bar p { font-size: 10pt; color: #4A5568; margin: 0; font-style: italic; line-height: 1.4; }
+.quote-bar p span { font-style: normal; font-weight: bold; color: #1A1A2E; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>What Real Customers Are Telling Us</h1>
+    <p>Based on 56 hours of 1:1 interviews with professional Fabric developers (CAT Research, Nov 2025)</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><h2>220</h2><p>unique issues found</p></div>
+    <div class="stat-card"><h2>13</h2><p>underserved jobs</p></div>
+    <div class="stat-card"><h2>6.1</h2><p>top opportunity score (troubleshooting)</p></div>
+    <div class="stat-card stat-warn"><h2>NPS 12</h2><p>heavy users vs 42 overall</p></div>
+  </div>
+  <div class="priorities">
+    <div class="priority p-red">
+      <h3>CI/CD and Deployment</h3>
+      <p>Slow, manual deployments. Git integration gaps. No reliable pipeline automation.</p>
+    </div>
+    <div class="priority">
+      <h3>Monitoring and Troubleshooting</h3>
+      <p>Logs scattered across tools. Vague error messages. Hours to resolve issues.</p>
+    </div>
+    <div class="priority p-amber">
+      <h3>Cost Optimization</h3>
+      <p>No visibility into capacity costs. No automated cost controls.</p>
+    </div>
+    <div class="priority p-teal">
+      <h3>Access and Identity</h3>
+      <p>No service accounts. Artifacts break when users leave the org.</p>
+    </div>
+  </div>
+  <div class="quote-bar">
+    <p>"Logs are scattered across multiple tools, making root cause analysis slow and error-prone." — <span>Enterprise Fabric customer</span></p>
+  </div>
+</div>
+</body></html>

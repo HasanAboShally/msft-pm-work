@@ -1,0 +1,26 @@
+product_id,product_name,category,subcategory,unit_price,cost_price,stock_quantity,supplier,last_restock_date,is_active
+P001,Surface Laptop 5,Electronics,Laptops,1299.99,850.00,150,Microsoft HQ,2024-01-10,TRUE
+P002,Xbox Series X,Gaming,Consoles,499.99,380.00,200,Microsoft Gaming,2024-01-08,TRUE
+P003,Microsoft 365 Family,Software,Productivity,99.99,15.00,9999,Microsoft Digital,2024-01-01,TRUE
+P004,Surface Pro 9,Electronics,Tablets,1599.99,1050.00,120,Microsoft HQ,2024-01-12,TRUE
+P005,Azure Credits,Cloud Services,IaaS,100.00,70.00,9999,Azure Cloud,2024-01-01,TRUE
+P006,Power BI Pro,Software,Analytics,9.99,2.00,9999,Microsoft Digital,2024-01-01,TRUE
+P007,Surface Headphones 2,Electronics,Audio,249.99,150.00,300,Surface Audio,2024-01-05,TRUE
+P008,Xbox Game Pass,Gaming,Subscriptions,14.99,8.00,9999,Microsoft Gaming,2024-01-01,TRUE
+P009,Visual Studio Enterprise,Software,Development,250.00,50.00,9999,Microsoft DevDiv,2024-01-01,TRUE
+P010,Surface Dock 2,Electronics,Accessories,259.99,160.00,250,Surface Accessories,2024-01-07,TRUE
+P011,Dynamics 365,Software,Business Apps,210.00,45.00,9999,Microsoft Dynamics,2024-01-01,TRUE
+P012,Surface Studio 2+,Electronics,Desktops,4499.99,3200.00,50,Microsoft HQ,2024-01-15,TRUE
+P013,GitHub Enterprise,Software,Development,21.00,5.00,9999,GitHub Inc,2024-01-01,TRUE
+P014,Azure Virtual Machines,Cloud Services,IaaS,50.00,35.00,9999,Azure Cloud,2024-01-01,TRUE
+P015,Surface Earbuds,Electronics,Audio,199.99,120.00,400,Surface Audio,2024-01-06,TRUE
+P016,Xbox Controller,Gaming,Accessories,59.99,35.00,500,Microsoft Gaming,2024-01-09,TRUE
+P017,Microsoft Teams Phone,Software,Communication,8.00,2.00,9999,Microsoft Digital,2024-01-01,TRUE
+P018,Surface Go 3,Electronics,Tablets,399.99,280.00,180,Microsoft HQ,2024-01-11,TRUE
+P019,Azure Storage,Cloud Services,PaaS,20.00,12.00,9999,Azure Cloud,2024-01-01,TRUE
+P020,Minecraft,Gaming,Games,26.99,5.00,9999,Mojang Studios,2024-01-01,TRUE
+P021,Surface Pen,Electronics,Accessories,99.99,55.00,600,Surface Accessories,2024-01-04,TRUE
+P022,Xbox Wireless Headset,Gaming,Audio,99.99,60.00,350,Microsoft Gaming,2024-01-08,TRUE
+P023,Power Automate,Software,Automation,15.00,3.00,9999,Microsoft Digital,2024-01-01,TRUE
+P024,Azure Functions,Cloud Services,PaaS,0.20,0.10,9999,Azure Cloud,2024-01-01,TRUE
+P025,Surface Keyboard,Electronics,Accessories,149.99,85.00,400,Surface Accessories,2024-01-03,TRUE

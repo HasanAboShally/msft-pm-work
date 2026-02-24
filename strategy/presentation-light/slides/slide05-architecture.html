@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 34pt 56pt 26pt 56pt; width: 608pt; }
+.header { margin-bottom: 16pt; }
+.header h1 { font-size: 24pt; color: #1A1A2E; margin: 0; font-weight: bold; }
+.header p { font-size: 11pt; color: #64748B; margin: 6pt 0 0 0; }
+.layers { display: flex; flex-direction: column; gap: 10pt; }
+.layer { border-radius: 8pt; padding: 14pt 18pt; }
+.agentic { background: #EBF5FF; border: 1pt solid #B3D9FF; }
+.foundational { background: #F0F0FF; border: 1pt solid #D4D4F7; }
+.layer-title { display: flex; align-items: center; gap: 8pt; margin-bottom: 8pt; }
+.layer-title h2 { font-size: 14pt; margin: 0; font-weight: bold; }
+.agentic .layer-title h2 { color: #0078D4; }
+.foundational .layer-title h2 { color: #6C5CE7; }
+.layer-desc p { font-size: 10pt; color: #4A5568; margin: 0 0 8pt 0; line-height: 1.4; }
+.pills { display: flex; gap: 6pt; flex-wrap: wrap; }
+.pill { background: #FFFFFF; border-radius: 4pt; padding: 5pt 10pt; border: 1pt solid #D1D5DB; }
+.pill p { font-size: 8.5pt; color: #1A1A2E; margin: 0; font-weight: bold; }
+.arrow-row { text-align: center; }
+.arrow-row p { font-size: 10pt; color: #94A3B8; margin: 0; }
+.footer { margin-top: 10pt; }
+.footer p { font-size: 10pt; color: #64748B; margin: 0; text-align: center; font-style: italic; }
+.footer p span { color: #1A1A2E; font-weight: bold; font-style: normal; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Two Layers That Make It Work</h1>
+    <p>The agentic layer delivers value. The foundational layer makes it possible.</p>
+  </div>
+  <div class="layers">
+    <div class="layer agentic">
+      <div class="layer-title"><h2>Agentic Layer — Experiences</h2></div>
+      <div class="layer-desc"><p>Interactive agents (MCP Apps, Copilot, embedded UIs) and autonomous agents (CI/CD, monitoring, governance)</p></div>
+      <div class="pills">
+        <div class="pill"><p>Interactive Agents</p></div>
+        <div class="pill"><p>Autonomous Agents</p></div>
+        <div class="pill"><p>Customer MCP Tools</p></div>
+      </div>
+    </div>
+    <div class="arrow-row"><p>depends on</p></div>
+    <div class="layer foundational">
+      <div class="layer-title"><h2>Foundational Layer — Infrastructure</h2></div>
+      <div class="layer-desc"><p>The complete, reliable, future-proof plumbing that everything above calls into</p></div>
+      <div class="pills">
+        <div class="pill"><p>REST APIs</p></div>
+        <div class="pill"><p>CLI</p></div>
+        <div class="pill"><p>MCP Server</p></div>
+        <div class="pill"><p>SDKs</p></div>
+        <div class="pill"><p>Identity</p></div>
+        <div class="pill"><p>Monitoring APIs</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p><span>Phase 1 (2026):</span> Build the foundation.  <span>Phase 2 (2027):</span> Light up agents.  <span>Phase 3 (2028+):</span> Scale everywhere.</p>
+  </div>
+</div>
+</body></html>

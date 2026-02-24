@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevX Cornerstone — Demo Storyboard</title>
+<style>
+  :root {
+    --clr-prep:     #D97706;
+    --clr-setup:    #4F46E5;
+    --clr-develop:  #0891B2;
+    --clr-deploy:   #7C3AED;
+    --clr-monitor:  #059669;
+
+    --clr-bg:       #FAFAFA;
+    --clr-surface:  #FFFFFF;
+    --clr-border:   #E5E7EB;
+    --clr-text:     #1F2937;
+    --clr-muted:    #6B7280;
+    --clr-light:    #F3F4F6;
+
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    line-height: 1.55;
+    padding: 2.5rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* === HEADER === */
+  .header { text-align: center; margin-bottom: 2rem; }
+  .header__badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-setup);
+    background: #EEF2FF;
+    padding: 0.25rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 0.6rem;
+  }
+  .header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+  .header p { color: var(--clr-muted); font-size: 0.85rem; max-width: 480px; margin: 0 auto; }
+
+  /* === PERSONA BAR === */
+  .persona-bar { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2.25rem; flex-wrap: wrap; }
+  .persona-card {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    background: var(--clr-surface); border: 1px solid var(--clr-border);
+    border-radius: var(--radius); padding: 0.8rem 1.1rem;
+    flex: 1; min-width: 260px; max-width: 340px;
+  }
+  .persona-card .icon {
+    width: 36px; height: 36px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem; color: #fff; flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .persona-card .role { font-size: 0.78rem; font-weight: 700; margin-bottom: 0.1rem; }
+  .persona-card .covers { font-size: 0.6rem; color: var(--clr-muted); font-weight: 500; margin-bottom: 0.3rem; }
+  .persona-card .jtbd { font-size: 0.65rem; color: var(--clr-muted); line-height: 1.45; }
+  .persona-card .jtbd b { color: var(--clr-text); font-weight: 600; }
+
+  /* === PHASE DIVIDER === */
+  .phase-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.75rem 0 0.25rem 0;
+    padding-left: 16px; /* align with the timeline line */
+  }
+  .phase-divider:first-of-type { margin-top: 0; }
+  .phase-divider__pill {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff;
+    padding: 0.3rem 0.85rem; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .phase-divider__line { flex: 1; height: 1px; background: var(--clr-border); }
+
+  /* === VERTICAL TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 16px;
+  }
+
+  /* The vertical line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 33px; /* center of 36px circle at left:16px → 16 + 18 - 1 */
+    width: 2px;
+    background: var(--clr-border);
+    z-index: 0;
+  }
+
+  /* Single step */
+  .tl-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    padding: 0.65rem 0;
+  }
+
+  .tl-step__circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: #fff;
+    flex-shrink: 0; position: relative; z-index: 2;
+    box-shadow: 0 0 0 4px var(--clr-bg);
+  }
+
+  .tl-step__body {
+    flex: 1;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    transition: box-shadow 0.15s;
+  }
+  .tl-step__body:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .tl-step__title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .tl-step__desc {
+    font-size: 0.72rem;
+    color: var(--clr-muted);
+    line-height: 1.45;
+  }
+
+  .tl-step__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border-radius: 100px;
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .where-tag {
+    display: inline-flex; align-items: center; gap: 0.2rem;
+    font-size: 0.58rem; font-weight: 600;
+    color: var(--clr-muted); background: var(--clr-light);
+    padding: 0.12rem 0.5rem; border-radius: 100px; white-space: nowrap;
+  }
+  .where-tag .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  /* === NEW FEATURES === */
+  .new-features {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 50%, #ECFDF5 100%);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.4rem;
+  }
+  .new-features h3 { font-size: 0.78rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .new-features ul {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1.25rem; list-style: none;
+  }
+  .new-features li {
+    font-size: 0.68rem; padding-left: 0.85rem; position: relative;
+  }
+  .new-features li::before {
+    content: "✦"; position: absolute; left: 0;
+    color: var(--clr-setup); font-size: 0.5rem; top: 0.12rem;
+  }
+
+  /* === MCP CALLOUT === */
+  .mcp-callout {
+    margin: 0.35rem 0 0 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.65rem;
+    color: #92400E;
+    line-height: 1.45;
+  }
+  .mcp-callout .mcp-icon {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    margin-top: -0.05rem;
+  }
+
+  /* === BRIDGE TEXT === */
+  .bridge {
+    margin: 1rem 0 0.25rem 0;
+    padding: 0.6rem 1rem 0.6rem 52px; /* align with step body (16px + 36px circle) */
+    font-size: 0.72rem;
+    color: var(--clr-muted);
+    font-style: italic;
+    line-height: 1.5;
+    border-left: 2px dashed var(--clr-border);
+    margin-left: 33px; /* align with timeline line */
+  }
+
+  /* === PRINT === */
+  @media print {
+    body { padding: 0.5rem; background: #fff; max-width: none; }
+    .tl-step__body { box-shadow: none !important; }
+    .tl-step__circle { box-shadow: 0 0 0 3px #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header__badge">FabCon 26 · DevX Cornerstone</div>
+  <h1>End-to-End Demo Storyboard</h1>
+  <p>From infrastructure provisioning to production monitoring — one continuous flow.</p>
+</div>
+
+<div class="persona-bar">
+  <div class="persona-card">
+    <div class="icon" style="background: var(--clr-setup);">⚙️</div>
+    <div>
+      <div class="role">Platform Engineer</div>
+      <div class="covers">Step 0 · Demos 1 · 2 · 3</div>
+      <div class="jtbd">Closest to <b>Ari (Data Architect)</b> + <b>Ren (Data Engineer)</b>. Designs and provisions the data platform — workspaces, connections, identities, CI/CD pipelines. Also develops data-engineering artifacts (notebooks, pipelines) and ships them to production.</div>
+    </div>
+  </div>
+  <div class="persona-card">
+    <div class="icon" style="background: var(--clr-monitor);">📊</div>
+    <div>
+      <div class="role">Team Lead / DevOps</div>
+      <div class="covers">Demo 4</div>
+      <div class="jtbd">Closest to <b>Gael (DB Admin)</b> + <b>Vic (Insights Explorer)</b>. Monitors production health, tracks job execution, and ensures reliability. Builds dashboards and alerts to stay ahead of failures before stakeholders notice.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== STEP 0 ===================== -->
+<div class="phase-divider">
+  <span class="phase-divider__pill" style="background: var(--clr-prep);">Step 0 · Prepare IaC &amp; Pipeline Scripts</span>
+  <span class="phase-divider__line"></span>
+</div>
+
+<div class="timeline">
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-prep);">0</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Author Terraform + CLI Scripts</div>
+      <div class="tl-step__desc">Write the Terraform templates and Fabric CLI scripts that will provision workspaces, items, connections, and identities. Set up the ADO pipeline YAML that orchestrates it all.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#6B7280;"></span>VS Code / IDE</span>
+        <span class="where-tag"><span class="dot" style="background:#0078D4;"></span>Azure DevOps</span>
+      </div>
+      <div class="mcp-callout">
+        <span class="mcp-icon">🤖</span>
+        <span><b>Tip:</b> Use the <b>Fabric MCP</b> to discover APIs and generate CLI / Terraform scripts, and the <b>ADO MCP</b> to scaffold or update your pipeline YAML — all from your AI coding agent.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bridge">Scripts are authored and committed. The pipeline is ready — just hit Run.</div>
+
+<!-- ===================== DEMO 1 ===================== -->
+<div class="phase-divider">
+  <span class="phase-divider__pill" style="background: var(--clr-setup);">Demo 1 · Setting up the Project</span>
+  <span class="phase-divider__line"></span>
+</div>
+
+<div class="timeline">
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-setup);">1</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Run ADO Pipeline</div>
+      <div class="tl-step__desc">Platform engineer clicks <b>Run</b> on the provisioning pipeline — Terraform creates the entire project.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#0078D4;"></span>Azure DevOps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-setup);">2</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Show Pipeline Log</div>
+      <div class="tl-step__desc">Everything created automatically — Dev / Test / Prod workspaces, Lakehouse, Notebooks, Pipeline, identities, connections.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#0078D4;"></span>Azure DevOps</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bridge">The project is fully provisioned — workspaces, items, connections, identities. Now the platform engineer switches hats and starts building.</div>
+
+<!-- ===================== DEMO 2 ===================== -->
+<div class="phase-divider">
+  <span class="phase-divider__pill" style="background: var(--clr-develop);">Demo 2 · Developer Workflow</span>
+  <span class="phase-divider__line"></span>
+</div>
+
+<div class="timeline">
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">3</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Open Dev Workspace</div>
+      <div class="tl-step__desc">Go to the Fabric portal — Dev workspace is synced to <code>main</code>.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">4</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Selective Branch Out <span class="badge-new">New</span></div>
+      <div class="tl-step__desc">Branch from Dev WS — pick only the items you need (e.g. Silver_Ingestion NB + Lakehouse). Faster time-to-code.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">5</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Edit in Feature Workspace <span class="badge-new">New</span></div>
+      <div class="tl-step__desc">Make code changes, add a Connection Reference variable, review with granular (cell-level) compare.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">6</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Review & Commit <span class="badge-new">New</span></div>
+      <div class="tl-step__desc">Use the new granular compare to review changes (cell-level diff), then commit to the feature branch.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">7</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">PR & Merge</div>
+      <div class="tl-step__desc">Go to Azure DevOps — create a Pull Request, review the diff, merge to <code>main</code>.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#0078D4;"></span>Azure DevOps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-develop);">8</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Review & Update from Git <span class="badge-new">New</span></div>
+      <div class="tl-step__desc">Return to Dev WS — review incoming changes with granular compare, then accept the update.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bridge">Code is merged, Dev workspace is up to date. Time to ship it to production.</div>
+
+<!-- ===================== DEMO 3 ===================== -->
+<div class="phase-divider">
+  <span class="phase-divider__pill" style="background: var(--clr-deploy);">Demo 3 · Deploy to Production</span>
+  <span class="phase-divider__line"></span>
+</div>
+
+<div class="timeline">
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-deploy);">9</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Create Release Branch</div>
+      <div class="tl-step__desc">In Azure DevOps, branch from <code>main</code> to <code>test_ws_1.0</code>.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#0078D4;"></span>Azure DevOps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-deploy);">10</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Auto-Deploy Pipeline</div>
+      <div class="tl-step__desc">Triggers Azure Pipeline — <b>fabric-cicd</b> deploys to Test, then to Prod. Fully SPN-driven, zero manual steps.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#7C3AED;"></span>fabric-cicd / CLI</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bridge">Deployment is live — items are running in Prod with environment-specific connections. But shipping isn't the finish line; we need to know what's happening.</div>
+
+<!-- ===================== DEMO 4 ===================== -->
+<div class="phase-divider">
+  <span class="phase-divider__pill" style="background: var(--clr-monitor);">Demo 4 · Monitor Production</span>
+  <span class="phase-divider__line"></span>
+</div>
+
+<div class="timeline">
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-monitor);">11</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Workspace Monitoring</div>
+      <div class="tl-step__desc">Use ItemJobEventsLog table to build customized dashboards and alerts.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-step__circle" style="background: var(--clr-monitor);">12</div>
+    <div class="tl-step__body">
+      <div class="tl-step__title">Real-time Dashboard</div>
+      <div class="tl-step__desc">Built-in real-time dashboard for production health monitoring.</div>
+      <div class="tl-step__meta">
+        <span class="where-tag"><span class="dot" style="background:#F59E0B;"></span>Fabric Portal</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NEW FEATURES -->
+<div class="new-features">
+  <h3>⭐ New Features Highlighted</h3>
+  <ul>
+    <li><b>Selective branching</b> — branch only the items you need</li>
+    <li><b>Workspace relations</b> — breadcrumbs & fly-out</li>
+    <li><b>Connection Ref variables</b> — resolves per environment</li>
+    <li><b>Granular compare</b> — cell-level diff</li>
+    <li><b>fabric-cicd via CLI</b> — pipeline deployments</li>
+    <li><b>Workspace monitoring</b> — logs + RT dashboard</li>
+  </ul>
+</div>
+
+</body>
+</html>

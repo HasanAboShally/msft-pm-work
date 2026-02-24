@@ -7,7 +7,8 @@
 # at any time.
 #
 # Pipeline Flow:
-#   Copy Jobs → Bronze_Data_Preparation → Shortcuts → Transformations → Validations
+#   Copy Jobs → [Bronze_Data_Preparation ‖ Transformations] → Validations
+#   (Bronze & Transformations run in parallel to save ~3 min Spark cold start)
 #
 # Usage:
 #   ./scripts/run-data-pipeline.sh                # Full pipeline
@@ -52,7 +53,7 @@ done
 # MAIN
 # =============================================================================
 
-log_header "FabCon 26 Demo — Run Data Pipeline"
+log_header "Fabric E2E Demo — Run Data Pipeline"
 
 # Load configuration
 load_terraform_outputs
@@ -75,28 +76,55 @@ if [[ "${SKIP_COPY}" == "false" ]]; then
   COPYJOB1_ID=$(fab_get_item_id "MyLHCopyJob.CopyJob")
   COPYJOB2_ID=$(fab_get_item_id "MyLHCopyJob2.CopyJob")
 
-  fab_run_copy_job "${WORKSPACE_ID}" "${COPYJOB1_ID}" "MyLHCopyJob"
-  fab_run_copy_job "${WORKSPACE_ID}" "${COPYJOB2_ID}" "MyLHCopyJob2"
+  fab_run_copy_job "${WORKSPACE_ID}" "${COPYJOB1_ID}" "MyLHCopyJob" || log_warn "Failed to start MyLHCopyJob"
+  fab_run_copy_job "${WORKSPACE_ID}" "${COPYJOB2_ID}" "MyLHCopyJob2" || log_warn "Failed to start MyLHCopyJob2"
 
-  log_info "Waiting 30s for copy jobs to complete..."
-  sleep 30
-  log_success "Copy jobs completed"
+  # Poll copy jobs for completion (max 300s each) instead of blind sleep
+  log_info "Polling copy jobs for completion (max 300s each)..."
+  fab_poll_copy_job "${WORKSPACE_ID}" "${COPYJOB1_ID}" "MyLHCopyJob" 300 || log_warn "MyLHCopyJob polling ended (may have failed — Bronze notebook will self-heal)"
+  fab_poll_copy_job "${WORKSPACE_ID}" "${COPYJOB2_ID}" "MyLHCopyJob2" 300 || log_warn "MyLHCopyJob2 polling ended (may have failed — Bronze notebook will self-heal)"
+  log_success "Copy jobs step completed"
 else
   log_step 1 "Copy Jobs (SKIPPED — --skip-copy)"
 fi
 
-# Step 2: Run Bronze_Data_Preparation
-log_step 2 "Run Bronze_Data_Preparation notebook"
-fab_run_notebook "Bronze_Data_Preparation.Notebook"
-log_success "Bronze data preparation completed"
+# Step 2: Run Bronze & Transformations in PARALLEL (they are independent)
+log_step 2 "Run Bronze_Data_Preparation + Transformations notebooks in parallel"
 
-# Step 3: Run Transformations (Bronze → Silver)
-log_step 3 "Run Transformations notebook (Bronze → Silver)"
-fab_run_notebook "Transformations.Notebook"
-log_success "Transformations completed"
+BRONZE_OK=0
+TRANSFORM_OK=0
 
-# Step 4: Run Validations
-log_step 4 "Run Validations notebook"
+# Run Bronze in background
+(
+  fab_run_notebook "Bronze_Data_Preparation.Notebook" && \
+    log_success "Bronze_Data_Preparation completed"
+) &
+BRONZE_PID=$!
+
+# Run Transformations in background
+(
+  fab_run_notebook "Transformations.Notebook" && \
+    log_success "Transformations completed"
+) &
+TRANSFORM_PID=$!
+
+log_info "Waiting for parallel notebooks: Bronze(PID=$BRONZE_PID) Transformations(PID=$TRANSFORM_PID)"
+
+# Wait for both — capture exit codes
+wait $BRONZE_PID && BRONZE_OK=1 || log_warn "Bronze_Data_Preparation notebook failed (exit=$?)"
+wait $TRANSFORM_PID && TRANSFORM_OK=1 || log_warn "Transformations notebook failed (exit=$?)"
+
+if [[ "$BRONZE_OK" -eq 0 ]] && [[ "$TRANSFORM_OK" -eq 0 ]]; then
+  log_error "Both notebooks failed — cannot proceed with Validations"
+  exit 1
+fi
+if [[ "$BRONZE_OK" -eq 0 ]] || [[ "$TRANSFORM_OK" -eq 0 ]]; then
+  log_warn "One notebook failed — attempting Validations anyway"
+fi
+log_success "Parallel notebook step completed (Bronze=$BRONZE_OK, Transformations=$TRANSFORM_OK)"
+
+# Step 3: Run Validations (depends on both Bronze and Transformations)
+log_step 3 "Run Validations notebook"
 fab_run_notebook "Validations.Notebook"
 log_success "Validations completed"
 

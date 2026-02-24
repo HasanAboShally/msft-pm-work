@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 15pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.subheader {
+  color: #B4D6F5;
+  font-size: 12pt;
+  margin: 3pt 0 0 0;
+}
+.content {
+  flex: 1;
+  padding: 12pt 50pt;
+  display: flex;
+  gap: 20pt;
+}
+.steps {
+  flex: 1.2;
+}
+.step {
+  display: flex;
+  margin-bottom: 10pt;
+}
+.step-num {
+  background: #0078D4;
+  min-width: 22pt;
+  height: 22pt;
+  border-radius: 11pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10pt;
+}
+.step-num p {
+  color: #ffffff;
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0;
+}
+.step-content h3 {
+  color: #002050;
+  font-size: 11pt;
+  margin: 0 0 3pt 0;
+}
+.step-content p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+  line-height: 1.3;
+}
+.code-box {
+  background: #1E1E1E;
+  padding: 6pt 10pt;
+  border-radius: 4pt;
+  margin-top: 4pt;
+  display: inline-block;
+}
+.code-box p {
+  color: #9CDCFE;
+  font-size: 8pt;
+  font-family: Courier New, monospace;
+  margin: 0;
+}
+.sidebar {
+  flex: 1;
+  background: #F5F5F5;
+  padding: 10pt;
+  border-radius: 8pt;
+}
+.sidebar h3 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 5pt 0;
+}
+.sidebar p {
+  color: #333333;
+  font-size: 8pt;
+  margin: 0 0 4pt 0;
+  line-height: 1.2;
+}
+.sidebar .code-box {
+  background: #1E1E1E;
+  padding: 8pt;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sidebar .code-box p {
+  color: #D4D4D4;
+  font-size: 7pt;
+  line-height: 1.3;
+  margin: 0;
+}
+.json-key {
+  color: #9CDCFE;
+}
+.json-str {
+  color: #CE9178;
+}
+.kbd {
+  background: #E1DFDD;
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+  font-family: Courier New, monospace;
+  font-size: 9pt;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Quick Start: VS Code + GitHub Copilot</h1>
+  <p class="subheader">Recommended setup with interactive authentication</p>
+</div>
+<div class="content">
+  <div class="steps">
+    <div class="step">
+      <div class="step-num"><p>1</p></div>
+      <div class="step-content">
+        <h3>Open MCP Server Configuration</h3>
+        <p>Press <span class="kbd">Cmd+Shift+P</span> (macOS) or <span class="kbd">Ctrl+Shift+P</span> (Windows)</p>
+        <p>Type "MCP: Add Server" and select HTTP</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>2</p></div>
+      <div class="step-content">
+        <h3>Enter the Fabric MCP Server URL</h3>
+        <div class="code-box"><p>https://api.fabric.microsoft.com/v1/mcp</p></div>
+        <p>Name it "fabric" when prompted</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>3</p></div>
+      <div class="step-content">
+        <h3>Authenticate</h3>
+        <p>VS Code will open your browser for sign-in. Use your Entra ID account.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>4</p></div>
+      <div class="step-content">
+        <h3>Verify Connection</h3>
+        <p>Ask Copilot: "List all my Fabric workspaces"</p>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <h3>Manual Config Alternative</h3>
+    <p>Add to .vscode/mcp.json:</p>
+    <div class="code-box">
+      <p>{<br>&nbsp;&nbsp;"servers": {<br>&nbsp;&nbsp;&nbsp;&nbsp;"fabric": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type": "http",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"url": "https://api.fabric<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.microsoft.com/v1/mcp"<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>8</p>
+</div>
+</body>
+</html>

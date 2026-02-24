@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+  display: flex;
+  gap: 12pt;
+}
+.col {
+  flex: 1;
+}
+h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 15pt 0;
+}
+.category {
+  margin-bottom: 8pt;
+}
+.category h3 {
+  color: #002050;
+  font-size: 9pt;
+  margin: 0 0 4pt 0;
+}
+.category p {
+  color: #666666;
+  font-size: 9pt;
+  margin: 0;
+}
+.contact-box {
+  background: #F0F6FC;
+  padding: 10pt;
+  border-radius: 6pt;
+  margin-top: 10pt;
+}
+.contact-box h3 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 10pt 0;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8pt;
+}
+.contact-label {
+  width: 60pt;
+}
+.contact-label p {
+  color: #666666;
+  font-size: 9pt;
+  margin: 0;
+}
+.contact-value p {
+  color: #002050;
+  font-size: 9pt;
+  margin: 0;
+  font-weight: bold;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Providing Feedback</h1>
+</div>
+<div class="content">
+  <div class="col">
+    <h2>What to Report</h2>
+    <div class="category">
+      <h3>Tool Accuracy</h3>
+      <p>Does the agent pick the right tool? Are parameters correct?</p>
+    </div>
+    <div class="category">
+      <h3>Auth/Permissions</h3>
+      <p>Is sign-in smooth? Any RBAC confusion?</p>
+    </div>
+    <div class="category">
+      <h3>Success Rate</h3>
+      <p>Do multi-step workflows complete? Where do they fail?</p>
+    </div>
+    <div class="category">
+      <h3>Trust and Guardrails</h3>
+      <p>Do you feel in control? Want approval steps?</p>
+    </div>
+    <div class="category">
+      <h3>Coverage Gaps</h3>
+      <p>What Fabric operations did you expect but couldn't find?</p>
+    </div>
+  </div>
+  <div class="col">
+    <h2>How to Submit</h2>
+    <div class="contact-box">
+      <h3>Contact Channels</h3>
+      <div class="contact-item">
+        <div class="contact-label"><p>Form</p></div>
+        <div class="contact-value"><p>Microsoft Forms (preferred)</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label"><p>Email</p></div>
+        <div class="contact-value"><p>habos@microsoft.com</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label"><p>Teams</p></div>
+        <div class="contact-value"><p>Ping Hasan Abo-Shally</p></div>
+      </div>
+    </div>
+    <p style="color: #666666; font-size: 9pt; margin-top: 15pt;">Include "Fabric MCP Feedback" in email subject</p>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>15</p>
+</div>
+</body>
+</html>

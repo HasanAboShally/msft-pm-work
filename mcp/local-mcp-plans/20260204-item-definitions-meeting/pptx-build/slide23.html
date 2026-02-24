@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0078D4; }
+body {
+    width: 720pt; height: 405pt; margin: 0; padding: 0;
+    background: #0078D4;
+    font-family: Arial, sans-serif;
+    display: flex; flex-direction: column;
+}
+.header { padding: 20pt 40pt; }
+.part-label { color: #E8F4FD; font-size: 12pt; margin: 0 0 6pt 0; text-transform: uppercase; letter-spacing: 1pt; }
+.header-title { color: #FFFFFF; font-size: 26pt; font-weight: bold; margin: 0; }
+.content { padding: 15pt 40pt; flex: 1; }
+.decision { background: rgba(255,255,255,0.95); border-radius: 8pt; padding: 15pt 20pt; margin-bottom: 15pt; display: flex; align-items: center; gap: 15pt; }
+.number { background: #1C2833; color: #FFFFFF; font-size: 18pt; font-weight: bold; width: 32pt; height: 32pt; border-radius: 16pt; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.number-text { color: #FFFFFF; font-size: 16pt; font-weight: bold; margin: 0; }
+.decision-content { flex: 1; }
+.decision-title { color: #1C2833; font-size: 16pt; font-weight: bold; margin: 0 0 4pt 0; }
+.decision-options { color: #666666; font-size: 12pt; margin: 0; }
+</style>
+</head>
+<body>
+<div class="header">
+    <p class="part-label">Part 5: Next Steps</p>
+    <h1 class="header-title">Decisions to Make Today</h1>
+</div>
+<div class="content">
+    <div class="decision">
+        <div class="number"><p class="number-text">1</p></div>
+        <div class="decision-content">
+            <p class="decision-title">Approval Flow</p>
+            <p class="decision-options">Always / Smart / User setting</p>
+        </div>
+    </div>
+    <div class="decision">
+        <div class="number"><p class="number-text">2</p></div>
+        <div class="decision-content">
+            <p class="decision-title">Dry-run Owner</p>
+            <p class="decision-options">MCP / CLI / Both</p>
+        </div>
+    </div>
+    <div class="decision">
+        <div class="number"><p class="number-text">3</p></div>
+        <div class="decision-content">
+            <p class="decision-title">CLI Requirements</p>
+            <p class="decision-options">Confirm what's needed from CLI team</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

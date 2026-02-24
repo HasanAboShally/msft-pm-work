@@ -80,12 +80,12 @@ Below are all tasks I need to complete, organized by workstream. Each task has a
 | D4 | Publish wiki for internal teams | ⬜ TODO | Internal wiki site |
 
 ### Workstream E: CLI-in-Web Vision Document
-> **Status:** Conceptualized, awaiting research input
+> **Status:** ✅ Vision document complete (V6)
 
 | Task ID | Task | Status | Deliverable Location |
 |---------|------|--------|---------------------|
-| E1 | Write vision doc: problem statement, personas, use cases | ⬜ TODO | TBD |
-| E2 | Include Copilot + CLI integration concept | ⬜ TODO | Same doc |
+| E1 | Write vision doc: problem statement, personas, use cases | ✅ DONE | `cli/20251130-FABRIC-CLI-VISION-V6-⭐.md` |
+| E2 | Include Copilot + CLI integration concept | ✅ DONE | Same doc |
 | E3 | Incorporate customer research findings | ⬜ TODO | Same doc |
 | E4 | Share with Aviv, Alon for feedback | ⬜ TODO | N/A |
 | E5 | Present to leadership for H1 2026 planning | ⬜ TODO | N/A |
@@ -108,12 +108,14 @@ Below are all tasks I need to complete, organized by workstream. Each task has a
 /Users/hasan-msft/msft-dev/my-pm-work/
 ├── final-presentations/
 │   └── 20251129-partner-voice-webcast-outline.md  ← Partner Voice presentation
+├── cli/
+│   └── 20251130-FABRIC-CLI-VISION-V6-⭐.md  ← CLI Vision (NEW)
 ├── mcp/
 │   ├── specs/
 │   │   ├── local-mcp/
-│   │   │   └── 20251124-FABRIC-LOCAL-MCP-SPEC-V3.md
+│   │   │   └── FABRIC-LOCAL-MCP-SPEC-V5-⭐.md  ← Local MCP Spec (V5)
 │   │   └── remote-mcp/
-│   │       └── 20251124-FABRIC-REMOTE-MCP-SPEC-V4.md
+│   │       └── FABRIC-REMOTE-MCP-SPEC-V5-⭐.md  ← Remote MCP Spec (V5)
 │   ├── FABRIC-MCPS-PLATFORM-SPEC.md
 │   ├── MCP-SERVER-ITEM-EXPLORATION.md
 │   └── UNIFIED-FABRIC-MCP-VISION.md
@@ -174,15 +176,15 @@ For any task that requires more context, the AI agent should read:
 
 ## 🎯 Immediate Priorities (Next 48 Hours)
 
-### Sunday Nov 30 (Today)
+### Sunday Nov 30 - COMPLETED ✅
 1. ✅ Partner Voice outline - DONE
-2. 🔄 Review CLI study guide (Task C1)
-3. ⬜ Finalize MCP specs and send for review (Task B3)
+2. ✅ Finalize MCP specs V5 and share for review - DONE
+3. ✅ CLI Vision document V6 - DONE
 
-### Monday Dec 1
-1. ⬜ Final Partner Voice deck and dry run (Tasks A2, A4)
-2. ⬜ Draft MCP onboarding wiki (Task D1)
-3. ⬜ Attend CLI bi-weekly sync (inform on research)
+### Monday Dec 1 (Today) - FOCUS: PARTNER VOICE
+1. 🔴 **Final Partner Voice deck and dry run (Tasks A2, A4)** ← TOP PRIORITY
+2. ⬜ Prepare demo environment (Task A3)
+3. ⬜ Create backup screenshots/video (Task A5)
 
 ### Tuesday Dec 2
 1. 🎤 **Partner Voice Webcast at 6 PM** (Task A1-A5)

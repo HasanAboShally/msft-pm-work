@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 25pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 28pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 20pt 50pt;
+  display: flex;
+  flex-direction: column;
+}
+.definition {
+  background: #F0F6FC;
+  border-left: 6pt solid #0078D4;
+  padding: 12pt 18pt;
+  margin-bottom: 18pt;
+}
+.definition p {
+  color: #002050;
+  font-size: 14pt;
+  margin: 0;
+  line-height: 1.5;
+}
+.diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10pt 0 18pt 0;
+  gap: 12pt;
+}
+.box {
+  background: #E1DFDD;
+  padding: 12pt 18pt;
+  border-radius: 6pt;
+  text-align: center;
+  min-width: 140pt;
+}
+.box p {
+  color: #333333;
+  font-size: 11pt;
+  margin: 0;
+}
+.box-primary {
+  background: #0078D4;
+}
+.box-primary p {
+  color: #ffffff;
+}
+.arrow p {
+  color: #0078D4;
+  font-size: 18pt;
+  font-weight: bold;
+  margin: 0;
+}
+.benefits {
+  display: flex;
+  gap: 20pt;
+}
+.benefit {
+  flex: 1;
+  text-align: center;
+}
+.benefit h3 {
+  color: #0078D4;
+  font-size: 12pt;
+  margin: 0 0 5pt 0;
+}
+.benefit p {
+  color: #666666;
+  font-size: 10pt;
+  margin: 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>What is MCP?</h1>
+</div>
+<div class="content">
+  <div class="definition">
+    <p><b>Model Context Protocol (MCP)</b> is an open standard that enables AI agents to access external data and perform real actions, moving beyond conversation to actual system control.</p>
+  </div>
+  <div class="diagram">
+    <div class="box">
+      <p><b>AI Agent</b></p>
+      <p>VS Code Copilot,<br>Claude, etc.</p>
+    </div>
+    <div class="arrow"><p>&lt;---&gt;</p></div>
+    <div class="box-primary box">
+      <p><b>MCP Protocol</b></p>
+      <p>Universal Adapter</p>
+    </div>
+    <div class="arrow"><p>&lt;---&gt;</p></div>
+    <div class="box">
+      <p><b>MCP Server</b></p>
+      <p>Fabric, Graph,<br>databases...</p>
+    </div>
+  </div>
+  <div class="benefits">
+    <div class="benefit">
+      <h3>Standardized</h3>
+      <p>One protocol works<br>across all agents</p>
+    </div>
+    <div class="benefit">
+      <h3>Secure</h3>
+      <p>Auth, RBAC, and<br>audit trails built in</p>
+    </div>
+    <div class="benefit">
+      <h3>Typed</h3>
+      <p>Defined schemas<br>reduce errors</p>
+    </div>
+    <div class="benefit">
+      <h3>Discoverable</h3>
+      <p>Agents explore<br>capabilities</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>4</p>
+</div>
+</body>
+</html>

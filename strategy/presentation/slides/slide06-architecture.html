@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0A1628; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark.png'); background-size: cover; }
+.wrap { margin: 34pt 50pt 24pt 50pt; width: 620pt; }
+.header { margin-bottom: 18pt; }
+.header p { font-size: 9pt; color: #00B4D8; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 6pt 0; }
+.header h1 { font-size: 24pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+/* Architecture diagram */
+.arch { background: rgba(255,255,255,0.03); border-radius: 10pt; padding: 16pt; border: 1pt solid rgba(255,255,255,0.08); }
+.layer-label { margin-bottom: 8pt; }
+.layer-label p { font-size: 9pt; color: #00B4D8; font-weight: bold; letter-spacing: 2pt; text-transform: uppercase; margin: 0; }
+.layer-label-found p { color: #A78BFA; }
+.agentic-boxes { display: flex; gap: 10pt; margin-bottom: 14pt; }
+.a-box { flex: 1; background: rgba(0,180,216,0.1); border: 1pt solid rgba(0,180,216,0.25); border-radius: 6pt; padding: 10pt 10pt; text-align: center; }
+.a-box h3 { font-size: 10pt; color: #FFFFFF; margin: 0 0 4pt 0; font-weight: bold; }
+.a-box p { font-size: 7.5pt; color: #90CAF9; margin: 0; line-height: 1.3; }
+.arrow-row { text-align: center; margin-bottom: 10pt; }
+.arrow-row p { font-size: 14pt; color: #48CAE4; margin: 0; }
+.found-box { background: rgba(167,139,250,0.08); border: 1pt solid rgba(167,139,250,0.2); border-radius: 6pt; padding: 12pt 16pt; }
+.found-items { display: flex; flex-wrap: wrap; gap: 8pt; margin-top: 8pt; }
+.f-item { background: rgba(167,139,250,0.12); border-radius: 4pt; padding: 6pt 10pt; }
+.f-item p { font-size: 8pt; color: #C4B5FD; margin: 0; }
+.bottom-insight { margin-top: 14pt; }
+.bottom-insight p { font-size: 9.5pt; color: #B0BEC5; margin: 0; text-align: center; font-style: italic; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Architecture</p>
+    <h1>The Two-Layer Strategy</h1>
+  </div>
+  <div class="arch">
+    <div class="layer-label"><p>Agentic Layer — Experiences</p></div>
+    <div class="agentic-boxes">
+      <div class="a-box">
+        <h3>Interactive Agents</h3>
+        <p>MCP Apps, embedded UIs, inline experiences</p>
+      </div>
+      <div class="a-box">
+        <h3>Autonomous Agents</h3>
+        <p>CI/CD, headless operations, orchestration</p>
+      </div>
+      <div class="a-box">
+        <h3>Customer MCP Tools</h3>
+        <p>Custom logic as callable operations</p>
+      </div>
+    </div>
+    <div class="arrow-row"><p>▼  ▼  ▼</p></div>
+    <div class="found-box">
+      <div class="layer-label layer-label-found"><p>Foundational Layer — Infrastructure</p></div>
+      <div class="found-items">
+        <div class="f-item"><p>APIs (complete, future-proof scale)</p></div>
+        <div class="f-item"><p>CLI (composable execution)</p></div>
+        <div class="f-item"><p>MCP Infrastructure</p></div>
+        <div class="f-item"><p>SDKs (.NET, Python)</p></div>
+        <div class="f-item"><p>Terraform Provider</p></div>
+        <div class="f-item"><p>Identity &amp; Governance</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-insight">
+    <p>Foundation in 2026. Agentic layer in 2027. Scale in 2028–2029.</p>
+  </div>
+</div>
+</body></html>

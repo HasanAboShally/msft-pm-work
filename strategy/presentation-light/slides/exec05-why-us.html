@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 24pt 48pt 20pt 48pt; width: 624pt; }
+.label { margin-bottom: 4pt; }
+.label p { font-size: 8pt; color: #0078D4; letter-spacing: 2pt; text-transform: uppercase; margin: 0; font-weight: bold; }
+.header h1 { font-size: 20pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.header p { font-size: 9pt; color: #64748B; margin: 0 0 12pt 0; }
+.pillars { display: flex; flex-wrap: wrap; gap: 10pt; margin-bottom: 12pt; }
+.pillar { width: 300pt; background: #F5F7FA; border-radius: 6pt; padding: 10pt 12pt; border-top: 3pt solid #0078D4; }
+.pillar h2 { font-size: 11pt; color: #0078D4; margin: 0 0 4pt 0; font-weight: bold; }
+.pillar p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.4; }
+.pillar-purple { border-top-color: #6C5CE7; }
+.pillar-purple h2 { color: #6C5CE7; }
+.pillar-teal { border-top-color: #00A79D; }
+.pillar-teal h2 { color: #00A79D; }
+.pillar-coral { border-top-color: #E8553D; }
+.pillar-coral h2 { color: #E8553D; }
+.bottom { background: #EBF5FF; border-radius: 5pt; padding: 10pt 14pt; text-align: center; }
+.bottom p { font-size: 10pt; color: #0078D4; margin: 0; font-weight: bold; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Executive Summary</p></div>
+  <div class="header">
+    <h1>Why Us</h1>
+    <p>We own four key pillars that make this vision possible:</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <h2>Embed</h2>
+      <p>Embedding Fabric items in external apps today → expanding to embedding full experiences (troubleshooting, monitoring, provisioning)</p>
+    </div>
+    <div class="pillar pillar-purple">
+      <h2>APIs & Dev Tools</h2>
+      <p>Public APIs (110K MAU), CLI (168K downloads), SDKs, Terraform — the foundational layer that everything is built on</p>
+    </div>
+    <div class="pillar pillar-teal">
+      <h2>MCPs</h2>
+      <p>Local MCP (GA FabCon Mar '26) + Remote/Hosted MCP — the connectivity layer for agents to access Fabric</p>
+    </div>
+    <div class="pillar pillar-coral">
+      <h2>Platform</h2>
+      <p>MCP infrastructure enabling other Fabric teams to build their own MCP tools — we scale agent access across all of Fabric</p>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>No other team owns both the infrastructure AND the externalization surface.</p>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header h1 { font-size: 20pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.persona { font-size: 8.5pt; color: #64748B; margin: 0 0 12pt 0; }
+.steps { display: flex; flex-direction: column; gap: 4pt; }
+.step { display: flex; align-items: flex-start; gap: 8pt; }
+.step-num { min-width: 18pt; height: 18pt; border-radius: 50%; background: #0078D4; color: #FFFFFF; font-size: 8pt; font-weight: bold; text-align: center; line-height: 18pt; margin-top: 1pt; }
+.step-num p { margin: 0; font-size: inherit; color: inherit; font-weight: inherit; line-height: 18pt; }
+.step-num-success { background: #00A79D; }
+.step-content { flex: 1; }
+.step-title { font-size: 9.5pt; color: #1A1A2E; font-weight: bold; margin: 0; }
+.step-desc { font-size: 8.5pt; color: #64748B; margin: 1pt 0 0 0; line-height: 1.4; }
+.step-desc code { font-family: 'Consolas', monospace; font-size: 7.5pt; background: #F5F7FA; padding: 1pt 4pt; border-radius: 2pt; color: #0078D4; }
+.step-success .step-title { color: #00A79D; }
+.layers-bar { margin-top: 10pt; background: #F5F7FA; border-radius: 4pt; padding: 6pt 12pt; display: flex; align-items: center; gap: 4pt; }
+.layers-bar p { font-size: 7.5pt; color: #64748B; margin: 0; }
+.layers-bar span { font-weight: bold; color: #4A5568; }
+.layers-arrow { color: #94A3B8; font-size: 8pt; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Scenario 1: Developer Troubleshooting from VS Code</h1>
+  </div>
+  <p class="persona">👤 Persona: Data Engineer &nbsp;|&nbsp; 📍 Where: VS Code with GitHub Copilot &nbsp;|&nbsp; 🎯 Goal: Fix a failing pipeline</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num"><p>1</p></div>
+      <div class="step-content">
+        <p class="step-title">Pipeline fails</p>
+        <p class="step-desc">Developer gets a notification in VS Code that the ETL-Finance-Daily pipeline has failed</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>2</p></div>
+      <div class="step-content">
+        <p class="step-title">Check logs via CLI</p>
+        <p class="step-desc">Developer runs <code>fab pipeline logs ETL-Finance-Daily --live</code> to see a live feed of logs directly in the terminal</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>3</p></div>
+      <div class="step-content">
+        <p class="step-title">Ask Copilot for help</p>
+        <p class="step-desc">Developer asks GitHub Copilot: "Help me understand why this pipeline failed"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>4</p></div>
+      <div class="step-content">
+        <p class="step-title">MCP App renders insights</p>
+        <p class="step-desc">Copilot uses Fabric's MCP tools to pull logs, analyze them, and renders an MCP App showing root cause: memory overflow with 87% confidence</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>5</p></div>
+      <div class="step-content">
+        <p class="step-title">One-click fix</p>
+        <p class="step-desc">The MCP App shows remediation options. Developer clicks "Increase executor memory"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"><p>6</p></div>
+      <div class="step-content">
+        <p class="step-title">Agent executes</p>
+        <p class="step-desc">With the developer's approval, the agent applies the fix via Fabric API and re-triggers the pipeline</p>
+      </div>
+    </div>
+    <div class="step step-success">
+      <div class="step-num step-num-success"><p>✓</p></div>
+      <div class="step-content">
+        <p class="step-title">Resolved</p>
+        <p class="step-desc">Pipeline succeeds. Total time: minutes, not hours. Zero portal visits.</p>
+      </div>
+    </div>
+  </div>
+  <div class="layers-bar">
+    <p><span>Layers used:</span> Foundation (Logging API, CLI) <span class="layers-arrow">→</span> Programmatic (scriptable commands) <span class="layers-arrow">→</span> Agentic (MCP App, Copilot)</p>
+  </div>
+</div>
+</body></html>

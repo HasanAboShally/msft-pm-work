@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+}
+.intro {
+  background: #F0F6FC;
+  border-left: 6pt solid #0078D4;
+  padding: 12pt 18pt;
+  margin-bottom: 8pt;
+}
+.intro p {
+  color: #002050;
+  font-size: 9pt;
+  margin: 0;
+}
+.two-col {
+  display: flex;
+  gap: 15pt;
+}
+.col {
+  flex: 1;
+}
+h2 {
+  color: #0078D4;
+  font-size: 9pt;
+  margin: 0 0 10pt 0;
+}
+.quote-box {
+  background: #F5F5F5;
+  border-left: 4pt solid #107C10;
+  padding: 10pt 14pt;
+  margin-bottom: 8pt;
+}
+.quote-box p {
+  color: #333333;
+  font-size: 9pt;
+  font-style: italic;
+  margin: 0;
+}
+.example-list p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0 0 6pt 0;
+  line-height: 1.4;
+}
+.link {
+  color: #0078D4;
+  text-decoration: underline;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Recommended: Add Microsoft Graph MCP</h1>
+</div>
+<div class="content">
+  <div class="intro">
+    <p>To enable user and group resolution (e.g., adding users by email address), also connect the <b>Microsoft Graph MCP Server</b>.</p>
+  </div>
+  <div class="two-col">
+    <div class="col">
+      <h2>Why Add Graph MCP?</h2>
+      <div class="quote-box">
+        <p>"Add john@contoso.com as a Contributor to my Dev workspace"</p>
+      </div>
+      <p class="example-list"><b>Without Graph MCP:</b> You need the user's principal ID</p>
+      <p class="example-list"><b>With Graph MCP:</b> Agent resolves email to ID automatically</p>
+    </div>
+    <div class="col">
+      <h2>Example Commands</h2>
+      <div class="quote-box">
+        <p>"Add the Marketing team to Sales Analytics as Viewers"</p>
+      </div>
+      <div class="quote-box">
+        <p>"Grant john@contoso.com Contributor access"</p>
+      </div>
+      <div class="quote-box">
+        <p>"Who are the members of Finance Admins group?"</p>
+      </div>
+      <p class="example-list">Setup: <span class="link">learn.microsoft.com/graph/mcp-server</span></p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>10</p>
+</div>
+</body>
+</html>

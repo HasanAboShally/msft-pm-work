@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 25pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 30pt 50pt;
+}
+.timeline {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 30pt;
+}
+.milestone {
+  flex: 1;
+  background: #F5F5F5;
+  padding: 10pt;
+  border-radius: 8pt;
+  border-top: 4pt solid #E1DFDD;
+  text-align: center;
+}
+.milestone-current {
+  background: #E6F7FF;
+  border-top-color: #0078D4;
+}
+.milestone h3 {
+  color: #002050;
+  font-size: 9pt;
+  margin: 0 0 8pt 0;
+}
+.milestone p {
+  color: #666666;
+  font-size: 9pt;
+  margin: 0 0 5pt 0;
+}
+.milestone-features {
+  color: #333333;
+  font-size: 9pt;
+  margin-top: 8pt;
+}
+.badge {
+  display: inline-block;
+  background: #FFB900;
+  padding: 3pt 8pt;
+  border-radius: 3pt;
+  margin-bottom: 8pt;
+}
+.badge p {
+  color: #000000;
+  font-size: 8pt;
+  font-weight: bold;
+  margin: 0;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Roadmap</h1>
+</div>
+<div class="content">
+  <div class="timeline">
+    <div class="milestone milestone-current">
+      <div class="badge"><p>CURRENT</p></div>
+      <h3>Private Preview</h3>
+      <p>Jan 2026</p>
+      <p class="milestone-features">Core platform, workspace/item CRUD, permissions</p>
+    </div>
+    <div class="milestone">
+      <h3>Public Preview</h3>
+      <p>Mar 2026</p>
+      <p class="milestone-features">TBD based on your feedback</p>
+    </div>
+    <div class="milestone">
+      <h3>GA Release</h3>
+      <p>TBD (2026)</p>
+      <p class="milestone-features">Full production readiness</p>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>16</p>
+</div>
+</body>
+</html>

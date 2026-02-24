@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 26pt 44pt 18pt 44pt; width: 632pt; }
+.label { margin-bottom: 4pt; }
+.label p { font-size: 9pt; color: #0078D4; letter-spacing: 2pt; text-transform: uppercase; margin: 0; font-weight: bold; }
+.header h1 { font-size: 18pt; color: #1A1A2E; margin: 0 0 10pt 0; font-weight: bold; }
+.section-title { margin: 0 0 6pt 0; }
+.section-title p { font-size: 10pt; color: #4A5568; margin: 0; font-weight: bold; }
+.streams { display: flex; gap: 10pt; margin-bottom: 14pt; }
+.stream { flex: 1; border-radius: 6pt; padding: 10pt 12pt; }
+.stream-foundation { background: #F5F7FA; border: 1pt solid #E2E8F0; }
+.stream-programmatic { background: #F0F0FF; border: 1pt solid #D4D4F7; }
+.stream-agentic { background: #EBF5FF; border: 1pt solid #B3D9FF; }
+.stream h2 { font-size: 10pt; margin: 0 0 4pt 0; font-weight: bold; }
+.stream-foundation h2 { color: #4A5568; }
+.stream-programmatic h2 { color: #6C5CE7; }
+.stream-agentic h2 { color: #0078D4; }
+.stream p { font-size: 7.5pt; color: #64748B; margin: 0 0 4pt 0; line-height: 1.3; }
+.stream .effect { font-size: 7pt; color: #94A3B8; font-style: italic; margin: 0; }
+.next-section { margin-bottom: 10pt; }
+.next-title { display: flex; align-items: center; gap: 8pt; margin-bottom: 6pt; }
+.next-title p { font-size: 10pt; color: #4A5568; margin: 0; font-weight: bold; }
+.next-title span { font-size: 8pt; color: #94A3B8; font-style: italic; }
+.blocks { display: flex; gap: 8pt; }
+.block { flex: 1; background: #FFFFFF; border-radius: 5pt; padding: 8pt 10pt; border: 1pt solid #E2E8F0; }
+.block h3 { font-size: 8.5pt; color: #1A1A2E; margin: 0 0 2pt 0; font-weight: bold; }
+.block p { font-size: 7pt; color: #64748B; margin: 0; line-height: 1.3; }
+.block .layer-tag { font-size: 6.5pt; color: #94A3B8; margin-top: 4pt; }
+.cat-note { display: flex; gap: 10pt; margin-top: 10pt; }
+.cat-box { flex: 1; background: #FFF8F0; border-radius: 4pt; padding: 8pt 10pt; border-left: 3pt solid #E8553D; }
+.cat-box h4 { font-size: 8pt; color: #E8553D; margin: 0 0 2pt 0; font-weight: bold; }
+.cat-box p { font-size: 7.5pt; color: #4A5568; margin: 0; line-height: 1.3; }
+.closing-box { flex: 1; background: #F5F7FA; border-radius: 4pt; padding: 8pt 10pt; display: flex; align-items: center; justify-content: center; }
+.closing-box p { font-size: 8pt; color: #64748B; margin: 0; text-align: center; font-style: italic; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Executive Summary</p></div>
+  <div class="header">
+    <h1>What We're Doing & Where to Start</h1>
+  </div>
+  
+  <div class="section-title"><p>Three Parallel Streams</p></div>
+  <div class="streams">
+    <div class="stream stream-foundation">
+      <h2>Foundation</h2>
+      <p>APIs, CLI, SDKs, Identity</p>
+      <p class="effect">Every API completed = one more thing agents can do</p>
+    </div>
+    <div class="stream stream-programmatic">
+      <h2>Programmatic</h2>
+      <p>CI/CD, Terraform, Scripting</p>
+      <p class="effect">Every workflow automated = one less portal dependency</p>
+    </div>
+    <div class="stream stream-agentic">
+      <h2>Agentic</h2>
+      <p>MCP Platform, MCP Apps</p>
+      <p class="effect">Every tool published = one more surface where Fabric lives</p>
+    </div>
+  </div>
+
+  <div class="next-section">
+    <div class="next-title"><p>Proposed Starting Points</p><span>(examples — not a committed plan)</span></div>
+    <div class="blocks">
+      <div class="block">
+        <h3>API Completeness Sprint</h3>
+        <p>Close top gaps blocking CLI, SDK, and agent scenarios</p>
+        <p class="layer-tag">Foundation</p>
+      </div>
+      <div class="block">
+        <h3>CLI v2 Open Source</h3>
+        <p>Extensible CLI as the execution layer</p>
+        <p class="layer-tag">Foundation</p>
+      </div>
+      <div class="block">
+        <h3>MCP Platform MVP</h3>
+        <p>Enable first workload team to publish MCP tools</p>
+        <p class="layer-tag">Agentic</p>
+      </div>
+      <div class="block">
+        <h3>Troubleshooting MCP App</h3>
+        <p>Proof-of-concept showing all three layers</p>
+        <p class="layer-tag">Agentic</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-note">
+    <div class="cat-box">
+      <h4>⚠️ Grounded in Research</h4>
+      <p>Troubleshooting is the #1 underserved job from CAT's 56-hour pro-dev research (opp score 6.1). We're not guessing — we're solving a validated problem.</p>
+    </div>
+    <div class="closing-box">
+      <p>First we align on vision and direction.<br/>Then we commit resources.</p>
+    </div>
+  </div>
+</div>
+</body></html>

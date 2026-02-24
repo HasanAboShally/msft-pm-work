@@ -28,6 +28,7 @@ venv/
 
 # Staging directories
 tmp/
+.tmp/
 .staging/
 
 # OS files
@@ -40,3 +41,5 @@ Thumbs.db
 *.swp
 *.swo
 *~
+poll.sh
+tmp*.py

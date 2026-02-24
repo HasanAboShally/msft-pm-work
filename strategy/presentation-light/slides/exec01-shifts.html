@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 32pt 48pt 24pt 48pt; width: 624pt; }
+.label { margin-bottom: 6pt; }
+.label p { font-size: 9pt; color: #0078D4; letter-spacing: 2pt; text-transform: uppercase; margin: 0; font-weight: bold; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 16pt 0; font-weight: bold; }
+.cards { display: flex; gap: 14pt; margin-bottom: 16pt; }
+.card { flex: 1; background: #F5F7FA; border-radius: 6pt; padding: 14pt; border-top: 3pt solid #0078D4; }
+.card h2 { font-size: 11pt; color: #1A1A2E; margin: 0 0 6pt 0; font-weight: bold; }
+.card p { font-size: 9pt; color: #4A5568; margin: 0 0 10pt 0; line-height: 1.4; }
+.card-stat { background: #EBF5FF; border-radius: 4pt; padding: 5pt 8pt; }
+.card-stat p { font-size: 8pt; color: #0078D4; margin: 0; font-weight: bold; }
+.card-coral { border-top-color: #E8553D; }
+.card-coral .card-stat { background: #FFF0EC; }
+.card-coral .card-stat p { color: #E8553D; }
+.card-teal { border-top-color: #00A79D; }
+.card-teal .card-stat { background: #E6F7F5; }
+.card-teal .card-stat p { color: #00A79D; }
+.bottom { background: #FFF8F0; border-radius: 6pt; padding: 12pt 16pt; border-left: 4pt solid #E8553D; }
+.bottom h3 { font-size: 9pt; color: #E8553D; margin: 0 0 4pt 0; font-weight: bold; text-transform: uppercase; letter-spacing: 1pt; }
+.bottom p { font-size: 10pt; color: #1A1A2E; margin: 0; line-height: 1.5; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Executive Summary</p></div>
+  <div class="header">
+    <h1>Three Shifts Are Reshaping How People Work</h1>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h2>Search → Chat</h2>
+      <p>Users ask AI instead of clicking links. AI summaries replace traditional browsing.</p>
+      <div class="card-stat"><p>58.5% of Google searches end in zero clicks</p></div>
+    </div>
+    <div class="card card-coral">
+      <h2>Static UIs → Agent UIs</h2>
+      <p>AI agents generate on-the-fly interfaces. Users interact through tools like MCP Apps.</p>
+      <div class="card-stat"><p>70% of API developers are MCP-aware</p></div>
+    </div>
+    <div class="card card-teal">
+      <h2>Portals → Embedded</h2>
+      <p>Users expect platforms to come to them — in their IDE, chat, or CI/CD pipeline.</p>
+      <div class="card-stat"><p>82% of orgs follow API-first strategies</p></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <h3>What This Means for Fabric</h3>
+    <p>Platforms that only live in a browser portal risk becoming invisible. Fabric must be embeddable, invocable, and composable — wherever users and agents work.</p>
+  </div>
+</div>
+</body></html>

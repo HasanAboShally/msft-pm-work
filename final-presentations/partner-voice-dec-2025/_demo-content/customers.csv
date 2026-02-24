@@ -1,0 +1,21 @@
+customer_id,customer_name,email,phone,address,city,state,country,postal_code,registration_date,customer_segment,lifetime_value,preferred_contact,ssn_hash
+C1001,John Smith,john.smith@contoso.com,+1-555-0101,123 Main Street,Seattle,WA,USA,98101,2022-03-15,Enterprise,15420.50,Email,a1b2c3d4e5
+C1002,Sarah Johnson,sarah.j@fabrikam.com,+1-555-0102,456 Oak Avenue,New York,NY,USA,10001,2022-05-20,SMB,8750.25,Phone,f6g7h8i9j0
+C1003,Michael Chen,m.chen@adventure-works.com,+86-10-5550103,789 Nanjing Road,Shanghai,SH,China,200001,2022-07-10,Enterprise,12300.00,Email,k1l2m3n4o5
+C1004,Emily Davis,emily.d@contoso.com,+44-20-5550104,321 Baker Street,London,LDN,UK,W1U6TY,2022-08-25,SMB,6890.75,Email,p6q7r8s9t0
+C1005,James Wilson,j.wilson@northwind.com,+1-555-0105,654 Pine Lane,Chicago,IL,USA,60601,2021-11-30,Enterprise,25600.00,Phone,u1v2w3x4y5
+C1006,Maria Garcia,maria.g@fabrikam.com,+55-11-5550106,987 Paulista Ave,Sao Paulo,SP,Brazil,01310100,2023-01-15,Consumer,2450.30,Email,z6a7b8c9d0
+C1007,David Brown,d.brown@contoso.com,+49-30-5550107,246 Unter den Linden,Berlin,BE,Germany,10117,2022-09-12,SMB,9870.50,Phone,e1f2g3h4i5
+C1008,Lisa Anderson,lisa.a@adventure-works.com,+81-3-5550108,135 Shibuya Crossing,Tokyo,TK,Japan,1500001,2023-02-28,Consumer,3200.00,Email,j6k7l8m9n0
+C1009,Robert Taylor,r.taylor@northwind.com,+1-555-0109,864 Congress Ave,Austin,TX,USA,78701,2021-06-18,Enterprise,35200.75,Email,o1p2q3r4s5
+C1010,Jennifer Martinez,j.martinez@contoso.com,+54-11-5550110,753 Florida Street,Buenos Aires,BA,Argentina,C1005AAM,2023-03-22,SMB,4560.25,Phone,t6u7v8w9x0
+C1011,William Lee,w.lee@fabrikam.com,+82-2-5550111,159 Gangnam-daero,Seoul,SE,South Korea,06000,2022-04-08,Enterprise,18900.00,Email,y1z2a3b4c5
+C1012,Amanda White,a.white@adventure-works.com,+1-555-0112,357 Market Street,San Francisco,CA,USA,94102,2021-09-25,Enterprise,42500.50,Phone,d6e7f8g9h0
+C1013,Christopher Harris,c.harris@northwind.com,+33-1-5550113,951 Champs-Élysées,Paris,IDF,France,75008,2022-12-01,SMB,7650.00,Email,i1j2k3l4m5
+C1014,Jessica Clark,j.clark@contoso.com,+1-555-0114,468 Broadway,Boston,MA,USA,02101,2023-04-15,Consumer,5200.25,Email,n6o7p8q9r0
+C1015,Daniel Lewis,d.lewis@fabrikam.com,+31-20-5550115,753 Damrak,Amsterdam,NH,Netherlands,1012LG,2022-06-30,SMB,8900.75,Phone,s1t2u3v4w5
+C1016,Michelle Robinson,m.robinson@adventure-works.com,+61-2-5550116,369 George Street,Sydney,NSW,Australia,2000,2023-05-20,Consumer,4100.00,Email,x6y7z8a9b0
+C1017,Kevin Walker,k.walker@northwind.com,+1-555-0117,147 King Street,Toronto,ON,Canada,M5H1J8,2021-08-14,Enterprise,28750.50,Phone,c1d2e3f4g5
+C1018,Stephanie Hall,s.hall@contoso.com,+52-55-5550118,258 Reforma Ave,Mexico City,CDMX,Mexico,06600,2023-06-08,SMB,3850.25,Email,h6i7j8k9l0
+C1019,Brian Young,b.young@fabrikam.com,+34-91-5550119,369 Gran Via,Madrid,MD,Spain,28013,2022-02-22,Enterprise,15600.00,Email,m1n2o3p4q5
+C1020,Nicole King,n.king@adventure-works.com,+1-555-0120,480 Fifth Avenue,Denver,CO,USA,80202,2023-07-01,Consumer,2890.50,Phone,r6s7t8u9v0

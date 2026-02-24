@@ -1,0 +1,26 @@
+transaction_id,customer_id,customer_name,customer_email,product_name,category,quantity,unit_price,total_amount,transaction_date,region,payment_method,is_member
+TXN001,C1001,John Smith,john.smith@contoso.com,Surface Laptop 5,Electronics,1,1299.99,1299.99,2024-01-15,North America,Credit Card,Yes
+TXN002,C1002,Sarah Johnson,sarah.j@fabrikam.com,Xbox Series X,Gaming,2,499.99,999.98,2024-01-15,North America,PayPal,Yes
+TXN003,C1003,Michael Chen,m.chen@adventure-works.com,Microsoft 365 Family,Software,1,99.99,99.99,2024-01-16,Asia Pacific,Credit Card,No
+TXN004,C1004,Emily Davis,emily.d@contoso.com,Surface Pro 9,Electronics,1,1599.99,1599.99,2024-01-16,Europe,Credit Card,Yes
+TXN005,C1005,James Wilson,j.wilson@northwind.com,Azure Credits,Cloud Services,10,100.00,1000.00,2024-01-17,North America,Invoice,Yes
+TXN006,C1006,Maria Garcia,maria.g@fabrikam.com,Power BI Pro,Software,5,9.99,49.95,2024-01-17,South America,Credit Card,No
+TXN007,C1007,David Brown,d.brown@contoso.com,Surface Headphones 2,Electronics,3,249.99,749.97,2024-01-18,Europe,PayPal,Yes
+TXN008,C1008,Lisa Anderson,lisa.a@adventure-works.com,Xbox Game Pass,Gaming,1,14.99,14.99,2024-01-18,Asia Pacific,Credit Card,Yes
+TXN009,C1009,Robert Taylor,r.taylor@northwind.com,Visual Studio Enterprise,Software,2,250.00,500.00,2024-01-19,North America,Invoice,Yes
+TXN010,C1010,Jennifer Martinez,j.martinez@contoso.com,Surface Dock 2,Electronics,2,259.99,519.98,2024-01-19,South America,Credit Card,No
+TXN011,C1011,William Lee,w.lee@fabrikam.com,Dynamics 365,Software,1,210.00,210.00,2024-01-20,Asia Pacific,Credit Card,Yes
+TXN012,C1012,Amanda White,a.white@adventure-works.com,Surface Studio 2+,Electronics,1,4499.99,4499.99,2024-01-20,North America,Credit Card,Yes
+TXN013,C1013,Christopher Harris,c.harris@northwind.com,GitHub Enterprise,Software,10,21.00,210.00,2024-01-21,Europe,Invoice,Yes
+TXN014,C1014,Jessica Clark,j.clark@contoso.com,Azure Virtual Machines,Cloud Services,20,50.00,1000.00,2024-01-21,North America,Invoice,No
+TXN015,C1015,Daniel Lewis,d.lewis@fabrikam.com,Surface Earbuds,Electronics,4,199.99,799.96,2024-01-22,Europe,PayPal,Yes
+TXN016,C1016,Michelle Robinson,m.robinson@adventure-works.com,Xbox Controller,Gaming,6,59.99,359.94,2024-01-22,Asia Pacific,Credit Card,No
+TXN017,C1017,Kevin Walker,k.walker@northwind.com,Microsoft Teams Phone,Software,3,8.00,24.00,2024-01-23,North America,Credit Card,Yes
+TXN018,C1018,Stephanie Hall,s.hall@contoso.com,Surface Go 3,Electronics,2,399.99,799.98,2024-01-23,South America,PayPal,Yes
+TXN019,C1019,Brian Young,b.young@fabrikam.com,Azure Storage,Cloud Services,5,20.00,100.00,2024-01-24,Europe,Invoice,Yes
+TXN020,C1020,Nicole King,n.king@adventure-works.com,Minecraft,Gaming,10,26.99,269.90,2024-01-24,North America,Credit Card,No
+TXN021,C1001,John Smith,john.smith@contoso.com,Surface Pen,Electronics,2,99.99,199.98,2024-01-25,North America,Credit Card,Yes
+TXN022,C1002,Sarah Johnson,sarah.j@fabrikam.com,Xbox Wireless Headset,Gaming,1,99.99,99.99,2024-01-25,North America,PayPal,Yes
+TXN023,C1003,Michael Chen,m.chen@adventure-works.com,Power Automate,Software,1,15.00,15.00,2024-01-26,Asia Pacific,Credit Card,No
+TXN024,C1004,Emily Davis,emily.d@contoso.com,Azure Functions,Cloud Services,100,0.20,20.00,2024-01-26,Europe,Invoice,Yes
+TXN025,C1005,James Wilson,j.wilson@northwind.com,Surface Keyboard,Electronics,1,149.99,149.99,2024-01-27,North America,Credit Card,Yes

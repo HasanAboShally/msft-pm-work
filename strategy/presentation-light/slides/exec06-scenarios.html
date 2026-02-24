@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; background: #FFFFFF; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; background: #0078D4; }
+.wrap { margin: 34pt 56pt 28pt 56pt; width: 608pt; }
+.header h1 { font-size: 20pt; color: #1A1A2E; margin: 0 0 6pt 0; font-weight: bold; line-height: 1.3; }
+.intro p { font-size: 10pt; color: #555555; margin: 0 0 14pt 0; }
+.scenarios { margin-bottom: 12pt; }
+.scenario { margin-bottom: 10pt; padding-left: 14pt; border-left: 2pt solid #0078D4; }
+.scenario h2 { font-size: 11pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.scenario p { font-size: 9pt; color: #333333; margin: 0; line-height: 1.4; }
+.scenario .result { font-size: 9pt; color: #0078D4; margin-top: 2pt; font-weight: bold; }
+.bottom-line { padding-top: 10pt; border-top: 1pt solid #E0E0E0; }
+.bottom-line p { font-size: 11pt; color: #1A1A2E; margin: 0; font-weight: bold; }
+</style></head>
+<body>
+<div class="bar"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>What This Looks Like: From Minutes to Seconds, From Portal to Anywhere</h1>
+  </div>
+  <div class="intro"><p>The same three layers power different levels of automation — from human-guided to fully autonomous.</p></div>
+  <div class="scenarios">
+    <div class="scenario">
+      <h2>Developer Troubleshooting from VS Code</h2>
+      <p>Pipeline fails → asks Copilot "Why did this fail?" → agent pulls logs via MCP → identifies memory issue → suggests fix → applies it → re-runs pipeline.</p>
+      <p class="result">Result: 4 minutes vs 20+ minutes navigating the portal.</p>
+    </div>
+    <div class="scenario">
+      <h2>Business User Creating a Report from Claude</h2>
+      <p>"Create a Q4 marketing report" → agent discovers semantic models → suggests layout → user refines → creates report via API → schedules refresh.</p>
+      <p class="result">Result: Never opened the Fabric portal.</p>
+    </div>
+    <div class="scenario">
+      <h2>Autonomous CI/CD Agent in GitHub Actions</h2>
+      <p>PR merged → agent deploys to staging → runs validation → tests fail → auto-rollback → posts summary to PR.</p>
+      <p class="result">Result: Zero human intervention required.</p>
+    </div>
+  </div>
+  <div class="bottom-line">
+    <p>Bottom line: Same infrastructure, different automation levels — configurable by the user.</p>
+  </div>
+</div>
+</body></html>

@@ -1,6 +1,6 @@
-# FabCon 26 DevX Cornerstone Demo — Provisioning Scripts
+# Fabric E2E Demo — Provisioning Scripts
 
-> **Terraform + fabric-cli** infrastructure-as-code for the Data Engineering CI/CD Workshop demo.
+> **Terraform + fabric-cli** infrastructure-as-code for provisioning a complete Microsoft Fabric Data Engineering workspace.
 
 Based on the [DaniBunny/Fabric-DE-CICD](https://github.com/DaniBunny/Fabric-DE-CICD) FabCon EU 2025 workshop, restructured as a Terraform + CLI project with full ADO pipeline integration.
 
@@ -96,7 +96,7 @@ make all        # Steps 1-5 in sequence
 ## Project Structure
 
 ```
-demo-provisioning/
+fabric-e2e-demo/
 ├── README.md                            # This file
 ├── Makefile                             # Convenience targets
 ├── .gitignore                           # Ignore secrets, state, staging
@@ -265,4 +265,4 @@ Run setup first: `./scripts/setup.sh`
 
 Based on the [Fabric-DE-CICD Workshop](https://github.com/DaniBunny/Fabric-DE-CICD) by DaniBunny (FabCon EU 2025).
 
-Restructured as Terraform + CLI for the FabCon 26 DevX Cornerstone demo session.
+Restructured as a Terraform + fabric-cli project for end-to-end Fabric Data Engineering provisioning.

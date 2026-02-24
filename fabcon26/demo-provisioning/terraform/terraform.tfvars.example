@@ -13,7 +13,7 @@ username = "yourusername"
 
 # Optional: Override defaults
 # workspace_prefix         = "DEWorkshop"
-# workspace_description    = "FabCon 26 DevX Cornerstone Demo"
+# workspace_description    = "Fabric Data Engineering Workshop"
 # enable_lakehouse_schemas = true
 # bronze_lakehouse_name    = "Lakehouse_Bronze"
 # silver_lakehouse_name    = "Lakehouse_Silver"

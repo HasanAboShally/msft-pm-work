@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  background: #0078D4;
+  padding: 8pt 50pt;
+}
+.header h1 {
+  color: #ffffff;
+  font-size: 24pt;
+  font-weight: bold;
+  margin: 0;
+}
+.content {
+  flex: 1;
+  padding: 8pt 50pt;
+}
+.issue {
+  display: flex;
+  margin-bottom: 6pt;
+  background: #F5F5F5;
+  border-radius: 6pt;
+  overflow: hidden;
+}
+.issue-left {
+  background: #D13438;
+  width: 6pt;
+}
+.issue-content {
+  flex: 1;
+  padding: 10pt 15pt;
+  display: flex;
+  gap: 12pt;
+}
+.problem {
+  flex: 1;
+}
+.solution {
+  flex: 1.5;
+}
+.problem h3 {
+  color: #D13438;
+  font-size: 9pt;
+  margin: 0 0 4pt 0;
+}
+.problem p {
+  color: #666666;
+  font-size: 9pt;
+  margin: 0;
+}
+.solution h3 {
+  color: #107C10;
+  font-size: 9pt;
+  margin: 0 0 4pt 0;
+}
+.solution p {
+  color: #333333;
+  font-size: 9pt;
+  margin: 0;
+  line-height: 1.4;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8pt 50pt;
+  background: #F5F5F5;
+}
+.footer p {
+  color: #666666;
+  font-size: 8pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Troubleshooting</h1>
+</div>
+<div class="content">
+  <div class="issue">
+    <div class="issue-left"></div>
+    <div class="issue-content">
+      <div class="problem">
+        <h3>"Invalid workspace ID"</h3>
+        <p>IDs must be valid UUIDs</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>Use list_workspaces or list_items first to get correct IDs</p>
+      </div>
+    </div>
+  </div>
+  <div class="issue">
+    <div class="issue-left"></div>
+    <div class="issue-content">
+      <div class="problem">
+        <h3>Authentication Failed (401/403)</h3>
+        <p>Token expired or wrong scope</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>Disconnect and reconnect MCP server in VS Code. For manual tokens: az account get-access-token --resource https://api.fabric.microsoft.com</p>
+      </div>
+    </div>
+  </div>
+  <div class="issue">
+    <div class="issue-left"></div>
+    <div class="issue-content">
+      <div class="problem">
+        <h3>"Workspace not found"</h3>
+        <p>Exists but you can't access it</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>Ask workspace Admin to grant you at least Viewer access</p>
+      </div>
+    </div>
+  </div>
+  <div class="issue">
+    <div class="issue-left"></div>
+    <div class="issue-content">
+      <div class="problem">
+        <h3>Long-running operation timeout</h3>
+        <p>Some ops are async</p>
+      </div>
+      <div class="solution">
+        <h3>Solution</h3>
+        <p>Use get_operation_state with operationId, then get_operation_result once it succeeds</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>Microsoft Confidential</p>
+  <p>14</p>
+</div>
+</body>
+</html>

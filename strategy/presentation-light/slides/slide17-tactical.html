@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.header p { font-size: 9pt; color: #64748B; margin: 0 0 14pt 0; line-height: 1.4; }
+.content { display: flex; gap: 16pt; }
+.left { flex: 1.1; }
+.right { flex: 0.9; }
+.left-title { margin: 0 0 10pt 0; padding-bottom: 4pt; border-bottom: 2pt solid #0078D4; }
+.left-title p { font-size: 11pt; color: #1A1A2E; font-weight: bold; margin: 0; }
+.item { display: flex; gap: 8pt; margin-bottom: 9pt; }
+.item-num { min-width: 18pt; height: 18pt; border-radius: 50%; background: #0078D4; color: #FFFFFF; font-size: 8pt; font-weight: bold; text-align: center; line-height: 18pt; margin-top: 1pt; }
+.item-num p { margin: 0; font-size: inherit; color: inherit; font-weight: inherit; line-height: 18pt; }
+.item-content h3 { font-size: 9.5pt; color: #1A1A2E; font-weight: bold; margin: 0 0 1pt 0; }
+.item-content p { font-size: 8pt; color: #64748B; margin: 0; line-height: 1.4; }
+.caveat { background: #FFFBF0; border: 1pt solid #F5D990; border-radius: 6pt; padding: 12pt 14pt; border-left: 4pt solid #E8A317; }
+.caveat-title { display: flex; align-items: center; gap: 4pt; margin-bottom: 6pt; }
+.caveat-title p { font-size: 10pt; color: #1A1A2E; font-weight: bold; margin: 0; }
+.caveat-body p { font-size: 8.5pt; color: #4A5568; margin: 0 0 3pt 0; line-height: 1.45; }
+.caveat-body ul { margin: 4pt 0 0 0; padding-left: 14pt; }
+.caveat-body li { font-size: 8pt; color: #4A5568; margin-bottom: 2pt; line-height: 1.4; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Where We Think We Should Start</h1>
+    <p>This is not a full plan yet. First we align on the vision and strategic direction, then we scope and timeline the efforts.</p>
+  </div>
+  <div class="content">
+    <div class="left">
+      <div class="left-title"><p>Proposed Starting Points</p></div>
+      <div class="item">
+        <div class="item-num"><p>1</p></div>
+        <div class="item-content">
+          <h3>Fix API Gaps & Throttling</h3>
+          <p>Prerequisite for everything else. Unblock scripts, agents, CI/CD.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num"><p>2</p></div>
+        <div class="item-content">
+          <h3>Internal API Tooling for Fabric Teams</h3>
+          <p>As the platform team, build tools that help other Fabric teams complete their APIs faster.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num"><p>3</p></div>
+        <div class="item-content">
+          <h3>Troubleshooting MCP App</h3>
+          <p>A proof-of-concept that demonstrates the full three-layer model end-to-end (grounded in the #1 CAT pain point).</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-num"><p>4</p></div>
+        <div class="item-content">
+          <h3>CLI v2 + Scripting</h3>
+          <p>The composable execution backbone for both programmatic and agentic layers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="caveat">
+        <div class="caveat-title"><p>⚠️ Important</p></div>
+        <div class="caveat-body">
+          <p>This is a directional proposal, not a committed plan. We first need alignment on:</p>
+          <ul>
+            <li>The "Embedding Fabric Everywhere" vision</li>
+            <li>The three-layer strategic model</li>
+            <li>The priority scenarios</li>
+          </ul>
+          <p style="margin-top: 6pt;">Once aligned, we'll scope, resource, and timeline these efforts together.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

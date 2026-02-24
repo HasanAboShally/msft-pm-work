@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0D1B30; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark-alt.png'); background-size: cover; }
+.wrap { margin: 30pt 50pt 24pt 50pt; width: 620pt; }
+.header { margin-bottom: 12pt; }
+.header p { font-size: 9pt; color: #FF6B35; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 4pt 0; }
+.header h1 { font-size: 22pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.content { display: flex; gap: 16pt; }
+.left { flex: 1.1; }
+.right { flex: 0.9; }
+.left p { font-size: 9pt; color: #CFD8DC; margin: 0 0 8pt 0; line-height: 1.45; }
+.highlight { background: rgba(0,180,216,0.08); border-radius: 6pt; padding: 8pt 12pt; border-left: 3pt solid #00B4D8; margin-bottom: 0; }
+.highlight p { font-size: 8.5pt; color: #48CAE4; margin: 0; line-height: 1.4; }
+.stats-grid { display: flex; flex-wrap: wrap; gap: 8pt; }
+.stat-box { flex: 1 1 45%; background: rgba(255,255,255,0.04); border-radius: 6pt; padding: 10pt 10pt; text-align: center; }
+.stat-box h2 { font-size: 18pt; color: #00B4D8; margin: 0 0 3pt 0; font-weight: bold; }
+.stat-box p { font-size: 7.5pt; color: #8899AA; margin: 0; line-height: 1.3; }
+.stat-box-warm h2 { color: #FF6B35; }
+.bottom-warn { margin-top: 10pt; background: rgba(255,107,53,0.1); border-radius: 6pt; padding: 8pt 14pt; }
+.bottom-warn p { font-size: 9pt; color: #FF9F73; margin: 0; text-align: center; font-weight: bold; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>The challenge</p>
+    <h1>What This Means for Fabric</h1>
+  </div>
+  <div class="content">
+    <div class="left">
+      <p>Fabric was born as a SaaS portal — and that has brought real strengths: simplicity, unified experience, accessibility.</p>
+      <p>But it also means Fabric wasn't built with full automation in mind. Not all UI capabilities are available through APIs. Agent interaction and headless operation are secondary paths.</p>
+      <div class="highlight">
+        <p>Meanwhile: 76% of developers use AI assistants. The AI agents market is projected to reach $52.6B by 2030. MCP is now a Linux Foundation standard.</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h2>76%</h2>
+          <p>of developers use or plan to use AI coding assistants</p>
+        </div>
+        <div class="stat-box stat-box-warm">
+          <h2>$52.6B</h2>
+          <p>AI agents market by 2030 (46% CAGR)</p>
+        </div>
+        <div class="stat-box">
+          <h2>10→200</h2>
+          <p>API calls/min needed (today's throttling is 10)</p>
+        </div>
+        <div class="stat-box stat-box-warm">
+          <h2>51%</h2>
+          <p>of devs worry about unauthorized agent API calls</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-warn">
+    <p>If Fabric doesn't adapt, it risks being trapped in a portal-only paradigm while users — and their agents — move on.</p>
+  </div>
+</div>
+</body></html>

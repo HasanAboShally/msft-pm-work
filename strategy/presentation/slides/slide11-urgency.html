@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #1A0A0A; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-warm.png'); background-size: cover; }
+.wrap { margin: 34pt 50pt 24pt 50pt; width: 620pt; }
+.header { margin-bottom: 12pt; }
+.header p { font-size: 9pt; color: #FF6B35; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 5pt 0; }
+.header h1 { font-size: 22pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.header h1 span { color: #FF6B35; }
+.competitors { display: flex; gap: 10pt; margin-bottom: 12pt; }
+.comp-card { flex: 1; background: rgba(255,107,53,0.06); border-radius: 6pt; padding: 10pt; border: 1pt solid rgba(255,107,53,0.12); }
+.comp-card h3 { font-size: 10pt; color: #FFFFFF; margin: 0 0 4pt 0; font-weight: bold; }
+.comp-card p { font-size: 7.5pt; color: #B0BEC5; margin: 0 0 2pt 0; line-height: 1.35; }
+.comp-card p span { color: #FF9F73; font-weight: bold; }
+.stats { display: flex; gap: 10pt; margin-bottom: 12pt; }
+.stat-box { flex: 1; background: rgba(255,255,255,0.05); border-radius: 6pt; padding: 10pt; text-align: center; border: 1pt solid rgba(255,255,255,0.08); }
+.stat-box h2 { font-size: 20pt; color: #FF6B35; margin: 0 0 3pt 0; font-weight: bold; }
+.stat-box p { font-size: 7.5pt; color: #B0BEC5; margin: 0; line-height: 1.3; }
+.insight-bar { background: rgba(255,107,53,0.12); border-radius: 6pt; padding: 10pt 16pt; margin-bottom: 10pt; }
+.insight-bar p { font-size: 9.5pt; color: #FFFFFF; margin: 0; text-align: center; font-weight: bold; }
+.timeline { display: flex; gap: 10pt; }
+.tl-phase { flex: 1; text-align: center; }
+.tl-dot { width: 10pt; height: 10pt; border-radius: 50%; margin: 0 auto 4pt auto; }
+.tl-dot-now { background: #FF6B35; }
+.tl-dot-soon { background: #FFB800; }
+.tl-dot-late { background: #4ADE80; }
+.tl-phase p { font-size: 7pt; color: #90A4AE; margin: 0; }
+.tl-phase h3 { font-size: 8pt; color: #FFFFFF; margin: 2pt 0 0 0; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Competitive Urgency</p>
+    <h1>Everyone Else Is <span>Already Moving</span></h1>
+  </div>
+  <div class="competitors">
+    <div class="comp-card">
+      <h3>AWS</h3>
+      <p><span>MCP servers</span> for Bedrock, Lambda, S3</p>
+      <p>Agent-first workflows in production</p>
+      <p>Deep VS Code / agent integration</p>
+    </div>
+    <div class="comp-card">
+      <h3>Snowflake</h3>
+      <p><span>MCP server</span> shipping GA</p>
+      <p>Cortex AI layer over data estate</p>
+      <p>Integrated developer experiences</p>
+    </div>
+    <div class="comp-card">
+      <h3>Databricks</h3>
+      <p><span>MCP server</span> for Unity Catalog</p>
+      <p>Agent-native data governance</p>
+      <p>Developer-first design philosophy</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat-box">
+      <h2>82%</h2>
+      <p>of organizations follow API-first strategy (Postman 2025)</p>
+    </div>
+    <div class="stat-box">
+      <h2>70%</h2>
+      <p>of API professionals are MCP-aware but only 10% use it (Postman 2025)</p>
+    </div>
+    <div class="stat-box">
+      <h2>$52.6B</h2>
+      <p>AI agent market by 2030 at 46.3% CAGR (MarketsandMarkets)</p>
+    </div>
+  </div>
+  <div class="insight-bar">
+    <p>The window to establish Fabric as the embedded data platform is narrow — and closing fast.</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-phase"><div class="tl-dot tl-dot-now"></div><h3>NOW</h3><p>Ship foundations</p></div>
+    <div class="tl-phase"><div class="tl-dot tl-dot-soon"></div><h3>6 MO</h3><p>MCP App GA</p></div>
+    <div class="tl-phase"><div class="tl-dot tl-dot-late"></div><h3>12 MO</h3><p>Market leader</p></div>
+  </div>
+</div>
+</body></html>

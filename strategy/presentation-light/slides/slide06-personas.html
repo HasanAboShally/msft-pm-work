@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 34pt 56pt 26pt 56pt; width: 608pt; }
+.header { margin-bottom: 16pt; }
+.header h1 { font-size: 24pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.header p { font-size: 10pt; color: #64748B; margin: 0; }
+.personas { display: flex; gap: 18pt; margin-bottom: 14pt; }
+.persona { flex: 1; border-radius: 8pt; padding: 16pt 16pt 14pt 16pt; }
+.persona-human { background: #F5F7FA; border-top: 4pt solid #4A5568; }
+.persona-agent { background: #EBF5FF; border-top: 4pt solid #0078D4; }
+.persona-icon { margin-bottom: 6pt; }
+.persona-icon p { font-size: 22pt; margin: 0; }
+.persona h2 { font-size: 14pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.persona h3 { font-size: 9.5pt; color: #64748B; margin: 0 0 8pt 0; font-weight: normal; font-style: italic; }
+.persona p { font-size: 9pt; color: #4A5568; margin: 0 0 4pt 0; line-height: 1.45; }
+.tools-label { margin-top: 8pt; }
+.tools-label h4 { font-size: 8pt; color: #64748B; margin: 0 0 4pt 0; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5pt; }
+.tool-pills { display: flex; gap: 5pt; flex-wrap: wrap; }
+.tool-pill { background: #FFFFFF; border-radius: 4pt; padding: 3pt 8pt; border: 1pt solid #D1D5DB; }
+.tool-pill p { font-size: 7.5pt; color: #4A5568; margin: 0; font-weight: bold; }
+.agent-types { display: flex; gap: 8pt; margin-top: 8pt; }
+.agent-type { flex: 1; background: #FFFFFF; border-radius: 6pt; padding: 8pt 10pt; border: 1pt solid #D1D5DB; }
+.agent-type h4 { font-size: 9pt; color: #0078D4; margin: 0 0 3pt 0; font-weight: bold; }
+.agent-type p { font-size: 8pt; color: #64748B; margin: 0; line-height: 1.35; }
+.bottom { background: #FFF8F0; border-radius: 6pt; padding: 10pt 18pt; border-left: 4pt solid #F59E0B; }
+.bottom p { font-size: 10pt; color: #1A1A2E; margin: 0; font-weight: bold; line-height: 1.5; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>Two Types of Consumers That Use Fabric</h1>
+    <p>In the agentic era, platforms serve both humans and AI agents — each with different needs and interaction patterns.</p>
+  </div>
+  <div class="personas">
+    <div class="persona persona-human">
+      <div class="persona-icon"><p>👤</p></div>
+      <h2>Human Users</h2>
+      <h3>Portal, IDE, Chat, Teams, CI/CD</h3>
+      <p>Data engineers, analysts, and admins who interact through UI, conversational surfaces, and automation scripts.</p>
+      <p>Humans also build scripts and pipelines — CI/CD, Terraform, PowerShell — as tools to extend their reach.</p>
+      <div class="tools-label"><h4>Tools they use</h4></div>
+      <div class="tool-pills">
+        <div class="tool-pill"><p>Portal</p></div>
+        <div class="tool-pill"><p>VS Code</p></div>
+        <div class="tool-pill"><p>CLI</p></div>
+        <div class="tool-pill"><p>CI/CD</p></div>
+        <div class="tool-pill"><p>Terraform</p></div>
+        <div class="tool-pill"><p>Scripts</p></div>
+      </div>
+    </div>
+    <div class="persona persona-agent">
+      <div class="persona-icon"><p>🤖</p></div>
+      <h2>AI Agents</h2>
+      <h3>A new standalone consumer</h3>
+      <p>Software agents that discover and invoke Fabric operations via MCP — with their own identity, permissions, and audit trails.</p>
+      <div class="agent-types">
+        <div class="agent-type">
+          <h4>Interactive</h4>
+          <p>Human + AI copilot working together in conversation (e.g., Copilot in VS Code)</p>
+        </div>
+        <div class="agent-type">
+          <h4>Autonomous</h4>
+          <p>Operates independently — monitoring, deploying, governing (e.g., CI/CD agent)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>The same foundational infrastructure (APIs, CLI, MCP) serves both — but AI agents need additional capabilities like identity, governance, and tool discovery.</p>
+  </div>
+</div>
+</body></html>

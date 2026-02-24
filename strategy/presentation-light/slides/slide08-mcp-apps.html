@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 48pt 18pt 48pt; width: 624pt; }
+.header { margin-bottom: 10pt; }
+.header h1 { font-size: 22pt; color: #1A1A2E; margin: 0 0 3pt 0; font-weight: bold; }
+.header p { font-size: 9.5pt; color: #4A5568; margin: 0; line-height: 1.5; }
+.content { display: flex; gap: 18pt; }
+.left { flex: 1.1; }
+.right { flex: 0.9; }
+.what-box { background: #EBF5FF; border-radius: 8pt; padding: 12pt 14pt; margin-bottom: 12pt; border-left: 4pt solid #0078D4; }
+.what-box h2 { font-size: 11pt; color: #0078D4; margin: 0 0 5pt 0; font-weight: bold; }
+.what-box p { font-size: 9pt; color: #1A1A2E; margin: 0 0 4pt 0; line-height: 1.5; }
+.how-title { margin-bottom: 6pt; }
+.how-title h2 { font-size: 11pt; color: #1A1A2E; margin: 0; font-weight: bold; }
+.flow { display: flex; flex-direction: column; gap: 4pt; }
+.flow-step { display: flex; align-items: center; gap: 8pt; }
+.flow-icon { min-width: 22pt; height: 22pt; border-radius: 4pt; background: #F5F7FA; text-align: center; line-height: 22pt; }
+.flow-icon p { font-size: 12pt; margin: 0; }
+.flow-text p { font-size: 8.5pt; color: #4A5568; margin: 0; line-height: 1.4; }
+.flow-text p span { font-weight: bold; color: #1A1A2E; }
+.flow-arrow p { font-size: 8pt; color: #94A3B8; margin: 0; padding-left: 7pt; }
+.examples-title { margin-bottom: 8pt; }
+.examples-title h2 { font-size: 11pt; color: #1A1A2E; margin: 0; font-weight: bold; }
+.example { background: #F5F7FA; border-radius: 6pt; padding: 10pt 12pt; margin-bottom: 8pt; }
+.example h3 { font-size: 9.5pt; color: #0078D4; margin: 0 0 3pt 0; font-weight: bold; }
+.example p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.4; }
+.hosts { display: flex; gap: 6pt; flex-wrap: wrap; margin-top: 10pt; }
+.host { background: #FFFFFF; border: 1pt solid #D1D5DB; border-radius: 4pt; padding: 4pt 8pt; }
+.host p { font-size: 7.5pt; color: #64748B; margin: 0; font-weight: bold; }
+.link-bar { margin-top: 8pt; background: #FFF8F0; border-radius: 4pt; padding: 6pt 12pt; border-left: 3pt solid #F59E0B; }
+.link-bar p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.5; }
+.link-bar p span { color: #0078D4; font-weight: bold; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="header">
+    <h1>What Are MCP Apps?</h1>
+    <p>Interactive visual experiences that render directly inside AI chat — not separate web apps.</p>
+  </div>
+  <div class="content">
+    <div class="left">
+      <div class="what-box">
+        <h2>The Core Idea</h2>
+        <p>MCP Apps let an MCP server return <span style="font-weight:bold;">interactive HTML UI</span> — dashboards, forms, visualizations — that renders inline in the conversation.</p>
+        <p>The user stays in their chat. No context switching. No browser tabs.</p>
+      </div>
+      <div class="how-title"><h2>How It Works</h2></div>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-icon"><p>💬</p></div>
+          <div class="flow-text"><p><span>User asks</span> a question in Claude, VS Code, or ChatGPT</p></div>
+        </div>
+        <div class="flow-arrow"><p>↓</p></div>
+        <div class="flow-step">
+          <div class="flow-icon"><p>🔧</p></div>
+          <div class="flow-text"><p><span>MCP Server</span> processes the request and builds an interactive UI</p></div>
+        </div>
+        <div class="flow-arrow"><p>↓</p></div>
+        <div class="flow-step">
+          <div class="flow-icon"><p>🖼️</p></div>
+          <div class="flow-text"><p><span>MCP App renders</span> inline — the user interacts with it directly in the chat</p></div>
+        </div>
+        <div class="flow-arrow"><p>↓</p></div>
+        <div class="flow-step">
+          <div class="flow-icon"><p>🔄</p></div>
+          <div class="flow-text"><p><span>Bidirectional</span> — the app can call MCP tools and the host pushes updates</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="examples-title"><h2>What Could Fabric MCP Apps Look Like?</h2></div>
+      <div class="example">
+        <h3>🔍 Troubleshooting Dashboard</h3>
+        <p>Pipeline failure analysis with root cause, confidence scores, and one-click remediation — right in VS Code Copilot.</p>
+      </div>
+      <div class="example">
+        <h3>📊 Visual Pipeline Builder</h3>
+        <p>Drag-and-drop data pipeline configuration rendered inline in Claude Desktop or ChatGPT.</p>
+      </div>
+      <div class="example">
+        <h3>📈 Capacity Monitor</h3>
+        <p>Real-time capacity usage charts with alerting thresholds — embedded in any chat surface.</p>
+      </div>
+      <div class="hosts">
+        <div class="host"><p>✅ Claude Desktop</p></div>
+        <div class="host"><p>✅ VS Code</p></div>
+        <div class="host"><p>✅ Goose</p></div>
+        <div class="host"><p>✅ Postman</p></div>
+      </div>
+      <div class="link-bar">
+        <p>📎 <span>modelcontextprotocol.io/docs/extensions/apps</span></p>
+        <p>📎 <span>github.com/modelcontextprotocol/ext-apps</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

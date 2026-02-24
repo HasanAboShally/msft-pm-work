@@ -16,6 +16,26 @@ output "workspace_id" {
   value       = fabric_workspace.dev.id
 }
 
+output "workspace_name_test" {
+  description = "Full name of the test workspace."
+  value       = fabric_workspace.test.display_name
+}
+
+output "workspace_id_test" {
+  description = "GUID of the test workspace."
+  value       = fabric_workspace.test.id
+}
+
+output "workspace_name_prod" {
+  description = "Full name of the production workspace."
+  value       = fabric_workspace.prod.display_name
+}
+
+output "workspace_id_prod" {
+  description = "GUID of the production workspace."
+  value       = fabric_workspace.prod.id
+}
+
 # -----------------------------------------------------------------------------
 # Lakehouses
 # -----------------------------------------------------------------------------
@@ -25,9 +45,19 @@ output "bronze_lakehouse_id" {
   value       = fabric_lakehouse.bronze.id
 }
 
+output "bronze_lakehouse_name" {
+  description = "Display name of the Bronze lakehouse."
+  value       = fabric_lakehouse.bronze.display_name
+}
+
 output "silver_lakehouse_id" {
   description = "GUID of the Silver lakehouse."
   value       = fabric_lakehouse.silver.id
+}
+
+output "silver_lakehouse_name" {
+  description = "Display name of the Silver lakehouse."
+  value       = fabric_lakehouse.silver.display_name
 }
 
 # Note: SQL endpoint properties are not available as Terraform outputs because
@@ -55,9 +85,11 @@ output "next_steps" {
 
     ✅ Terraform provisioning complete!
 
-    Workspace : ${fabric_workspace.dev.display_name}
-    Bronze LH : ${fabric_lakehouse.bronze.id}
-    Silver LH : ${fabric_lakehouse.silver.id}
+    Dev Workspace  : ${fabric_workspace.dev.display_name}
+    Test Workspace : ${fabric_workspace.test.display_name}
+    Prod Workspace : ${fabric_workspace.prod.display_name}
+    Bronze LH      : ${fabric_lakehouse.bronze.id}
+    Silver LH      : ${fabric_lakehouse.silver.id}
 
     Next: Run the fabric-cli provisioning script:
 
@@ -65,6 +97,7 @@ output "next_steps" {
       ./scripts/provision-items.sh
 
     The script reads IDs from .terraform-outputs.env automatically.
+    Test and Prod workspaces are empty shells — CI/CD populates them.
 
   EOT
 }

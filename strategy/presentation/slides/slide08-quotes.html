@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #0A1628; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-dark.png'); background-size: cover; }
+.wrap { margin: 34pt 50pt 24pt 50pt; width: 620pt; }
+.header { margin-bottom: 16pt; }
+.header p { font-size: 9pt; color: #FF6B35; letter-spacing: 3pt; text-transform: uppercase; margin: 0 0 5pt 0; }
+.header h1 { font-size: 22pt; color: #FFFFFF; margin: 0; font-weight: bold; }
+.quotes { display: flex; flex-direction: column; gap: 10pt; }
+.quote-card { background: rgba(255,255,255,0.04); border-radius: 8pt; padding: 10pt 16pt; border-left: 3pt solid #FF6B35; }
+.quote-card p { font-size: 10pt; color: #E0E0E0; margin: 0; line-height: 1.5; font-style: italic; }
+.quote-label { margin-top: 6pt; }
+.quote-label p { font-size: 7.5pt; color: #6B7B8D; margin: 0; font-style: normal; text-transform: uppercase; letter-spacing: 1pt; }
+.quote-card-blue { border-left-color: #00B4D8; }
+.quote-card-purple { border-left-color: #A78BFA; }
+.insight-box { margin-top: 18pt; background: rgba(0,180,216,0.08); border-radius: 6pt; padding: 12pt 16pt; }
+.insight-box p { font-size: 9.5pt; color: #48CAE4; margin: 0; text-align: center; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <p>Developer Voices</p>
+    <h1>What Professional Developers Told Us</h1>
+  </div>
+  <div class="quotes">
+    <div class="quote-card">
+      <p>"Logs are scattered across multiple tools (Pipeline, Spark, Eventhouse), making root cause analysis slow and error-prone."</p>
+      <div class="quote-label"><p>On Monitoring &amp; Troubleshooting</p></div>
+    </div>
+    <div class="quote-card quote-card-blue">
+      <p>"Deployment pipelines are slow and manual, with limited automation. Git integration is not fully supported, leading to reliance on point-and-click."</p>
+      <div class="quote-label"><p>On CI/CD &amp; Deployment</p></div>
+    </div>
+    <div class="quote-card quote-card-purple">
+      <p>"Without service accounts or managed identity support, processes need to run under individual user credentials. Artifacts tied to users break when they leave."</p>
+      <div class="quote-label"><p>On Identity &amp; Access</p></div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <p>Research by Gloria Mark (UC Irvine): it takes 23 min 15 sec to refocus after each tool switch. Troubleshooting with 5+ switches wastes over an hour in refocusing alone.</p>
+  </div>
+</div>
+</body></html>

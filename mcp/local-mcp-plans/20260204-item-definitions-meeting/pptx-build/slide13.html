@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #FFFFFF; }
+body {
+    width: 720pt; height: 405pt; margin: 0; padding: 0;
+    background: #FFFFFF;
+    font-family: Arial, sans-serif;
+    display: flex; flex-direction: column;
+}
+.header { background: #1C2833; padding: 15pt 40pt; }
+.header-title { color: #FFFFFF; font-size: 24pt; font-weight: bold; margin: 0; }
+.content { padding: 15pt 40pt; flex: 1; }
+.quote { background: #F4F6F6; border-left: 4pt solid #0078D4; padding: 10pt 15pt; margin: 0 0 18pt 0; }
+.quote-text { color: #1C2833; font-size: 13pt; font-style: italic; margin: 0; }
+.flow { display: flex; justify-content: space-between; align-items: stretch; gap: 10pt; }
+.step { flex: 1; text-align: center; }
+.step-box { background: #F4F6F6; border: 2pt solid #AAB7B8; border-radius: 6pt; padding: 12pt 8pt; margin-bottom: 6pt; min-height: 55pt; }
+.step-box-highlight { background: #0078D4; border: 2pt solid #0078D4; border-radius: 6pt; padding: 12pt 8pt; margin-bottom: 6pt; min-height: 55pt; }
+.step-title { color: #1C2833; font-size: 10pt; font-weight: bold; margin: 0 0 4pt 0; }
+.step-title-white { color: #FFFFFF; font-size: 10pt; font-weight: bold; margin: 0 0 4pt 0; }
+.step-detail { color: #666666; font-size: 9pt; margin: 0; }
+.step-detail-white { color: #E8F4FD; font-size: 9pt; margin: 0; }
+.step-sub { color: #999999; font-size: 7pt; margin: 2pt 0 0 0; font-style: italic; }
+.step-sub-white { color: #B8D4E8; font-size: 7pt; margin: 2pt 0 0 0; font-style: italic; }
+.step-label { color: #0078D4; font-size: 9pt; font-weight: bold; }
+.arrow-container { display: flex; align-items: center; justify-content: center; }
+.arrow { color: #0078D4; font-size: 18pt; font-weight: bold; }
+.footer { color: #666666; font-size: 9pt; text-align: center; margin-top: 12pt; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1 class="header-title">The User Scenario</h1>
+</div>
+<div class="content">
+    <div class="quote">
+        <p class="quote-text">"I want Copilot to export a report definition, let me edit it locally in VS Code, then import it back to Fabric."</p>
+    </div>
+    <div class="flow">
+        <div class="step">
+            <div class="step-box">
+                <p class="step-title">FABRIC</p>
+                <p class="step-detail">SalesReport</p>
+            </div>
+            <p class="step-label">Source</p>
+        </div>
+        <div class="arrow-container"><p class="arrow">→</p></div>
+        <div class="step">
+            <div class="step-box-highlight">
+                <p class="step-title-white">MCP EXPORT</p>
+                <p class="step-detail-white">report.json</p>
+                <p class="step-sub-white">(item definition)</p>
+            </div>
+            <p class="step-label">Local File</p>
+        </div>
+        <div class="arrow-container"><p class="arrow">→</p></div>
+        <div class="step">
+            <div class="step-box">
+                <p class="step-title">COPILOT EDITS</p>
+                <p class="step-detail">+ new visual</p>
+            </div>
+            <p class="step-label">IDE</p>
+        </div>
+        <div class="arrow-container"><p class="arrow">→</p></div>
+        <div class="step">
+            <div class="step-box-highlight">
+                <p class="step-title-white">MCP IMPORT</p>
+                <p class="step-detail-white">with approval</p>
+            </div>
+            <p class="step-label">Target</p>
+        </div>
+    </div>
+    <p class="footer">Human-in-the-loop workflow: Copilot assists, but does not act autonomously.</p>
+</div>
+</body>
+</html>

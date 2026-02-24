@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Single-Admin Workspaces</title>
+  <style>
+    :root {
+      --fabric-primary: #117865;
+      --fabric-primary-dark: #0E624F;
+      --fabric-blue: #0078D4;
+      --fabric-success: #107C10;
+      --fabric-warning: #FFB900;
+      --fabric-error: #D13438;
+      --fabric-bg: #FAF9F8;
+      --fabric-surface: #FFFFFF;
+      --fabric-surface-hover: #F3F2F1;
+      --fabric-border: #EDEBE9;
+      --fabric-border-strong: #C8C6C4;
+      --fabric-text: #323130;
+      --fabric-text-secondary: #605E5C;
+      --fabric-text-tertiary: #A19F9D;
+      --fabric-shadow: 0 1.6px 3.6px rgba(0,0,0,0.132), 0 0.3px 0.9px rgba(0,0,0,0.108);
+      --fabric-shadow-8: 0 3.2px 7.2px rgba(0,0,0,0.132), 0 0.6px 1.8px rgba(0,0,0,0.108);
+      --font: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--fabric-bg); color: var(--fabric-text); font-size: 14px; line-height: 1.5; }
+    .container { max-width: 840px; margin: 0 auto; padding: 24px 16px; }
+
+    /* Header */
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .fabric-logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .fabric-logo svg { width: 32px; height: 32px; }
+    .header h1 { font-size: 20px; font-weight: 600; }
+    .header-sub { font-size: 13px; color: var(--fabric-text-secondary); margin-bottom: 20px; }
+
+    /* Stats bar */
+    .stats-bar { display: flex; gap: 16px; margin-bottom: 20px; }
+    .stat-card {
+      flex: 1; background: var(--fabric-surface); border: 1px solid var(--fabric-border);
+      border-radius: 8px; padding: 16px; box-shadow: var(--fabric-shadow);
+    }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--fabric-primary); }
+    .stat-value.warn { color: var(--fabric-error); }
+    .stat-label { font-size: 12px; color: var(--fabric-text-secondary); margin-top: 2px; }
+
+    /* Card */
+    .card { background: var(--fabric-surface); border: 1px solid var(--fabric-border); border-radius: 8px; box-shadow: var(--fabric-shadow); overflow: hidden; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--fabric-border); }
+    .card-title { font-size: 15px; font-weight: 600; }
+    .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .badge-error { background: #FDE7E9; color: var(--fabric-error); }
+    .badge-success { background: #E8F5E9; color: var(--fabric-success); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; padding: 10px 20px; background: var(--fabric-surface-hover); border-bottom: 2px solid var(--fabric-border); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--fabric-text-secondary); }
+    td { padding: 12px 20px; border-bottom: 1px solid var(--fabric-border); font-size: 13px; }
+    tr:hover td { background: var(--fabric-surface-hover); }
+    tr:last-child td { border-bottom: none; }
+
+    .ws-name { font-weight: 600; color: var(--fabric-text); }
+    .ws-id { font-size: 11px; color: var(--fabric-text-tertiary); font-family: 'SF Mono', 'Cascadia Code', monospace; }
+
+    .admin-chip {
+      display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px;
+      background: #FFF3E0; border-radius: 12px; font-size: 12px; font-weight: 500;
+      color: #E65100;
+    }
+    .admin-chip .avatar {
+      width: 18px; height: 18px; border-radius: 50%; background: var(--fabric-primary);
+      color: white; font-size: 10px; font-weight: 700; display: inline-flex;
+      align-items: center; justify-content: center;
+    }
+
+    .role-pill {
+      display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px;
+      border-radius: 10px; font-size: 11px; font-weight: 600;
+    }
+    .role-pill.admin { background: #FDE7E9; color: var(--fabric-error); }
+    .role-pill.member { background: #E3F2FD; color: var(--fabric-blue); }
+    .role-pill.contributor { background: #E8F5EE; color: var(--fabric-success); }
+    .role-pill.viewer { background: #F5F5F5; color: var(--fabric-text-secondary); }
+
+    .member-count { font-size: 12px; color: var(--fabric-text-secondary); }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--fabric-text-secondary); }
+    .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; color: var(--fabric-text-tertiary); }
+    .empty-state h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--fabric-text); }
+
+    /* Loading */
+    .loading { text-align: center; padding: 48px 20px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--fabric-border); border-top-color: var(--fabric-primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 13px; color: var(--fabric-text-secondary); }
+
+    /* Error */
+    .error-box { background: #FDE7E9; border-left: 3px solid var(--fabric-error); padding: 12px 16px; border-radius: 4px; font-size: 13px; color: var(--fabric-error); margin: 16px 0; }
+
+    /* Expandable row */
+    .expand-btn {
+      background: none; border: none; cursor: pointer; color: var(--fabric-blue);
+      font-size: 12px; font-family: var(--font); padding: 2px 6px; border-radius: 3px;
+    }
+    .expand-btn:hover { background: #E3F2FD; }
+    .detail-row { display: none; }
+    .detail-row.open { display: table-row; }
+    .detail-row td { background: var(--fabric-surface-hover); padding: 8px 20px 12px 40px; }
+    .role-list { list-style: none; padding: 0; }
+    .role-list li {
+      display: flex; align-items: center; gap: 8px; padding: 4px 0;
+      font-size: 12px; color: var(--fabric-text-secondary);
+    }
+
+    .footer { padding-top: 16px; text-align: center; font-size: 11px; color: var(--fabric-text-tertiary); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="fabric-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 2L6 9v14l11.5 7L28 23V9L17.5 2z" fill="#117865"/>
+          <path d="M17.5 2L6 9l11.5 7L28 9 17.5 2z" fill="#1DB393" opacity="0.9"/>
+          <path d="M17.5 16L6 9v14l11.5 7V16z" fill="#0D6552" opacity="0.8"/>
+          <path d="M17.5 30V16L28 9v14l-10.5 7z" fill="#117865" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Single-Admin Workspaces</h1>
+      </div>
+    </div>
+    <div class="header-sub">Identify workspaces with only one admin — a potential governance risk if that person leaves or loses access.</div>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="statsBar" style="display:none;">
+      <div class="stat-card">
+        <div class="stat-value" id="totalCount">—</div>
+        <div class="stat-label">Total workspaces</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value warn" id="singleAdminCount">—</div>
+        <div class="stat-label">Single-admin workspaces</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value warn" id="singleAdminPct">—</div>
+        <div class="stat-label">At risk</div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="mainContent">
+      <div class="loading" id="loadingState">
+        <div class="spinner"></div>
+        <div class="loading-text">Scanning workspace role assignments...</div>
+        <div class="loading-text" id="progressText" style="margin-top: 6px; font-size: 12px; color: var(--fabric-text-tertiary);"></div>
+      </div>
+    </div>
+
+    <div class="footer">Powered by MCP Apps &middot; Microsoft Fabric API</div>
+  </div>
+
+  <script type="module">
+    import { App } from "@modelcontextprotocol/ext-apps";
+
+    const app = new App({ name: "single-admin-workspaces", version: "1.0.0" });
+
+    function getInitials(name) {
+      if (!name) return '?';
+      const parts = name.trim().split(/\s+/);
+      return parts.length >= 2
+        ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+        : name.substring(0, 2).toUpperCase();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderRolePill(role) {
+      const cls = role.toLowerCase();
+      return `<span class="role-pill ${cls}">${role}</span>`;
+    }
+
+    function toggleDetail(wsId) {
+      const row = document.getElementById(`detail-${wsId}`);
+      if (row) row.classList.toggle('open');
+    }
+
+    window.toggleDetail = toggleDetail;
+
+    function renderResults(data) {
+      const totalWorkspaces = data.totalWorkspaces || 0;
+      const singleAdminWorkspaces = data.singleAdminWorkspaces || [];
+
+      // Show stats
+      const statsBar = document.getElementById("statsBar");
+      statsBar.style.display = "flex";
+      document.getElementById("totalCount").textContent = totalWorkspaces;
+      document.getElementById("singleAdminCount").textContent = singleAdminWorkspaces.length;
+      const pct = totalWorkspaces > 0 ? Math.round((singleAdminWorkspaces.length / totalWorkspaces) * 100) : 0;
+      document.getElementById("singleAdminPct").textContent = `${pct}%`;
+
+      const mainContent = document.getElementById("mainContent");
+
+      if (singleAdminWorkspaces.length === 0) {
+        mainContent.innerHTML = `
+          <div class="card">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3>All clear!</h3>
+              <p>Every workspace has at least two admins. Good governance!</p>
+            </div>
+          </div>`;
+      } else {
+        mainContent.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Workspaces with a single admin</span>
+              <span class="badge badge-error">${singleAdminWorkspaces.length} at risk</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Workspace</th>
+                  <th>Sole admin</th>
+                  <th>Total members</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                ${singleAdminWorkspaces.map(ws => `
+                  <tr>
+                    <td>
+                      <div class="ws-name">${escapeHtml(ws.displayName)}</div>
+                      <div class="ws-id">${ws.id}</div>
+                    </td>
+                    <td>
+                      <div class="admin-chip">
+                        <span class="avatar">${getInitials(ws.soleAdmin?.principal?.displayName)}</span>
+                        ${escapeHtml(ws.soleAdmin?.principal?.displayName || 'Unknown')}
+                      </div>
+                      <div style="font-size:11px;color:var(--fabric-text-tertiary);margin-top:2px;">
+                        ${ws.soleAdmin?.principal?.type || ''}
+                      </div>
+                    </td>
+                    <td><span class="member-count">${ws.totalMembers} role assignment${ws.totalMembers !== 1 ? 's' : ''}</span></td>
+                    <td><button class="expand-btn" onclick="toggleDetail('${ws.id}')">Details &#x25BE;</button></td>
+                  </tr>
+                  <tr class="detail-row" id="detail-${ws.id}">
+                    <td colspan="4">
+                      <strong style="font-size:12px;">All role assignments:</strong>
+                      <ul class="role-list">
+                        ${(ws.allRoles || []).map(r => `
+                          <li>
+                            ${renderRolePill(r.role)}
+                            <span>${escapeHtml(r.principal?.displayName || 'Unknown')}</span>
+                            <span style="color:var(--fabric-text-tertiary);">(${r.principal?.type || ''})</span>
+                          </li>
+                        `).join("")}
+                      </ul>
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>`;
+      }
+    }
+
+    async function initApp() {
+      try {
+        const result = await app.callServerTool({ name: "sa_find_single_admin_workspaces", arguments: {} });
+        const data = JSON.parse(result?.content?.[0]?.text ?? "{}");
+        renderResults(data);
+      } catch (e) {
+        document.getElementById("mainContent").innerHTML = `
+          <div class="error-box">Failed to load workspace data: ${e.message}</div>`;
+      }
+    }
+
+    app.connect().then(() => initApp());
+  </script>
+</body>
+</html>

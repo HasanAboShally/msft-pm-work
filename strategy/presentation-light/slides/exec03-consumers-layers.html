@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html><head><style>
+html { background: #FFFFFF; }
+body { width: 720pt; height: 405pt; margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; background-image: url('../assets/bg-white.png'); background-size: cover; }
+.bar { position: absolute; top: 0; left: 0; right: 0; height: 4pt; }
+.bar img { width: 720pt; height: 4pt; display: block; }
+.wrap { margin: 28pt 44pt 20pt 44pt; width: 632pt; }
+.label { margin-bottom: 4pt; }
+.label p { font-size: 9pt; color: #0078D4; letter-spacing: 2pt; text-transform: uppercase; margin: 0; font-weight: bold; }
+.header h1 { font-size: 20pt; color: #1A1A2E; margin: 0 0 12pt 0; font-weight: bold; }
+.content { display: flex; gap: 20pt; }
+.left { width: 280pt; }
+.right { width: 320pt; }
+.consumer { background: #F5F7FA; border-radius: 6pt; padding: 10pt 12pt; margin-bottom: 8pt; border-left: 3pt solid #0078D4; }
+.consumer h2 { font-size: 11pt; color: #1A1A2E; margin: 0 0 4pt 0; font-weight: bold; }
+.consumer p { font-size: 8pt; color: #4A5568; margin: 0; line-height: 1.4; }
+.consumer-agent { border-left-color: #6C5CE7; }
+.consumer-agent h2 span { font-size: 8pt; color: #6C5CE7; font-weight: bold; }
+.insight { background: #FFF8F0; border-radius: 4pt; padding: 6pt 10pt; border-left: 3pt solid #E8553D; margin-top: 8pt; }
+.insight p { font-size: 7.5pt; color: #4A5568; margin: 0; font-style: italic; }
+.layers { display: flex; flex-direction: column; gap: 4pt; }
+.layer { border-radius: 5pt; padding: 8pt 10pt; }
+.agentic { background: #EBF5FF; border: 1pt solid #B3D9FF; }
+.programmatic { background: #F0F0FF; border: 1pt solid #D4D4F7; }
+.foundational { background: #F5F7FA; border: 1pt solid #E2E8F0; }
+.layer h3 { font-size: 9pt; margin: 0 0 2pt 0; font-weight: bold; }
+.agentic h3 { color: #0078D4; }
+.programmatic h3 { color: #6C5CE7; }
+.foundational h3 { color: #4A5568; }
+.layer p { font-size: 7.5pt; color: #64748B; margin: 0; }
+.arrow { text-align: center; }
+.arrow p { font-size: 7pt; color: #94A3B8; margin: 0; }
+.key-insight { background: #EBF5FF; border-radius: 4pt; padding: 6pt 10pt; margin-top: 6pt; }
+.key-insight p { font-size: 7.5pt; color: #0078D4; margin: 0; font-weight: bold; }
+.mcp-note { background: #F0F0FF; border-radius: 4pt; padding: 6pt 10pt; margin-top: 6pt; border: 1pt solid #D4D4F7; }
+.mcp-note h4 { font-size: 7.5pt; color: #6C5CE7; margin: 0 0 2pt 0; font-weight: bold; }
+.mcp-note p { font-size: 7pt; color: #64748B; margin: 0; line-height: 1.3; }
+</style></head>
+<body>
+<div class="bar"><img src="../assets/bar-blue.png"></div>
+<div class="wrap">
+  <div class="label"><p>Executive Summary</p></div>
+  <div class="header">
+    <h1>Who Consumes Fabric & How We Serve Them</h1>
+  </div>
+  <div class="content">
+    <div class="left">
+      <div class="consumer">
+        <h2>👤 Human Users</h2>
+        <p>Interact via Portal, IDEs, chat, Teams. Build tools to extend their reach: scripts, CI/CD, Terraform. Need: rich experiences + complete APIs.</p>
+      </div>
+      <div class="consumer consumer-agent">
+        <h2>🤖 AI Agents <span>(NEW)</span></h2>
+        <p>Interactive (human + copilot) or Autonomous (independent). Need: discoverable tools, identity (SPNs), audit trails.</p>
+      </div>
+      <div class="insight">
+        <p>AI agents are standalone consumers — not just tools. They deserve first-class treatment.</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="layers">
+        <div class="layer agentic">
+          <h3>Agentic Layer — AI-Powered</h3>
+          <p>MCP Apps · Autonomous Agents · Customer MCP Tools</p>
+        </div>
+        <div class="arrow"><p>▼ powered by — or directly ▼</p></div>
+        <div class="layer programmatic">
+          <h3>Programmatic Layer — Classic Automation</h3>
+          <p>Provisioning · CI/CD · Access · Bulk Ops · Monitoring</p>
+        </div>
+        <div class="arrow"><p>▼ powered by</p></div>
+        <div class="layer foundational">
+          <h3>Foundational Layer — Infrastructure</h3>
+          <p>APIs · CLI · MCP Server · SDKs · Identity</p>
+        </div>
+      </div>
+      <div class="key-insight">
+        <p>Each layer delivers value on its own — no need to wait for agents.</p>
+      </div>
+      <div class="mcp-note">
+        <h4>What are MCP Apps?</h4>
+        <p>Interactive UIs served by MCP, rendered inline in VS Code, Claude, ChatGPT — e.g., troubleshooting dashboard, pipeline builder.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>
